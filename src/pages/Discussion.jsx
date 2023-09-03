@@ -40,7 +40,7 @@ function Discussion() {
 
   return (
     <div className="app">
-      <div className="container" style={{backgroundColor: '#fff'}}  sx={{ px: 2 }}>
+      <div className="container" style={{backgroundColor: '#fff'}}>
         <TopNavbar className="top-navbar" title="Threads"/>
         <Box sx={{ px: 2 }}>
           <div className="navbar">
