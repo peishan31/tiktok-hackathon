@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import Profile from "./pages/Profile";
 import Discussion from "./pages/Discussion";
+import Wishlist from "./pages/Wishlist";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/shop" component={Shop} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/discussion" component={Discussion} />
+          <Route exact path="/wishlist" component={Wishlist} />
         </Switch>
       </Router>
     </>
