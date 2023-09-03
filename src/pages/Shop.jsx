@@ -11,6 +11,7 @@ import imageSrc from '../images/shopHomePageImg.jpeg'; // Replace with the actua
 import { Link } from 'react-router-dom';
 
 function Shop() {
+  
   return (
     <div className="app">
       <div className="container">
@@ -32,9 +33,11 @@ function Shop() {
             <li className="nav-item">
               <span><FontAwesomeIcon icon={faListUl} className="icon active nav-icon" /></span>
               <span className="nav-text">Explore Boards</span></li>
+            <Link to="/discussion" className="no-link-style">
             <li className="nav-item">
               <span><FontAwesomeIcon icon={faMessage} className="icon active nav-icon" /></span>
               <span className="nav-text">Threads</span></li>
+            </Link>
             <Link to="/wishlist" className="no-link-style">
               <li className="nav-item">
                 <span><FontAwesomeIcon icon={faHeart} className="icon active nav-icon" /></span>
