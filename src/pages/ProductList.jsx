@@ -3,41 +3,62 @@ import BottomNavbar from '../components/BottomNavbar';
 import TopNavbar from '../components/TopNavBarForShop';
 import db from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
-import { collection, getDocs,query,deleteDoc,where,doc,addDoc } from "firebase/firestore/lite";
+import { collection, getDocs, query, deleteDoc, where, doc, addDoc } from "firebase/firestore/lite";
 import imageSrc from '../images/yoyicProductPg.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import './ProductList.css';
+import Popup from './Popup';
+
 
 function Wishlist() {
-    const [wishlist, setWishlist] = useState([]);
-const [isLiked, setIsLiked] = useState();
+  const [wishlist, setWishlist] = useState([]);
+  const [isLiked, setIsLiked] = useState();
 
-async function getWishlist() {
-  const wishlistCollection = collection(db, "wishlist");
-  const wishlistSnapshot = await getDocs(wishlistCollection);
-  const getWishList = wishlistSnapshot.docs.map((doc) => doc.data());
-  setWishlist(getWishList);
-}
+  const [checkbox1, setCheckbox1Value] = useState([false]);
+  const [checkbox2, setCheckbox2Value] = useState([false]);
 
-const checkIsLiked = () => {
-  const isYoyicInWishlist = wishlist.some((item) => item.productName === 'yoyic');
-  setIsLiked(isYoyicInWishlist);
-  console.log(isYoyicInWishlist);
-};
+  const [showPopup, setShowPopup] = useState(false);
 
-useEffect(() => {
-  getWishlist()
-    .then(() => {
-      console.log(wishlist);
-      checkIsLiked();
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-}, [wishlist]); // Include 'wishlist' in the dependency array
+  const handleShowPopup = () => {
+    setShowPopup(true);
+  };
+  
+  const handleAdd = (checkbox1Value, checkbox2Value) => {
+    console.log("Checkbox 1 value:", checkbox1Value);
+    console.log("Checkbox 2 value:", checkbox2Value);
+    setCheckbox1Value(checkbox1Value);
+    setCheckbox2Value(checkbox2Value);
+    
+    setShowPopup(false);
+    addToWishlist(checkbox1Value,checkbox2Value);
+  };
 
-const deleteDocumentsWithFieldValue = async () => {
+  async function getWishlist() {
+    const wishlistCollection = collection(db, "wishlist");
+    const wishlistSnapshot = await getDocs(wishlistCollection);
+    const getWishList = wishlistSnapshot.docs.map((doc) => doc.data());
+    setWishlist(getWishList);
+  }
+
+  const checkIsLiked = () => {
+    const isYoyicInWishlist = wishlist.some((item) => item.productName === 'yoyic');
+    setIsLiked(isYoyicInWishlist);
+    console.log(isYoyicInWishlist);
+  };
+
+  useEffect(() => {
+    getWishlist()
+      .then(() => {
+        console.log(wishlist);
+        checkIsLiked();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, [wishlist]); // Include 'wishlist' in the dependency array
+
+  const deleteDocumentsWithFieldValue = async () => {
     // Create a query to find documents where 'productName' is 'yoyic'
     const q = query(collection(db, 'wishlist'), where('productName', '==', 'yoyic'));
 
@@ -55,13 +76,22 @@ const deleteDocumentsWithFieldValue = async () => {
     }
   };
 
-  const addToWishlist = async () => {
+  const addToWishlist = async (checkbox1, checkbox2) => {
     try {
       const wishlistCollectionRef = collection(db, 'wishlist');
 
+      var getValue = "";
+      if (checkbox1 == true) {
+          getValue = "My Wishlist"
+      } else if (checkbox2 == true){
+        getValue = "Outing Fits"
+      }
+
+      console.log(getValue);
       // Create a document with the desired fields
       const newWishlistItem = {
         productName: 'yoyic',
+        category: getValue
         // Add other fields as needed
       };
 
@@ -73,24 +103,31 @@ const deleteDocumentsWithFieldValue = async () => {
     }
   };
 
-    const handleLikeClick = () => {
-        if (isLiked == true) {
-            deleteDocumentsWithFieldValue();
-        } else {
-            addToWishlist();
-        }
-        // Perform any other actions you want on the click event
-    };
-    return (
-        <div className="app">
-            <div className="container">
-                <TopNavbar className="top-navbar" />
-                <img class="image" src={imageSrc} alt="Your Image" />
-                <FontAwesomeIcon icon={faHeart} className="iconOnImg" onClick={handleLikeClick} style={{ cursor: 'pointer', color: isLiked ? 'red' : 'gray' }} />
-                <BottomNavbar className="bottom-navbar" />
-            </div>
-        </div>
-    );
+  const handleLikeClick = () => {
+    if (isLiked == true) {
+      deleteDocumentsWithFieldValue();
+    } else {
+      handleShowPopup();
+    }
+    
+  };
+  return (
+    <div className="app">
+      <div className="container">
+        <TopNavbar className="top-navbar" />
+        <img class="image" src={imageSrc} alt="Your Image" />
+        <FontAwesomeIcon icon={faHeart} className="iconOnImg" onClick={handleLikeClick} style={{ cursor: 'pointer', color: isLiked ? 'red' : 'gray' }} />
+        {showPopup && (
+        <Popup
+          message="Add to Wishlist"
+          onClose={() => setShowPopup(false)}
+          onAdd={handleAdd}
+        />
+      )}
+        <BottomNavbar className="bottom-navbar" />
+      </div>
+    </div>
+  );
 }
 
 export default Wishlist;
