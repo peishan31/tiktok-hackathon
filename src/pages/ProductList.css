@@ -1,0 +1,25 @@
+ /* Container for the image and icon */
+ .container {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Style for the image */
+  .image {
+    max-width: 100%; /* Ensure the image scales appropriately */
+    height: auto;
+    display: block;
+  }
+
+  /* Style for the icon */
+  .iconOnImg{
+    position: absolute;
+    top: 81%; /* Adjust the top value to center the icon vertically */
+    left: 88.4%; /* Adjust the left value to center the icon horizontally */
+    transform: translate(-50%, -50%); /* Center the icon precisely */
+    font-size: 16px; /* Adjust the font size of the icon */
+    color: grey; /* Set the color of the icon */
+    /* background-color: rgba(0, 0, 0, 0.2); Set a background color for the icon (optional) */
+    border-radius: 50%; /* Make the icon a circle (optional) */
+    padding: 4px; /* Add padding to the icon (optional) */
+  }
