@@ -1,0 +1,81 @@
+ /* Styling for the popup container */
+ .popup {
+     position: absolute;
+     width: 333px;
+     top: 84.2%;
+     /* Center vertically */
+     left: 50%;
+     /* Center horizontally */
+     transform: translate(-50%, -50%);
+     /* Center the element relative to itself */
+     background-color: white;
+     padding: 20px;
+     /* border: 1px solid #ccc; */
+     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+     z-index: 1000;
+     /* Add other styles as needed for your design */
+     border: 1px solid #ccc;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+     z-index: 1000;
+     /* Ensure the popup is on top of other content */
+     display: flex;
+     /* Use flexbox for layout */
+     flex-direction: column;
+     /* Stack child elements vertically */
+ }
+
+
+ /* Style for the icon */
+ .iconPopup {
+     position: absolute;
+     top: 25%;
+     /* Adjust the top value to center the icon vertically */
+     left: 94%;
+     /* Adjust the left value to center the icon horizontally */
+     transform: translate(-50%, -50%);
+     /* Adjust the font size of the icon */
+     background: none;
+    border: none;
+    cursor: pointer;
+
+ }
+
+ /* Styling for the paragraph */
+ .msg {
+     text-align: center;
+     /* Center the text horizontally */
+     margin: 0;
+     /* Remove default margin to align text at the top of the popup */
+     flex: 1;
+     /* Allow the paragraph to expand and take available vertical space */
+     /* margin-bottom: -20px; Adjust the negative margin to move the text up */
+ }
+
+
+ /* Styling for the cancel button (top-left) */
+ .cancelBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute; /* Set the position to absolute */
+    top: 22px; /* Adjust the top value as needed to move the button up */
+    left: 10px; /* Adjust the left value as needed to move the button left */     
+ }
+
+ .iconPopupNext {
+    position: absolute;
+     top: 75%;
+     /* Adjust the top value to center the icon vertically */
+     left: 94%;
+     /* Adjust the left value to center the icon horizontally */
+     transform: translate(-50%, -50%);
+     /* Center the icon precisely */
+     font-size: 23px;
+     /* Adjust the font size of the icon */
+     color: black;
+     /* Set the color of the icon */
+     border-radius: 50%;
+     /* Make the icon a circle (optional) */
+     padding: 4px;
+     /* Add padding to the icon (optional) */
+ }
