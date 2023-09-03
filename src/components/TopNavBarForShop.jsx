@@ -1,13 +1,29 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleArrowLeft, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faLessThan, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 const TopNavbar = () => {
+
+  const navbarStyle = {
+    backgroundColor: '#fff', 
+    display: 'flex',
+    alignItems: 'center'
+  }
+
+  const iconBlack = {
+    color: 'black', 
+    marginRight: '10px',
+  }
+
+  const textBlack = { 
+    color: 'black'
+  }
+
   return (
-    <div className="top-navbar">
-      <FontAwesomeIcon icon={faCircleArrowLeft} className='icon'/>
-      <h2>Tiktok Shop</h2>
-      <FontAwesomeIcon icon={faCartShopping} className='icon'/>
+    <div className="top-navbar" style={navbarStyle}>
+      <FontAwesomeIcon icon={faLessThan} className='icon' style={iconBlack}/>
+      <h2 style={textBlack}>Tiktok Shop</h2>
+      <FontAwesomeIcon icon={faCartShopping} className='icon' style={iconBlack}/>
     </div>
   );
 };
