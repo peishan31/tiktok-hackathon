@@ -39,6 +39,11 @@ function Discussion() {
     'Watches',
   ];
 
+  const linkStyle = {
+        textDecoration: 'none', // Remove underline
+        color: 'inherit', // Inherit the color from parent
+    };
+
   return (
     <div className="app">
       <div className="container" style={{backgroundColor: '#fff'}}>
@@ -73,6 +78,7 @@ function Discussion() {
               <Link
                 to={`/category`}s
                 key={index}
+                style={linkStyle}
               >
                 <div style={categoryStyle} key={index}>
                   <Typography variant="body1">{category}</Typography>

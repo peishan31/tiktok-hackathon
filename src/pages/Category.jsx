@@ -8,6 +8,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import './Category.css';
 import profilepic from '../images/profilepic.png';
 import item1 from '../images/item1.png';
+import AddIcon from '@mui/icons-material/Add';
+import IconButton from '@mui/material/IconButton';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
 function Category() {
 
@@ -43,22 +46,42 @@ function Category() {
         }
     ];
 
+    const linkStyle = {
+        textDecoration: 'none', // Remove underline
+        color: 'inherit', // Inherit the color from parent
+    };
+
+    const tiktokRedColor = '#EA403F';
+
     return (
         <div className="app">
             <div className="container" style={{backgroundColor: '#fff'}}>
                 <TopNavbar className="top-navbar" title="Threads"/>
                 <Box sx={{ px: 2 }}>
-                    <h5 style={{ marginBottom: '10px' }}>Fashion</h5>
-                    <h5 style={{ marginBottom: '10px' }}>Search Topic</h5>
+                    <h5 style={{ marginBottom: '10px', fontSize: 'large', marginTop: '10px' }}>Fashion</h5>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <h5 style={{ marginBottom: '10px', marginTop: '10px' }}>Search Topic</h5>
+                        <Link
+                            to="/CreatePost"
+                            style={linkStyle}
+                        >
+                            <IconButton 
+                                color="secondary"
+                                sx={{ padding: '8px', color: tiktokRedColor }}
+                                >
+                                <AddIcon />
+                            </IconButton>
+                        </Link>
+                    </div>
                     <div className="tiktok-search">
                         <div className="search-input-container">
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="search-input"
-                        />
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="search-input"
+                            />
                         </div>
                         {searchQuery && (
                         <button className="clear-button" onClick={() => setSearchQuery('')}>
@@ -70,6 +93,10 @@ function Category() {
                         </button>
                     </div>
                     <div className="results-container" style={{ marginTop: '10px'}}>
+                        <Link
+                            to="/SpecificCategoryPost"
+                            style={linkStyle}
+                        >
                         {cardContent.map((card) => (
                             <Card key={card.id} variant="outlined" style={{ marginBottom: '10px' }}>
                             <CardHeader
@@ -94,7 +121,7 @@ function Category() {
                             </CardContent>
                             </Card>
                         ))}
-                        
+                        </Link>
                     </div>
                 </Box>
             </div>
