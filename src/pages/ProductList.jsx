@@ -31,7 +31,7 @@ function Wishlist() {
     addToWishlist(list);
   };
 
-  const getWishlist = async() => {
+  const getWishlist = async () => {
     const wishlistsCollection = collection(db, 'wishlists');
     const q = query(wishlistsCollection, where('userid', '==', userId));
 
@@ -49,9 +49,7 @@ function Wishlist() {
         const productQuerySnapshot = await getDocs(productQuery);
         if (productQuerySnapshot.size > 0) {
           setIsLiked(true);
-        } else {
-          setIsLiked(false);
-        }
+        } 
       }
     } catch (error) {
       console.error('Error deleting Yoyic product from wishlists:', error);
@@ -67,7 +65,7 @@ function Wishlist() {
   useEffect(() => {
     getWishlist()
       .then(() => {
-        console.log(isLiked,"liked?");
+        console.log(isLiked, "liked?");
       })
       .catch((error) => {
         console.error('Error:', error);

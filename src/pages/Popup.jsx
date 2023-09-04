@@ -16,6 +16,9 @@ import {
 const Popup = ({ message, onClose, onAdd }) => {
   const [wishlists, setWishlists] = useState([]);
   const userId = '1';
+  const [wishlistNames, setWishlistNames] = useState([]);
+  const [newWishlistName, setNewWishlistName] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   async function getWishlist() {
     const wishlistCollection = collection(db, 'wishlists');
@@ -61,13 +64,50 @@ const Popup = ({ message, onClose, onAdd }) => {
     );
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setNewWishlistName(''); // Clear the input field when closing the modal
+  };
+
+  const addWishlist = async () => {
+    if (newWishlistName) {
+      try {
+        // Create a reference to the "wishlists" collection
+        const wishlistCollectionRef = collection(db, 'wishlists');
+
+        // Define the data for the new wishlist document
+        const newWishlist = {
+          name: newWishlistName, // Replace with the actual wishlist name
+          userid: userId, // Replace with the actual user ID
+          numOfProds: "0",
+          visible: "Close"
+        };
+
+        // Use the addDoc function to add the document to the collection
+        const docRef = await addDoc(wishlistCollectionRef, newWishlist);
+        console.log('New wishlist document added with ID:', docRef.id);
+        getWishlist().then(() => {
+          console.log("checkbox updated");
+        })
+      } catch (error) {
+        console.error('Error adding new wishlist document:', error);
+      }
+      setWishlistNames([...wishlistNames, newWishlistName]);
+      closeModal(); // Close the modal after adding a wishlist
+    }
+  };
+
   return (
     <div className="popup">
       <div className="popup-content">
         <div className="button-container">
           <p className="msg">{message}</p>
-          <button className="iconPopup" onClick={handleAddClick}>
-            Add
+          <button className="iconPopup" onClick={openModal}>
+            New
           </button>
           <button className="cancelBtn" onClick={onClose}>
             Cancel
@@ -88,6 +128,23 @@ const Popup = ({ message, onClose, onAdd }) => {
           className="iconPopupNext"
           onClick={handleAddClick}
         />
+        {isModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={closeModal}>
+                &times;
+              </span>
+              <h4>New wishlist</h4>
+              <input
+                type="text"
+                placeholder="Enter wishlist name"
+                value={newWishlistName}
+                onChange={(e) => setNewWishlistName(e.target.value)}
+              />
+              <button onClick={addWishlist}>Create</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

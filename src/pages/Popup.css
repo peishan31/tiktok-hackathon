@@ -1,8 +1,10 @@
  /* Styling for the popup container */
  .popup {
-     position: absolute;
+     position: fixed;
+     display: flex;
+    justify-content: center;
      width: 333px;
-     top: 84.2%;
+     top: 81.3%;
      /* Center vertically */
      left: 50%;
      /* Center horizontally */
@@ -37,6 +39,9 @@
      background: none;
     border: none;
     cursor: pointer;
+    background: none;
+    border: none;
+    cursor: pointer;
 
  }
 
@@ -58,7 +63,7 @@
     border: none;
     cursor: pointer;
     position: absolute; /* Set the position to absolute */
-    top: 22px; /* Adjust the top value as needed to move the button up */
+    top: 12px; /* Adjust the top value as needed to move the button up */
     left: 10px; /* Adjust the left value as needed to move the button left */     
  }
 
@@ -79,3 +84,34 @@
      padding: 4px;
      /* Add padding to the icon (optional) */
  }
+
+ .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); 
+    z-index: 1; /* Ensure the modal is above everything else */
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 30;
+    cursor: pointer;
+  }
+
+  h4 {
+    text-align: center;
+  }
