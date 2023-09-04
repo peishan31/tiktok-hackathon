@@ -6,7 +6,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs } from "firebase/firestore/lite";
 import './Navbar.css'; // Create a CSS file for styling
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMessage, faComments, faCartShopping, faShoppingBasket, faListUl, faStickyNote, faBookmark, faHeart, faMoneyCheckDollar, faMapLocation, faInfo } from '@fortawesome/free-solid-svg-icons';
+import { faMessage, faComments, faCartShopping, faShoppingBasket, faStickyNote, faBookmark, faHeart, faMoneyCheckDollar, faMapLocation } from '@fortawesome/free-solid-svg-icons';
 import imageSrc from '../images/shopHomePageImg.jpeg'; // Replace with the actual path to your image file
 import { Link } from 'react-router-dom';
 
@@ -30,15 +30,12 @@ function Shop() {
             <li className="nav-item">
               <span><FontAwesomeIcon icon={faStickyNote} className="icon active nav-icon" /></span>
               <span className="nav-text">Coupon</span></li>
-            <li className="nav-item">
-              <span><FontAwesomeIcon icon={faListUl} className="icon active nav-icon" /></span>
-              <span className="nav-text">Explore Boards</span></li>
             <Link to="/discussion" className="no-link-style">
             <li className="nav-item">
               <span><FontAwesomeIcon icon={faMessage} className="icon active nav-icon" /></span>
               <span className="nav-text">Threads</span></li>
             </Link>
-            <Link to="/wishlist" className="no-link-style">
+            <Link to="/profile" className="no-link-style">
               <li className="nav-item">
                 <span><FontAwesomeIcon icon={faHeart} className="icon active nav-icon" /></span>
                 <span className="nav-text">Wishlist</span></li>

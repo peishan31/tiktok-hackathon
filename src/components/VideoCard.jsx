@@ -8,8 +8,13 @@ const VideoCard = (props) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (autoplay) {
-      videoRef.current.play();
+    try {
+      if (autoplay) {
+        // videoRef.current.play();
+      }
+    } catch (error) {
+      console.error('Error while attempting to play video:', error);
+      // Handle the error here (e.g., display a message to the user)
     }
   }, [autoplay]);
 
