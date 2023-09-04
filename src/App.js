@@ -14,6 +14,7 @@ import SavedItems from './pages/SavedItems';
 import Wishlist from "./pages/Wishlist";
 import ProductList from "./pages/ProductList";
 import Category from  "./pages/Category";
+import SpecificCategoryPost from "./pages/SpecificCategoryPost";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/wishlist" component={Wishlist} />
           <Route exact path="/productList" component={ProductList} />
           <Route exact path="/category" component={Category} />
+          <Route exact path="/specificCategoryPost" component={SpecificCategoryPost} />
         </Switch>
       </Router>
     </>
