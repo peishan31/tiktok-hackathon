@@ -66,8 +66,12 @@ function Discussion() {
           </div>
           <h5 style={{ marginBottom: '10px' }}>All Categories</h5>
             {categories.map((category, index) => (
+              // <Link
+              //   to={`/category/${encodeURIComponent(category)}`}s
+              //   key={index}
+              // >
               <Link
-                to={`/category/${encodeURIComponent(category)}`}s
+                to={`/category`}s
                 key={index}
               >
                 <div style={categoryStyle} key={index}>
