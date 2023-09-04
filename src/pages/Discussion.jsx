@@ -5,6 +5,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Button from '@mui/material/Button';
 import { Box, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
 function Discussion() {
 
@@ -65,10 +66,15 @@ function Discussion() {
           </div>
           <h5 style={{ marginBottom: '10px' }}>All Categories</h5>
             {categories.map((category, index) => (
-              <div style={categoryStyle} key={index}>
-                <Typography variant="body1">{category}</Typography>
-                <ArrowForwardIcon style={{ color: 'gray' }} />
-              </div>
+              <Link
+                to={`/category/${encodeURIComponent(category)}`}s
+                key={index}
+              >
+                <div style={categoryStyle} key={index}>
+                  <Typography variant="body1">{category}</Typography>
+                  <ArrowForwardIcon style={{ color: 'gray' }} />
+                </div>
+              </Link>
             ))}
           </Box>
       </div>
