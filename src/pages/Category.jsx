@@ -4,6 +4,7 @@ import db from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import Button from '@mui/material/Button';
 import { Box, Typography, TextField } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import './Category.css';
 
 function Category() {
@@ -35,17 +36,15 @@ function Category() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="search-input"
                     />
-                    {searchQuery && (
-                        <button className="clear-button" onClick={() => setSearchQuery('')}>
-                        Clear
-                        </button>
-                    )}
                     </div>
-                    {searchQuery === '' && ( // Only render when searchQuery is empty
-                    <button className="search-button" onClick={handleSearch}>
-                        Search
+                    {searchQuery && (
+                    <button className="clear-button" onClick={() => setSearchQuery('')}>
+                        <CloseIcon fontSize="small" />
                     </button>
                     )}
+                    <button className="search-button" onClick={handleSearch}>
+                    Search
+                    </button>
                 </div>
             </Box>
         </div>

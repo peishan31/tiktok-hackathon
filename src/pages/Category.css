@@ -1,4 +1,4 @@
-/* Example CSS for TikTok-style search bar */
+/* Example CSS for Category component */
 .search-title {
     margin-bottom: 10px;
     font-size: 1.2rem;
@@ -17,7 +17,6 @@
   .search-input-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Adjusts the spacing between input and button */
     flex: 1;
   }
   
@@ -35,6 +34,8 @@
     color: gray;
     cursor: pointer;
     transition: color 0.2s;
+    padding: 0; /* Remove padding around the "X" icon */
+    margin-left: auto; /* Move the "X" icon to the far right */
   }
   
   .clear-button:hover {
@@ -50,9 +51,6 @@
     border-radius: 25px;
     font-size: 1rem;
     transition: background-color 0.2s;
-  }
-  
-  .search-button:hover {
-    background-color: #cc0000;
+    /* No need for margin-left here */
   }
   
