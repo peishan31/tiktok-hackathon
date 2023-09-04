@@ -1,0 +1,29 @@
+.profile {
+  height: 100%;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+img {
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+.center, button {
+  margin-right: 10px;
+}
+
+button {
+  background-color: white;
+  border: rgb(232, 228, 228) solid 1px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.editprofile {
+  padding: 10px 30px 10px 30px;
+
+}
