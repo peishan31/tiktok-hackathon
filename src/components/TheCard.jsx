@@ -18,19 +18,26 @@ const bull = (
   </Box>
 );
 
-export default function TheCard() {
+export default function TheCard({parentToChild}) {
   return (
-    <Card sx={{ width: 1/2 }} style={{display: 'inline-block', marginRight: '15px', marginLeft: '15px'}}>
-      <CardContent sx={{ mb: -1 }}>
-        <img src={item1} style={{height: "150px"}}></img>
-        <Typography sx={{ fontSize: 16 }} color="text.primary">
-          Outing Fits
-        </Typography>
-        <Typography sx={{ fontSize: 12 }} color="text.secondary">
-          5 items
-          <FontAwesomeIcon style={{float: "right", fontSize: "18px"}} icon={faShareNodes} className='icon'/>
-        </Typography>
-      </CardContent>
-    </Card>
+    <div>
+    {parentToChild.map((item, i) => {return <div key={i} style={{display: 'inline-block', marginLeft: '15px', marginRight: '15px'}}>
+            <Card sx={{ width: 1 }} style={{display: 'inline-block'}}>
+              <CardContent sx={{ mb: -1 }}>
+                <img src={item1} style={{height: "150px"}}></img>
+                <Typography sx={{ fontSize: 16 }} color="text.primary">
+                  {item[0].name} 
+                </Typography>
+                <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                {item[0].numOfProds} items
+                  <FontAwesomeIcon style={{float: "right", fontSize: "18px"}} icon={faShareNodes} className='icon'/>
+                </Typography>
+              </CardContent>
+            </Card>
+            </div>
+      }
+    )}
+    </div>
+
   );
 }

@@ -26,8 +26,9 @@ function Profile() {
             </Link>
           </div>
           <CenteredTabs />
+          <BottomNavbarWhite className="bottom-navbar-white" />
+
         </div>
-        <BottomNavbarWhite className="bottom-navbar-white" />
       </div>
     </div>
   );

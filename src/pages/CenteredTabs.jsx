@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography';
 import { faCartShopping, faHeart, faGrip } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TheCard from '../components/TheCard';
+import db from "../config/firebase";
+import { useEffect, useState, useRef } from 'react';
+import { collection, getDocs } from "firebase/firestore/lite";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -20,7 +23,7 @@ function CustomTabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={'div'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -33,6 +36,61 @@ export default function CenteredTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [wishlist, setWishlist] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+
+
+  async function getWishlist() {
+    const wishlistCollection = collection(db, "wishlist");
+    const wishlistSnapshot = await getDocs(wishlistCollection);
+    const getWishList = await wishlistSnapshot.docs.map((doc) => doc.data());
+    setWishlist(getWishList);
+  }
+
+  const fetchPost = async () => {
+       
+    // await getDocs(collection(db, "wishlists"))
+    //     .then((querySnapshot)=>{               
+    //         const newData = querySnapshot.docs
+    //             .map((doc) => {
+                  
+    //               doc.data(); 
+    //               doc.id;
+                  
+    //             });
+    //         setWishlist(newData);                
+    //         console.log(newData);
+    //         setLoading(false);
+    //     })
+
+        let categories = [];
+        await getDocs(collection(db, "wishlists"))
+        .then((querySnapshot)=>{               
+            const list = querySnapshot.docs
+                .map((doc) => {
+                  let prods = [];
+                  getDocs(collection(db, "wishlists/" + doc.id + "/products"))
+                    .then((q)=>{               
+                        prods = q.docs
+                        .map((d) => {
+                          prods.push(d.data());                      
+                        });
+                      })
+                  categories.push([doc.data(), prods]);          
+                  console.log(doc.data());        
+                  })
+              });
+              setWishlist(categories);                
+              console.log(categories);
+              setLoading(false);
+        
+   }
+
+  useEffect(() => {
+    fetchPost();
+  }
+  , []); // Include 'wishlist' in the dependency array
+  if (!isLoading) {
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -45,12 +103,12 @@ export default function CenteredTabs() {
         Nothing yet
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <TheCard />
-        <TheCard />
+          <TheCard parentToChild={wishlist}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Nothing yet
       </CustomTabPanel>
     </Box>
   );
+  }
 }
