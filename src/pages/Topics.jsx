@@ -5,7 +5,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Button from '@mui/material/Button';
 import { Box, Typography, TextField, Card, CardContent, CardHeader, Avatar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import './Category.css';
+import './Topics.css';
 import profilepic from '../images/profilepic.png';
 import item1 from '../images/item1.png';
 import AddIcon from '@mui/icons-material/Add';
@@ -94,7 +94,7 @@ function Category() {
                     </div>
                     <div className="results-container" style={{ marginTop: '10px'}}>
                         <Link
-                            to="/SpecificCategoryPost"
+                            to="/topic"
                             style={linkStyle}
                         >
                         {cardContent.map((card) => (

@@ -32,7 +32,7 @@ function Shop() {
             <li className="nav-item">
               <span><FontAwesomeIcon icon={faStickyNote} className="icon active nav-icon" /></span>
               <span className="nav-text">Coupon</span></li>
-            <Link to="/discussion" className="no-link-style">
+            <Link to="/threads" className="no-link-style">
             <li className="nav-item">
               <span><FontAwesomeIcon icon={faMessage} className="icon active nav-icon" /></span>
               <span className="nav-text">Threads</span></li>

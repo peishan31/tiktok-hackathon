@@ -7,7 +7,7 @@ import { Box, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
-function Discussion() {
+function Threads() {
 
   const categoryStyle = {
     display: 'flex', 
@@ -76,7 +76,7 @@ function Discussion() {
               //   key={index}
               // >
               <Link
-                to={`/category`}s
+                to={`/topics`}s
                 key={index}
                 style={linkStyle}
               >
@@ -92,4 +92,4 @@ function Discussion() {
   );
 }
 
-export default Discussion;
+export default Threads;

@@ -5,7 +5,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Button from '@mui/material/Button';
 import { Box, Typography, TextField, Card, CardContent, CardHeader, Avatar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import './Category.css';
+import './Topics.css';
 import profilepic from '../images/profilepic.png';
 import item1 from '../images/item1.png';
 import AddIcon from '@mui/icons-material/Add';
@@ -14,7 +14,7 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import Popup from './Popup';
 import CreateComment from './CreateComment';
 
-function SpecificCategoryPost() {
+function Topic() {
     
     const postContent =
     {
@@ -142,4 +142,4 @@ function SpecificCategoryPost() {
     );
 }
 
-export default SpecificCategoryPost;
+export default Topic;
