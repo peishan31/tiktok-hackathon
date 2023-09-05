@@ -79,7 +79,7 @@ function SeeWishlistBoard() {
   return (
     <div className="app">
       <div className="container">
-        <TopNavBarForIndividualWishlist className="top-navbar" />
+        <TopNavBarForIndividualWishlist className="top-navbar" name={wishlistName}/>
         <div className="product-card-container">
         {products.map((product, index) => (
           <ProductCard key={index} product={product} />

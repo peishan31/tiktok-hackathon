@@ -4,7 +4,7 @@ import { faLessThan, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import "./topbarprofile.css";
 import { useHistory } from 'react-router-dom';
 
-const TopNavBarForIndividualWishlist = () => {
+function TopNavBarForIndividualWishlist ({ name }) {
   const iconBlack = {
     color: 'black',
     marginRight: '10px',
@@ -19,7 +19,7 @@ const TopNavBarForIndividualWishlist = () => {
   return (
     <div className="top-navbar-profile">
       <FontAwesomeIcon icon={faLessThan} className='icon' style={iconBlack} onClick={handleGoBack} />
-      <h2>Food</h2>
+      <h2>{name}</h2>
       <FontAwesomeIcon icon={faEllipsis} className='icon' />
     </div>
   );
