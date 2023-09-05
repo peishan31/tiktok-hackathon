@@ -3,7 +3,7 @@ import BottomNavbar from '../components/BottomNavbar';
 import TopNavbar from '../components/TopNavBarForShop';
 import db from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
-import { collection, getDocs, query, deleteDoc, where, doc, addDoc, setDoc } from "firebase/firestore/lite";
+import { collection, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit } from "firebase/firestore/lite";
 import imageSrc from '../images/yoyicProductPg.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -99,26 +99,42 @@ function Wishlist() {
   const addToWishlist = async (checkBoxCategories) => {
     try {
       const wishlistCollectionRef = collection(db, 'wishlists');
-
+  
       for (const cat of checkBoxCategories) {
         const q = query(wishlistCollectionRef, where('name', '==', cat));
-
+  
         try {
           const querySnapshot = await getDocs(q);
-
+  
           if (!querySnapshot.empty) {
             const wishlistDocRef = querySnapshot.docs[0].ref;
+  
+            // Get the current highest numeric ID in the subcollection
             const productCollectionRef = collection(wishlistDocRef, 'products');
-
+            const highestIdSnapshot = await getDocs(
+              query(productCollectionRef, orderBy('id', 'desc'), limit(1))
+            );
+  
+            let newId = 1; // Default value for the first document
+  
+            if (!highestIdSnapshot.empty) {
+              // Increment the ID if documents already exist
+              const lastDocument = highestIdSnapshot.docs[0].data();
+              // newId = lastDocument.id + 1;
+              newId = 1;
+            }
+  
             const newProductData = {
-              // Define the data for the new "Product" document
-              pName: 'Yoyic'
+              pName: 'Yoyic',
               // Add other fields as needed
             };
-
-            await setDoc(doc(productCollectionRef), newProductData);
-
-            console.log('New product added to the subcollection.');
+  
+            // Add the document with the specified numeric ID
+            const productDocRef = doc(productCollectionRef, newId.toString());
+  
+            await setDoc(productDocRef, newProductData);
+  
+            console.log('New product added to the subcollection with ID:', newId);
             setIsLiked(true);
             setWishlistMessage('Added to wishlist');
           } else {
@@ -132,7 +148,6 @@ function Wishlist() {
       console.error('Error adding document: ', error);
     }
   };
-
 
   const handleLikeClick = () => {
     if (isLiked == true) {

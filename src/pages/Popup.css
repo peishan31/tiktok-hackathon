@@ -30,7 +30,7 @@
  /* Style for the icon */
  .iconPopup {
      position: absolute;
-     top: 25%;
+     margin-top: 13px;
      /* Adjust the top value to center the icon vertically */
      left: 94%;
      /* Adjust the left value to center the icon horizontally */
@@ -63,7 +63,7 @@
     border: none;
     cursor: pointer;
     position: absolute; /* Set the position to absolute */
-    top: 12px; /* Adjust the top value as needed to move the button up */
+    margin-top: 1px; /* Adjust the top value as needed to move the button up */
     left: 10px; /* Adjust the left value as needed to move the button left */     
  }
 

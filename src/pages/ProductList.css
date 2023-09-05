@@ -14,7 +14,7 @@
   /* Style for the icon */
   .iconOnImg{
     position: absolute;
-    top: 81%; /* Adjust the top value to center the icon vertically */
+    top: 74.4%; /* Adjust the top value to center the icon vertically */
     left: 88.4%; /* Adjust the left value to center the icon horizontally */
     transform: translate(-50%, -50%); /* Center the icon precisely */
     font-size: 16px; /* Adjust the font size of the icon */

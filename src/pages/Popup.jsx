@@ -84,7 +84,7 @@ const Popup = ({ message, onClose, onAdd }) => {
           name: newWishlistName, // Replace with the actual wishlist name
           userid: userId, // Replace with the actual user ID
           numOfProds: "0",
-          visible: "Close"
+          visible: "Private"
         };
 
         // Use the addDoc function to add the document to the collection

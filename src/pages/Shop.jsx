@@ -18,9 +18,11 @@ function Shop() {
         <TopNavbar className="top-navbar" />
         <div className="navbar">
           <ul className="scrollable-container nav-list">
+            <Link to="/seeWishlistBoard" className="no-link-style">
             <li className="nav-item">
               <span><FontAwesomeIcon icon={faShoppingBasket} className="icon active nav-icon" /></span>
               <span className="nav-text">Orders</span></li>
+              </Link>
             <li className="nav-item">
               <span><FontAwesomeIcon icon={faComments} className="icon active nav-icon" /></span>
               <span className="nav-text">Reviews</span></li>
