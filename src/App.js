@@ -17,7 +17,7 @@ import Category from  "./pages/Category";
 import SpecificCategoryPost from "./pages/SpecificCategoryPost";
 import CreateComment from "./pages/CreateComment";
 import SeeWishlistBoard from "./pages/SeeWishlistBoard";
-
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   return (
@@ -36,6 +36,7 @@ function App() {
           <Route exact path="/specificCategoryPost" component={SpecificCategoryPost} />
           <Route exact path="/createComment" component={CreateComment} />
           <Route exact path="/seeWishlistBoard" component={SeeWishlistBoard} />
+          <Route exact path="/createPost" component={CreatePost} />
         </Switch>
       </Router>
     </>
