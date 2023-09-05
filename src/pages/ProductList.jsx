@@ -9,11 +9,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import './ProductList.css';
 import Popup from './Popup';
-
+import PopupMessage from './PopupMessage';
 
 function Wishlist() {
   const userId = "1"; // Specify the user ID
-  const [wishlist, setWishlist] = useState([]);
+  const [wishlistMessage, setWishlistMessage] = useState('');
   const [isLiked, setIsLiked] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -56,12 +56,6 @@ function Wishlist() {
     }
   }
 
-  const checkIsLiked = () => {
-    const isYoyicInWishlist = wishlist.some((item) => item.productName === 'Yoyic');
-    setIsLiked(isYoyicInWishlist);
-    console.log(isYoyicInWishlist);
-  };
-
   useEffect(() => {
     getWishlist()
       .then(() => {
@@ -94,6 +88,7 @@ function Wishlist() {
           await deleteDoc(productDoc.ref);
           console.log('Yoyic product deleted from a wishlist.');
           setIsLiked(false);
+          setWishlistMessage('Deleted from wishlist');
         });
       }
     } catch (error) {
@@ -125,6 +120,7 @@ function Wishlist() {
 
             console.log('New product added to the subcollection.');
             setIsLiked(true);
+            setWishlistMessage('Added to wishlist');
           } else {
             console.log('No document matching the condition found.');
           }
@@ -144,12 +140,13 @@ function Wishlist() {
     } else {
       handleShowPopup();
     }
-
   };
+  
   return (
     <div className="app">
       <div className="container">
         <TopNavbar className="top-navbar" />
+        <PopupMessage message={wishlistMessage} />
         <img class="image" src={imageSrc} alt="Your Image" />
         <FontAwesomeIcon icon={faHeart} className="iconOnImg" onClick={handleLikeClick} style={{ cursor: 'pointer', color: isLiked ? 'red' : 'gray' }} />
         {showPopup && (
