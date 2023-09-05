@@ -36,6 +36,7 @@ function App() {
           <Route exact path="/specificCategoryPost" component={SpecificCategoryPost} />
           <Route exact path="/createComment" component={CreateComment} />
           <Route exact path="/seeWishlistBoard" component={SeeWishlistBoard} />
+          <Route path="/seeWishlistBoard/:getWishlistName/:getUserId" component={SeeWishlistBoard} />
           <Route exact path="/createPost" component={CreatePost} />
         </Switch>
       </Router>

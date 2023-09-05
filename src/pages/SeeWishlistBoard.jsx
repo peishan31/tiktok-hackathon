@@ -10,10 +10,12 @@ import './ProductList.css';
 import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import ProductCard from './ProductCard';
 import './seeWishlistBoard.css'
+import { useParams } from 'react-router-dom';
 
 function SeeWishlistBoard() {
-  const userId = "1"; // Specify the user ID
-  const wishlistName = "Food";
+  const { getWishlistName, getUserId } = useParams();
+  const userId = getUserId; // Specify the user ID
+  const wishlistName = getWishlistName;
   var likedProdId = [];
   const [products, setProducts] = useState([]);
 

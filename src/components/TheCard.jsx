@@ -9,6 +9,7 @@ import item1 from '../images/item1.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareNodes, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import Popup2 from '../pages/Popup2';
+import { Link } from 'react-router-dom';
 
 const bull = (
   <Box
@@ -19,7 +20,7 @@ const bull = (
   </Box>
 );
 
-export default function TheCard({parentToChild}) {
+export default function TheCard({ parentToChild }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [itemDetail, setItem] = useState(parentToChild[0]);
@@ -36,28 +37,38 @@ export default function TheCard({parentToChild}) {
       // Handle your OK button logic here
     }
   };
+
+  const linkStyle = {
+    textDecoration: 'none', // Remove the underline
+    color: 'blue', // You can also specify the link color
+  };
+
   return (
     <div>
-    {parentToChild.map((item, i) => {return <div key={i} style={{display: 'inline-block', marginLeft: '15px', marginRight: '15px'}}>
-            <Card sx={{ width: 1 }} style={{display: 'inline-block', position: 'relative'}}>
-            <button onClick={() => handleOpenPopup(item)} style={{position: 'absolute', right:'0', marginRight: '2px', marginTop: '5px', border: '0', backgroundColor: 'transparent'}}><FontAwesomeIcon icon={faEllipsisVertical} className='icon' style={{float: "right", fontSize: "18px"}} /></button>
+      {parentToChild.map((item, i) => {
+        return <div key={i} style={{ display: 'inline-block', marginLeft: '15px', marginRight: '15px' }}>
+          <Card sx={{ width: 1 }} style={{ display: 'inline-block', position: 'relative' }}>
+            <button onClick={() => handleOpenPopup(item)} style={{ position: 'absolute', right: '0', marginRight: '2px', marginTop: '5px', border: '0', backgroundColor: 'transparent' }}><FontAwesomeIcon icon={faEllipsisVertical} className='icon' style={{ float: "right", fontSize: "18px" }} /></button>
 
-              <CardContent sx={{ mb: -1 }} >
-                <img src={item1} style={{height: "150px", width: "100%"}}></img>
+            <CardContent sx={{ mb: -1 }} >
+              <Link to={`/seeWishlistBoard/${item[0].name}/${"1"}`} style={linkStyle}>
+                <img src={item1} style={{ height: "150px", width: "100%" }}></img>
 
                 <Typography sx={{ fontSize: 16 }} color="text.primary">
-                  {item[0].name} 
+                  {item[0].name}
                 </Typography>
-                <Typography sx={{ fontSize: 12 }} color="text.secondary">
+              </Link>
+              <Typography sx={{ fontSize: 12 }} color="text.secondary">
                 {item[0].numOfProds} items
-                  <FontAwesomeIcon style={{float: "right", fontSize: "18px"}} icon={faShareNodes} className='icon'/>
-                </Typography>
-              </CardContent>
-            </Card>
-            </div>
+
+                <FontAwesomeIcon style={{ float: "right", fontSize: "18px" }} icon={faShareNodes} className='icon' />
+              </Typography>
+            </CardContent>
+          </Card>
+        </div>
       }
-    )}
-    <Popup2 itemDetails = {itemDetail} style={{width: '20%'}} isOpen={isPopupOpen} onClose={handleClosePopup} />
+      )}
+      <Popup2 itemDetails={itemDetail} style={{ width: '20%' }} isOpen={isPopupOpen} onClose={handleClosePopup} />
 
     </div>
 

@@ -3,8 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faUserFriends, faPlus, faInbox, fa7,faUser, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 function BottomNavbarWhite() {
+  const bottomNavBarStyle = {
+    position: 'fixed',
+    bottom: 0,
+    left: '50%', // Horizontally center the navbar
+  transform: 'translateX(-10%)', // Center it precisely
+    width: '377px', // Set a fixed width in pixels
+    backgroundColor: '#FFFFFF',
+    height: '45px',
+    marginLeft: '-150px', // Use negative margin to center it horizontally
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    zIndex: 100,
+    borderTop: '1px solid rgb(183, 183, 183)',
+    /* Add any other styling you want for your navbar */
+  };
+  
+  
   return (
-      <div className="bottom-navbar-white">
+      <div className="bottom-navbar-white" style={bottomNavBarStyle}>
         <Link to="/">
         <div className="nav-item">
           <FontAwesomeIcon icon={faHouse} className="icon active" />
