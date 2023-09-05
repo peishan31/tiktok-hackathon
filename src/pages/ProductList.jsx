@@ -150,7 +150,7 @@ function Wishlist() {
     <div className="app">
       <div className="container">
         <TopNavbar className="top-navbar" />
-        <img class="image" src={imageSrc} alt="Your Image" />
+        <img className="image" src={imageSrc} alt="Your Image" />
         <FontAwesomeIcon icon={faHeart} className="iconOnImg" onClick={handleLikeClick} style={{ cursor: 'pointer', color: isLiked ? 'red' : 'gray' }} />
         {showPopup && (
           <Popup

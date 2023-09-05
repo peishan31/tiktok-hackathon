@@ -11,20 +11,11 @@ import item1 from '../images/item1.png';
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import Popup from './Popup';
+import CreateComment from './CreateComment';
 
 function SpecificCategoryPost() {
-
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const handleClearSearch = () => {
-        setSearchQuery('');
-    };
     
-    const handleSearch = () => {
-        // TODO: Implement the search functionality here
-        console.log('Search query:', searchQuery);
-    };
-
     const postContent =
     {
         id: 1,
@@ -52,12 +43,17 @@ function SpecificCategoryPost() {
         }
     ];
 
-    const linkStyle = {
-        textDecoration: 'none', // Remove underline
-        color: 'inherit', // Inherit the color from parent
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleShowPopup = () => {
+        console.log("triggered true")
+        setShowPopup(true);
     };
 
-    const tiktokRedColor = '#EA403F';
+    const handleClosePopup = () => {
+        console.log("triggered false")
+        setShowPopup(false);
+    };
 
     return (
         <div className="app">
@@ -123,6 +119,22 @@ function SpecificCategoryPost() {
                             </CardContent>
                             </Card>
                         ))}
+                    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                        <Button 
+                            variant="outlined" 
+                            color="primary" 
+                            sx={{ borderColor: 'black', color: 'black' }}
+                            onClick={handleShowPopup}
+                        >
+                            Post Comment
+                        </Button>
+                        {showPopup && (
+                            <CreateComment
+                                message="Post Comment"
+                                onClose={handleClosePopup}
+                            />
+                        )}
                     </div>
                 </Box>
             </div>

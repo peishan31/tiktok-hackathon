@@ -31,7 +31,7 @@ function Category() {
             userProfileImage: profilepic,
             username: 'JohnDoe',
             postTitle: '😍Amazing Product!',
-            comments: 10,
+            comments: 2,
             productImage: item1,
             date: '5 July 2023 8:30am',
         },

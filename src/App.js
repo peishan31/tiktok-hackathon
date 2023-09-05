@@ -15,6 +15,7 @@ import Wishlist from "./pages/Wishlist";
 import ProductList from "./pages/ProductList";
 import Category from  "./pages/Category";
 import SpecificCategoryPost from "./pages/SpecificCategoryPost";
+import CreateComment from "./pages/CreateComment";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/productList" component={ProductList} />
           <Route exact path="/category" component={Category} />
           <Route exact path="/specificCategoryPost" component={SpecificCategoryPost} />
+          <Route exact path="/createComment" component={CreateComment} />
         </Switch>
       </Router>
     </>
