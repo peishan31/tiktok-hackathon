@@ -29,7 +29,6 @@ function Profile() {
           <BottomNavbarWhite className="bottom-navbar-white" />
 
         </div>
-        
       </div>
     </div>
   );
