@@ -18,9 +18,37 @@ const CreateComment = ({ message, onClose, onAdd }) => {
 
     const [comment, setComment] = useState('');
 
-    const handleCommentSubmit = () => {
-        
+    const handleCommentSubmit = async () => {
+
         console.log('Comment submitted:', comment);
+        // name, date, comment
+        const categoryID = "HM2Pn47uWPfuJprE1LRU"; 
+        const topicID = "4T0LnvGuSlCMWoJAZN4u";  
+
+        const commentData = {
+            comment: comment,
+            author: "jyp",
+            timestamp: new Date() 
+        };
+
+        try {
+            const commentCollectionRef = collection(
+                db,
+                'categories',
+                categoryID,
+                'topics',
+                topicID,
+                'comments'
+            );
+        
+            await addDoc(commentCollectionRef, commentData);
+        
+            console.log("Comment added successfully!");
+        
+        } catch (error) {
+            console.error("Error adding comment: ", error);
+        }
+
         setComment('');
     };
     
@@ -35,7 +63,7 @@ const CreateComment = ({ message, onClose, onAdd }) => {
             <div className="button-container">
             <p className="msg">{message}</p>
             {comment && (
-                <button className="iconPopup">
+                <button className="iconPopup" onClick={handleCommentSubmit}>
                     Comment
                 </button>
             )}

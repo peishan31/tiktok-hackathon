@@ -17,7 +17,7 @@ import Topics from  "./pages/Topics";
 import Topic from "./pages/Topic";
 import CreateComment from "./pages/CreateComment";
 import SeeWishlistBoard from "./pages/SeeWishlistBoard";
-import CreatePost from "./pages/CreatePost";
+import CreateTopic from "./pages/CreateTopic";
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
           <Route exact path="/createComment" component={CreateComment} />
           <Route exact path="/seeWishlistBoard" component={SeeWishlistBoard} />
           <Route path="/seeWishlistBoard/:getWishlistName/:getUserId" component={SeeWishlistBoard} />
-          <Route exact path="/createPost" component={CreatePost} />
+          <Route exact path="/createTopic" component={CreateTopic} />
         </Switch>
       </Router>
     </>

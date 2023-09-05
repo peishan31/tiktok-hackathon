@@ -5,15 +5,51 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Box, TextField, Button, Container, CssBaseline, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import {
+    collection,
+    getDocs,
+    query,
+    deleteDoc,
+    where,
+    doc,
+    addDoc,
+} from 'firebase/firestore/lite';
 
-function CreatePost() {
+function CreateTopic() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log('Title:', title);
         console.log('Content:', content);
-        // TODO: Send this content to firebase
+        // topicTitle
+        // topicContent
+        // author
+        // dateTime
+        const categoryID = "HM2Pn47uWPfuJprE1LRU"; 
+
+        const topicData = {
+            topicTitle: title,
+            topicContent: content,
+            author: "jyp",
+            timestamp: new Date() 
+        };
+
+        try {
+            const topicCollectionRef = collection(
+                db,
+                'categories',
+                categoryID,
+                'topics'
+            );
+        
+            await addDoc(topicCollectionRef, topicData);
+        
+            console.log("topic added successfully!");
+        
+        } catch (error) {
+            console.error("Error adding comment: ", error);
+        }
     };
 
     return (
@@ -89,4 +125,4 @@ function CreatePost() {
     );
 }
 
-export default CreatePost;
+export default CreateTopic;
