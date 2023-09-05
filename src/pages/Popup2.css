@@ -1,0 +1,39 @@
+/* Popup Styles */
+.popup-modal {
+    position: fixed;
+    display: flex;
+   justify-content: center;
+    width: 333px;
+    top: 70%;
+    /* Center vertically */
+    left: 50%;
+    /* Center horizontally */
+    transform: translate(-50%, -50%);
+    /* Center the element relative to itself */
+    background-color: white;
+    padding: 20px;
+    /* border: 1px solid #ccc; */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    z-index: 1000;
+    /* Add other styles as needed for your design */
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    /* Ensure the popup is on top of other content */
+    display: flex;
+    /* Use flexbox for layout */
+    flex-direction: column;
+    /* Stack child elements vertically */
+  }
+  
+  /* Overlay Styles */
+  .popup-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }

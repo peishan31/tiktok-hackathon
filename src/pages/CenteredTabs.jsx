@@ -76,7 +76,7 @@ export default function CenteredTabs() {
                           prods.push(d.data());                      
                         });
                       })
-                  categories.push([doc.data(), prods]);          
+                  categories.push([doc.data(), prods, doc.id]);          
                   console.log(doc.data());        
                   })
               });
