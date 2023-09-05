@@ -147,7 +147,7 @@ function Wishlist() {
       <div className="container">
         <TopNavbar className="top-navbar" />
         <PopupMessage message={wishlistMessage} />
-        <img class="image" src={imageSrc} alt="Your Image" />
+        <img className="image" src={imageSrc} alt="Your Image" />
         <FontAwesomeIcon icon={faHeart} className="iconOnImg" onClick={handleLikeClick} style={{ cursor: 'pointer', color: isLiked ? 'red' : 'gray' }} />
         {showPopup && (
           <Popup
