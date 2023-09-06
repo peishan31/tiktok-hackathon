@@ -14,7 +14,7 @@ import {
     addDoc,
 } from 'firebase/firestore/lite';
 
-const CreateComment = ({ message, onClose, onAdd }) => {
+const CreateComment = ({ message, onClose, onAdd, categoryID, topicID }) => {
 
     const [comment, setComment] = useState('');
 
@@ -22,16 +22,18 @@ const CreateComment = ({ message, onClose, onAdd }) => {
 
         console.log('Comment submitted:', comment);
         // name, date, comment
-        const categoryID = "HM2Pn47uWPfuJprE1LRU"; 
-        const topicID = "zafrkyidkHUozPJOegWi";  
+        // const categoryID = "HM2Pn47uWPfuJprE1LRU"; 
+        // const topicID = "zafrkyidkHUozPJOegWi";  
+
+        const timeZone = 'Asia/Singapore';
 
         const commentData = {
             author: "jyp",
             authorImage: "",
             comment: comment,
-            timestamp: new Date() 
+            timestamp: new Date().toLocaleString('en-US', { timeZone })
         };
-
+        console.log("timestamp:", commentData.timestamp);
         try {
             const commentCollectionRef = collection(
                 db,
@@ -45,6 +47,8 @@ const CreateComment = ({ message, onClose, onAdd }) => {
             await addDoc(commentCollectionRef, commentData);
         
             console.log("Comment added successfully!");
+            // respond back to topic page to reinitialise the comments
+            onAdd();
         
         } catch (error) {
             console.error("Error adding comment: ", error);

@@ -36,6 +36,20 @@ function Topic() {
         setShowPopup(false);
     };
     
+    const updateComments = async () => {
+        console.log("comments added! trigger update")
+
+        // Fetch subdocuments frm topic to get comments
+        const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
+        const commentsQuerySnapshot = await getDocs(commentsCollectionRef, orderBy('timestamp', 'desc'));
+        const comments = [];
+
+        commentsQuerySnapshot.forEach((commentDoc) => {
+            comments.push({ id: commentDoc.id, ...commentDoc.data() });
+        });
+        console.log("Fetched comments for the topic:", JSON.stringify(comments));
+        setComments(comments);
+    };
 
     useEffect(() => {
 
@@ -119,7 +133,12 @@ function Topic() {
                             <CardHeader
                                 avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
                                 title={topic.author}
-                                subheader={topic.timestamp ? topic.timestamp.toDate().toLocaleString() : ''}
+                                subheader={
+                                    topic.timestamp 
+                                        ? topic.timestamp
+                                            .toDate()
+                                            .toLocaleString('en-US', { timeZone: 'Asia/Singapore' })
+                                        : ''}
                                 style={{ paddingRight: '16px' }}
                             />
                             <CardContent>
@@ -150,7 +169,10 @@ function Topic() {
                                         avatar={<Avatar alt={comment.author} src={comment.authorImage} />}
                                         title={comment.author}
                                         style={{ paddingRight: '16px' }}
-                                        subheader={topic.timestamp ? topic.timestamp.toDate().toLocaleString() : ''}
+                                        subheader={
+                                            topic.timestamp 
+                                            ? topic.timestamp.toDate().toLocaleString()
+                                            : ''}
                                     />
                                     <CardContent>
                                         <Typography variant="body1" style={{ marginTop: '-20px', fontSize: '15px' }}>{comment.comment}</Typography>
@@ -175,6 +197,9 @@ function Topic() {
                             <CreateComment
                                 message="Post Comment"
                                 onClose={handleClosePopup}
+                                onAdd={updateComments}
+                                categoryID={categoryId}
+                                topicID={topicId}
                             />
                         )}
                     </div>
