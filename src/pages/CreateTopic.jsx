@@ -31,7 +31,9 @@ function CreateTopic() {
         const topicData = {
             topicTitle: title,
             topicContent: content,
+            topicShoppingImage: "",
             author: "jyp",
+            authorImage: "",
             timestamp: new Date() 
         };
 

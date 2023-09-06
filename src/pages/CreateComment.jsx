@@ -23,11 +23,12 @@ const CreateComment = ({ message, onClose, onAdd }) => {
         console.log('Comment submitted:', comment);
         // name, date, comment
         const categoryID = "HM2Pn47uWPfuJprE1LRU"; 
-        const topicID = "4T0LnvGuSlCMWoJAZN4u";  
+        const topicID = "zafrkyidkHUozPJOegWi";  
 
         const commentData = {
-            comment: comment,
             author: "jyp",
+            authorImage: "",
+            comment: comment,
             timestamp: new Date() 
         };
 
