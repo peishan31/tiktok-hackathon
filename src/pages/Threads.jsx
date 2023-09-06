@@ -45,9 +45,9 @@ function Threads() {
 
     const fetchCategories = async () => {
       const categoryCollectionRef = collection(db, 'categories'); 
-
+      const q = query(categoryCollectionRef, orderBy('categoryName'));
       try {
-        const querySnapshot = await getDocs(categoryCollectionRef);
+        const querySnapshot = await getDocs(q);
         const categoriesData = [];
 
         querySnapshot.forEach((doc) => {
