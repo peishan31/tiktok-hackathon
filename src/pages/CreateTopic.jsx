@@ -22,10 +22,6 @@ function CreateTopic() {
     const handleSubmit = async () => {
         console.log('Title:', title);
         console.log('Content:', content);
-        // topicTitle
-        // topicContent
-        // author
-        // dateTime
         const categoryID = "HM2Pn47uWPfuJprE1LRU"; 
 
         const topicData = {

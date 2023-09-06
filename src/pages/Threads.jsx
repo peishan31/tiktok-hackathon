@@ -2,6 +2,7 @@ import BottomNavbar from '../components/BottomNavbar';
 import TopNavbar from '../components/DefaultTopNavbar';
 import db from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
+import { collection, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit } from "firebase/firestore/lite";
 import Button from '@mui/material/Button';
 import { Box, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -11,12 +12,12 @@ function Threads() {
 
   const categoryStyle = {
     display: 'flex', 
-    alignItems: 'center', 
+    
     justifyContent: 'space-between',
     marginBottom: '10px'
   }
 
-  const categories = [
+  /*const categories = [
     'Accessories',
     'Automotive & Motorcycles',
     'Baby & Kids',
@@ -37,7 +38,32 @@ function Threads() {
     'TV, Audio / Video, Gaming & Wearables',
     "Women's Clothing",
     'Watches',
-  ];
+  ];*/
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+
+    const fetchCategories = async () => {
+      const categoryCollectionRef = collection(db, 'categories'); 
+
+      try {
+        const querySnapshot = await getDocs(categoryCollectionRef);
+        const categoriesData = [];
+
+        querySnapshot.forEach((doc) => {
+          categoriesData.push({ id: doc.id, ...doc.data() });
+        });
+
+        setCategories(categoriesData);
+        console.log("Categories:", categoriesData); 
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories(); // Fetch categories when the component mounts
+  }, []);
+
 
   const linkStyle = {
         textDecoration: 'none', // Remove underline
@@ -70,18 +96,26 @@ function Threads() {
             </ul>
           </div>
           <h5 style={{ marginBottom: '10px' }}>All Categories</h5>
+            {/* {categories.map((category, index) => (
+              <div style={categoryStyle} key={index}>
+                <Link to={`/threads/${category.id}`} style={linkStyle}>
+                  <Typography variant="body1" sx={{ color: 'black' }}>
+                    {category.categoryName}
+                  </Typography>
+                </Link>
+                <Link to={`/threads/${category.id}`} style={linkStyle}>
+                  <ArrowForwardIcon sx={{ color: 'gray' }}/>
+                </Link>
+              </div>
+            ))} */}
             {categories.map((category, index) => (
-              // <Link
-              //   to={`/category/${encodeURIComponent(category)}`}s
-              //   key={index}
-              // >
               <Link
-                to={`/topics`}s
+                to={`/topics`}
                 key={index}
                 style={linkStyle}
               >
                 <div style={categoryStyle} key={index}>
-                  <Typography variant="body1">{category}</Typography>
+                  <Typography variant="body1">{category.categoryName}</Typography>
                   <ArrowForwardIcon style={{ color: 'gray' }} />
                 </div>
               </Link>
