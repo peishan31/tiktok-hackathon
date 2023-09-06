@@ -18,6 +18,7 @@ import Topic from "./pages/Topic";
 import CreateComment from "./pages/CreateComment";
 import SeeWishlistBoard from "./pages/SeeWishlistBoard";
 import CreateTopic from "./pages/CreateTopic";
+import FriendsList from "./pages/FriendsList";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route exact path="/seeWishlistBoard" component={SeeWishlistBoard} />
           <Route path="/seeWishlistBoard/:getWishlistName/:getUserId" component={SeeWishlistBoard} />
           <Route exact path="/createTopic" component={CreateTopic} />
+          <Route exact path="/friendslist" component={FriendsList} />
         </Switch>
       </Router>
     </>

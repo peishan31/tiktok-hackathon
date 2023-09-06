@@ -1,0 +1,54 @@
+.product-card{
+    background-color: white;
+}
+
+.container {
+    background-color: white;      
+}
+
+.product-card-container{
+    background-color: white;
+    position: relative;
+    left: 10px;
+}
+
+.product-card-image {
+    float:left;
+    width: 30%;
+}
+
+.username {
+    /* font-weight: bold; */
+    bottom:18px;
+    position: relative;
+    color:grey
+}
+
+.product-card-details {
+    position: relative;
+    left: 5px;
+}
+
+.sellerName {
+    color:grey;
+    font-size:8px;
+    position: relative;
+    bottom:34px;
+}
+
+.bottom-navbar-white {
+    position: absolute;
+    bottom: 0;
+    left: 0; /* You can adjust left/right positioning if needed */
+    right: 0;
+    background-color: white; /* Adjust background color as needed */
+    width: 100%;
+    /* Add other styles as necessary */   
+}
+
+.iconBin {
+    float:right;
+    margin-right: 10px;
+    position: relative;
+    /* top: 0px; */
+}

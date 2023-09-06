@@ -1,6 +1,6 @@
 import VideoCard from '../components/VideoCard';
 import BottomNavbarWhite from '../components/BottomNavbarWhite';
-import TopNavbarProfile from '../components/TopNavbarProfile';
+import TopNavbarProfile from '../components/TopNavBarCloseFriendList';
 import db from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs } from "firebase/firestore/lite";
@@ -8,25 +8,16 @@ import './profile.css';
 import profilepic from '../images/profilepic.png';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CenteredTabs from './CenteredTabs';
+import CenteredTabs from './FriendsTabs';
 import { Link } from 'react-router-dom';
 
 
-function Profile() {
+function FriendsList() {
   return (
     <div className="app">
       <div className="container">
       <TopNavbarProfile className="top-navbar-profile" />
         <div className='profile'>
-          <Link to="/friendslist">
-          <img src={profilepic}></img>
-          </Link>
-          <div className="center">
-            <button className='editprofile'>Edit Profile</button>           
-            <Link to="/SavedItems">
-            <button><FontAwesomeIcon icon={faBookmark} className='icon'/> </button>
-            </Link>
-          </div>
           <CenteredTabs />
           <BottomNavbarWhite className="bottom-navbar-white" />
 
@@ -36,4 +27,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default FriendsList;
