@@ -32,7 +32,7 @@ function App() {
           <Route exact path="/SavedItems" component={SavedItems} />
           <Route exact path="/wishlist" component={Wishlist} />
           <Route exact path="/productList" component={ProductList} />
-          <Route exact path="/topics" component={Topics} />
+          <Route exact path="/topics/:getCategoryId" component={Topics} />
           <Route exact path="/topic" component={Topic} />
           <Route exact path="/createComment" component={CreateComment} />
           <Route exact path="/seeWishlistBoard" component={SeeWishlistBoard} />

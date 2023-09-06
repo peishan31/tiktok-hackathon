@@ -110,7 +110,7 @@ function Threads() {
             ))} */}
             {categories.map((category, index) => (
               <Link
-                to={`/topics`}
+                to={`/topics/${category.id}`}
                 key={index}
                 style={linkStyle}
               >
