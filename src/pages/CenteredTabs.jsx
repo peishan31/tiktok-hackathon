@@ -8,11 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TheCard from '../components/TheCard';
 import db from "../config/firebase";
 import { useEffect, useState, useRef } from 'react';
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs, where, query } from "firebase/firestore/lite";
+import TheCardClose from '../components/TheCardClose';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  
   return (
     <div
       role="tabpanel"
@@ -32,6 +33,10 @@ function CustomTabPanel(props) {
 
 export default function CenteredTabs() {
   const [value, setValue] = React.useState(1);
+  const userId = '1'; // Specify the user ID
+  const [closeFriends, setFriends] = useState([]); 
+  const [closeFriendList, setFriendList] = useState([]); 
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -48,23 +53,11 @@ export default function CenteredTabs() {
   }
 
   const fetchPost = async () => {
-       
-    // await getDocs(collection(db, "wishlists"))
-    //     .then((querySnapshot)=>{               
-    //         const newData = querySnapshot.docs
-    //             .map((doc) => {
-                  
-    //               doc.data(); 
-    //               doc.id;
-                  
-    //             });
-    //         setWishlist(newData);                
-    //         console.log(newData);
-    //         setLoading(false);
-    //     })
-
         let categories = [];
-        await getDocs(collection(db, "wishlists"))
+        const wishlistsCollection = collection(db, 'wishlists');
+        const q1 = query(wishlistsCollection);
+
+        await getDocs(q1)
         .then((querySnapshot)=>{               
             const list = querySnapshot.docs
                 .map((doc) => {
@@ -76,18 +69,63 @@ export default function CenteredTabs() {
                           prods.push(d.data());                      
                         });
                       })
-                  categories.push([doc.data(), prods, doc.id]);          
+                  wishlist.push([doc.data(), prods, doc.id]);          
                   console.log(doc.data());        
                   })
               });
               setWishlist(categories);                
               console.log(categories);
-              setLoading(false);
-        
+              
    }
 
+   const fetchFriends = async () => {
+    const followersCollection = collection(db, 'followers');
+    const q1 = query(followersCollection, where('followerid', '==', userId), where('closeFriend', '==', true));
+
+    await getDocs(q1)
+    .then((querySnapshot)=>{    
+        const list = querySnapshot.docs
+            .map((doc) => {
+              doc.data()
+              closeFriends.push(doc.data().userid)
+              console.log(doc.data().userid);
+            })
+
+          });
+          
+          let wlist = [];
+          let flist = [];
+          console.log(wishlist)
+          wishlist.forEach(element => {
+            console.log(element);
+
+            if(element[0].userid == userId){
+              wlist.push(element);
+              console.log(wlist);
+              setWishlist(wlist);
+
+            }
+            else{
+              closeFriends.forEach(e => {
+                if(e == element[0].userid){
+                  flist.push(element);
+                  console.log(e);
+                  console.log(element[0].userid);
+                  console.log(closeFriends);
+                  setFriendList(flist);
+                }
+              });
+            }
+          })
+          setLoading(false);
+          console.log(closeFriends);
+
+
+}
+
   useEffect(() => {
-    fetchPost();
+    fetchPost().then(()=> fetchFriends());
+    ;
   }
   , []); // Include 'wishlist' in the dependency array
   if (!isLoading) {
@@ -104,6 +142,9 @@ export default function CenteredTabs() {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
           <TheCard parentToChild={wishlist}/>
+          <h3>Close Friends</h3>
+          <TheCardClose parentToChild={closeFriendList}/>
+
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Nothing yet
