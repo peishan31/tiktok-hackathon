@@ -69,9 +69,9 @@ function Category() {
                 console.log("Category Data:", JSON.stringify(categoryData));
                 setCategory(categoryData);
 
-                // Fetch subdocuments -> Topics
+                // Fetch subdocuments -> Topics, ordered by timestamp
                 const topicsCollectionRef = collection(categoryDocRef, 'topics');
-                const querySnapshot = await getDocs(topicsCollectionRef);
+                const querySnapshot = await getDocs(query(topicsCollectionRef, orderBy('timestamp', 'desc'))); 
                 const topicsDocumentsData = [];
 
                 for (const doc of querySnapshot.docs) {
@@ -81,7 +81,6 @@ function Category() {
                     const commentsCollectionRef = collection(doc.ref, 'comments');
                     const commentsQuerySnapshot = await getDocs(commentsCollectionRef);
                     const commentCount = commentsQuerySnapshot.size; // Count the comments
-                    const commentsData = [];
 
                     topicData.commentCount = commentCount; // Add comment count to topic data
                     topicsDocumentsData.push(topicData);
@@ -145,6 +144,9 @@ function Category() {
                         </button>
                     </div>
                     <div className="results-container" style={{ marginTop: '10px'}}>
+                    {topics.length === 0 ? (
+                        <p style={{textAlign: "center"}}>No topics yet. Click '+' to contribute!</p>
+                    ) : (
                         <Link
                             to="/topic"
                             style={linkStyle}
@@ -174,6 +176,9 @@ function Category() {
                                 </Card>
                             ))}
                         </Link>
+                    )}
+
+                        
                         {/* Old Hardcoded*/}
                         {/* <Link
                             to="/topic"
