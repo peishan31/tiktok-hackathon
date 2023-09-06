@@ -102,7 +102,7 @@ const Popup = ({ message, onClose, onAdd }) => {
   };
 
   return (
-    <div className="popup">
+    <div className="popup popUpStyle">
       <div className="popup-content">
         <div className="button-container">
           <p className="msg">{message}</p>

@@ -1,4 +1,8 @@
  /* Styling for the popup container */
+ .popUpStyle {
+  margin-top: -10px;
+ }
+
  .popup {
      position: fixed;
      display: flex;
@@ -30,7 +34,7 @@
  /* Style for the icon */
  .iconPopup {
      position: absolute;
-     margin-top: 13px;
+     margin-top: 18px;
      /* Adjust the top value to center the icon vertically */
      left: 94%;
      /* Adjust the left value to center the icon horizontally */
