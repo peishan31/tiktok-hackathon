@@ -58,6 +58,7 @@ function Category() {
         const fetchSubdocuments = async () => {
 
             try {
+                
                 const categoryDocRef = doc(db, 'categories', categoryId);
                 const categoryDocSnapshot = await getDoc(categoryDocRef);
                 if (!categoryDocSnapshot.exists()) {
@@ -87,8 +88,6 @@ function Category() {
                 }
                 console.log("topicsDocumentsData:", JSON.stringify(topicsDocumentsData));
                 setTopics(topicsDocumentsData);
-
-                
             }
             catch (error) {
                 console.error('Error fetching subdocuments:', error);
@@ -147,35 +146,37 @@ function Category() {
                     {topics.length === 0 ? (
                         <p style={{textAlign: "center"}}>No topics yet. Click '+' to contribute!</p>
                     ) : (
-                        <Link
-                            to="/topic"
-                            style={linkStyle}
-                        >
+                        <div>
                             {topics.map((topic) => (
-                                <Card key={topic.id} variant="outlined" style={{ marginBottom: '10px' }}>
-                                    <CardHeader
-                                        avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
-                                        title={topic.author}
-                                        style={{ paddingRight: '16px' }}
-                                        subheader={topic.timestamp.toDate().toLocaleString()}
-                                    />
-                                    <CardContent>
-                                        <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
-                                            {topic.topicShoppingImage ? (
-                                                <img
-                                                src={topic.topicShoppingImage}
-                                                alt="Product"
-                                                style={{ maxWidth: '40%', marginTop: '10px' }}
-                                                />
-                                            ) : null}
-                                            <br />
-                                            <Typography variant="caption" style={{ marginTop: '10px' }}>
-                                            {topic.commentCount === 0 ? `${topic.commentCount} comment` : `${topic.commentCount} comments`}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
+                                <Link
+                                    to={`/topics/${categoryId}/${topic.id}`}
+                                    style={linkStyle}
+                                >
+                                    <Card key={topic.id} variant="outlined" style={{ marginBottom: '10px' }}>
+                                        <CardHeader
+                                            avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
+                                            title={topic.author}
+                                            style={{ paddingRight: '16px' }}
+                                            subheader={topic.timestamp ? topic.timestamp.toDate().toLocaleString() : ''}
+                                        />
+                                        <CardContent>
+                                            <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
+                                                {topic.topicShoppingImage ? (
+                                                    <img
+                                                    src={topic.topicShoppingImage}
+                                                    alt="Product"
+                                                    style={{ maxWidth: '40%', marginTop: '10px' }}
+                                                    />
+                                                ) : null}
+                                                <br />
+                                                <Typography variant="caption" style={{ marginTop: '10px' }}>
+                                                {topic.commentCount === 0 ? `${topic.commentCount} comment` : `${topic.commentCount} comments`}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
                             ))}
-                        </Link>
+                        </div>
                     )}
 
                         

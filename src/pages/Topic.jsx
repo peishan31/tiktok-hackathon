@@ -13,9 +13,17 @@ import IconButton from '@mui/material/IconButton';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import Popup from './Popup';
 import CreateComment from './CreateComment';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { collection, getDoc, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit } from "firebase/firestore/lite";
 
 function Topic() {
     
+    const { getCategoryId, getTopicId } = useParams();
+    const categoryId = getCategoryId;
+    const topicId = getTopicId;
+    const [topic, setTopic] = useState({});
+    const [comments, setComments] = useState([]);
+
     const postContent =
     {
         id: 1,
@@ -54,6 +62,59 @@ function Topic() {
         console.log("triggered false")
         setShowPopup(false);
     };
+    
+
+    useEffect(() => {
+
+        const fetchSubdocuments = async () => {
+
+            try {
+
+                const categoryDocRef = doc(db, 'categories', categoryId);
+                const categoryDocSnapshot = await getDoc(categoryDocRef);
+                if (!categoryDocSnapshot.exists()) {
+                    console.log("Category document does not exist.");
+                    return;
+                }
+
+                // Fetch subdocuments to get a specific topic
+                const topicsCollectionRef = collection(categoryDocRef, 'topics');
+                const querySnapshot = await getDocs(topicsCollectionRef);
+
+                let foundTopic = null;
+
+                querySnapshot.forEach((doc) => {
+                    const topicData = { id: doc.id, ...doc.data() };
+                    if (topicData.id === topicId) {
+                        foundTopic = topicData;
+                    }
+                });
+
+                if (!foundTopic) {
+                    console.log("Topic not found.");
+                    return;
+                }
+                
+                setTopic(foundTopic);
+                console.log("Fetched topic:", JSON.stringify(foundTopic));
+                
+                // Fetch subdocuments frm topic to get comments
+                const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
+                const commentsQuerySnapshot = await getDocs(commentsCollectionRef);
+                const comments = [];
+
+                commentsQuerySnapshot.forEach((commentDoc) => {
+                    comments.push({ id: commentDoc.id, ...commentDoc.data() });
+                });
+                console.log("Fetched comments for the topic:", JSON.stringify(comments));
+                setComments(comments);
+            }
+            catch (error) {
+                console.error('Error fetching subdocuments:', error);
+            }
+        };
+        fetchSubdocuments();
+    }, []);
 
     return (
         <div className="app">
@@ -81,18 +142,18 @@ function Topic() {
                         </ul>
                     </div>
                     <div className="post-container" style={{ marginTop: '10px'}}>
-                        <Card key={postContent.id} variant="outlined" style={{ marginBottom: '10px' }}>
+                        <Card key={topic.id} variant="outlined" style={{ marginBottom: '10px' }}>
                             <CardHeader
-                                avatar={<Avatar alt={postContent.username} src={postContent.userProfileImage} />}
-                                title={postContent.username}
-                                subheader={postContent.date}
+                                avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
+                                title={topic.author}
+                                subheader={topic.timestamp ? topic.timestamp.toDate().toLocaleString() : ''}
                                 style={{ paddingRight: '16px' }}
                             />
                             <CardContent>
-                                <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{postContent.postTitle}</Typography>
-                                {postContent.productImage && (
+                                <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
+                                {topic.topicShoppingImage && (
                                 <img
-                                    src={postContent.productImage}
+                                    src={topic.topicShoppingImage}
                                     alt="Product"
                                     style={{ maxWidth: '40%', marginTop: '10px' }}
                                 />
@@ -101,26 +162,34 @@ function Topic() {
                         </Card>
                         <div style={{ marginTop: '10px', textAlign: 'center' }}>
                             <Typography variant="caption">
-                                {postContent.comments} comments
+                                {comments.length === 0 ? `${comments.length} comment` : `${comments.length} comments`} 
                             </Typography>
                         </div>
                     </div>
                     <div className="comments-container" style={{ marginTop: '1px'}}>
-                        {commentContent.map((card) => (
-                            <Card key={card.id} variant="outlined" style={{ marginBottom: '10px' }}>
-                            <CardHeader
-                                avatar={<Avatar alt={card.username} src={card.userProfileImage} />}
-                                title={card.username}
-                                subheader={card.date} 
-                                style={{ paddingRight: '16px' }}
-                            />
-                            <CardContent>
-                                <Typography variant="body1" style={{ marginTop: '-20px', fontSize: '15px' }}>{card.postTitle}</Typography>
-                            </CardContent>
-                            </Card>
-                        ))}
+                        {comments.length === 0 ? (
+                            <p style={{textAlign: "center"}}>No comments yet...</p>
+                        ):(
+                            <div>
+                                {comments.map((comment) => (
+                                    <Card key={comment.id} variant="outlined" style={{ marginBottom: '10px' }}>
+                                    <CardHeader
+                                        avatar={<Avatar alt={comment.author} src={comment.authorImage} />}
+                                        title={comment.author}
+                                        style={{ paddingRight: '16px' }}
+                                        subheader={topic.timestamp ? topic.timestamp.toDate().toLocaleString() : ''}
+                                    />
+                                    <CardContent>
+                                        <Typography variant="body1" style={{ marginTop: '-20px', fontSize: '15px' }}>{comment.comment}</Typography>
+                                    </CardContent>
+                                    </Card>
+                                ))}
+                            </div>
+                        )
+                        }
+                        
                     </div>
-                    <div style={{ marginBottom: '10px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
                         <Button 
                             variant="outlined" 
                             color="primary" 

@@ -33,7 +33,8 @@ function App() {
           <Route exact path="/wishlist" component={Wishlist} />
           <Route exact path="/productList" component={ProductList} />
           <Route exact path="/topics/:getCategoryId" component={Topics} />
-          <Route exact path="/topic" component={Topic} />
+          <Route exact path="/topics/:getCategoryId/:getTopicId" component={Topic} />
+          {/* <Route exact path="/topic" component={Topic} /> */}
           <Route exact path="/createComment" component={CreateComment} />
           <Route exact path="/seeWishlistBoard" component={SeeWishlistBoard} />
           <Route path="/seeWishlistBoard/:getWishlistName/:getUserId" component={SeeWishlistBoard} />
