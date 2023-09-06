@@ -24,33 +24,6 @@ function Topic() {
     const [topic, setTopic] = useState({});
     const [comments, setComments] = useState([]);
 
-    const postContent =
-    {
-        id: 1,
-        userProfileImage: profilepic,
-        username: 'JohnDoe',
-        postTitle: '😍Amazing Product!',
-        comments: 2,
-        productImage: item1,
-        date: '5 July 2023 8:30am',
-    };
-
-    const commentContent = [
-        {
-            id: 1,
-            userProfileImage: profilepic,
-            username: 'JohnDoe',
-            postTitle: '😍Amazing Product!',
-            date: '5 July 2023 8:30am',
-        },
-        {
-            id: 2,
-            username: 'JaneSmith',
-            postTitle: '😎Check out this cool item!',
-            date: '3 July 2023 10:30am',
-        }
-    ];
-
     const [showPopup, setShowPopup] = useState(false);
 
     const handleShowPopup = () => {
@@ -100,7 +73,7 @@ function Topic() {
                 
                 // Fetch subdocuments frm topic to get comments
                 const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
-                const commentsQuerySnapshot = await getDocs(commentsCollectionRef);
+                const commentsQuerySnapshot = await getDocs(commentsCollectionRef, orderBy('timestamp', 'desc'));
                 const comments = [];
 
                 commentsQuerySnapshot.forEach((commentDoc) => {
