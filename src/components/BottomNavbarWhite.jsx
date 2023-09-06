@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function BottomNavbarWhite() {
   const bottomNavBarStyle = {
     position: 'fixed',
-    bottom: '33px',
+    bottom: '18px',
     left: '50%', // Horizontally center the navbar
   transform: 'translateX(-10%)', // Center it precisely
     width: '377px', // Set a fixed width in pixels

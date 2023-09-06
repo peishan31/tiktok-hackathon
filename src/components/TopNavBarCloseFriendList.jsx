@@ -12,11 +12,15 @@ const TopNavbarProfile = () => {
         history.goBack();
     };
 
+    const addCloseFriend = () => {
+        
+    };
+
     return (
         <div className="top-navbar-profile">
             <FontAwesomeIcon icon={faLessThan} className='icon' onClick={handleGoBack} />
             <h2>JYP   <FontAwesomeIcon icon={faCaretDown} className='icon' /></h2>
-            <FontAwesomeIcon icon={faUserPlus} className='icon' />
+            <FontAwesomeIcon icon={faUserPlus} className='icon' onClick={addCloseFriend} />
         </div>
     );
 };
