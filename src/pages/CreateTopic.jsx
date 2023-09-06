@@ -4,6 +4,7 @@ import db from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { Box, TextField, Button, Container, CssBaseline, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import {
     collection,
@@ -16,13 +17,14 @@ import {
 } from 'firebase/firestore/lite';
 
 function CreateTopic() {
+    const { getCategoryId } = useParams();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const categoryId = getCategoryId;
 
     const handleSubmit = async () => {
         console.log('Title:', title);
-        console.log('Content:', content);
-        const categoryID = "HM2Pn47uWPfuJprE1LRU"; 
+        console.log('Content:', content); 
 
         const topicData = {
             topicTitle: title,
@@ -37,7 +39,7 @@ function CreateTopic() {
             const topicCollectionRef = collection(
                 db,
                 'categories',
-                categoryID,
+                categoryId,
                 'topics'
             );
         

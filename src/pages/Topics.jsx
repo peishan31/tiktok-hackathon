@@ -112,7 +112,7 @@ function Category() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <h5 style={{ marginBottom: '10px', marginTop: '10px' }}>Search Topic</h5>
                         <Link
-                            to="/CreateTopic"
+                            to={`/createTopic/${categoryId}`}
                             style={linkStyle}
                         >
                             <IconButton 
