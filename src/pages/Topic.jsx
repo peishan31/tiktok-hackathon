@@ -16,6 +16,7 @@ import CreateComment from './CreateComment';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { collection, getDoc, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit } from "firebase/firestore/lite";
 import CircularProgress from '@mui/material/CircularProgress';
+import axios from 'axios';
 
 function Topic() {
     
@@ -40,16 +41,7 @@ function Topic() {
     const updateComments = async () => {
         console.log("comments added! trigger update")
         setIsLoading(true);
-        // Fetch subdocuments frm topic to get comments
-        const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
-        const commentsQuerySnapshot = await getDocs(query(commentsCollectionRef, orderBy('timestamp', 'desc')));
-        const comments = [];
-        setComments([]);
-        commentsQuerySnapshot.forEach((commentDoc) => {
-            comments.push({ id: commentDoc.id, ...commentDoc.data() });
-        });
-        console.log("Fetched comments for the topic:", JSON.stringify(comments));
-        setComments(comments);
+        getCommentsFromFirestore();
         setIsLoading(false);
     };
 
@@ -87,16 +79,8 @@ function Topic() {
                 setTopic(foundTopic);
                 console.log("Fetched topic:", JSON.stringify(foundTopic));
                 
-                // Fetch subdocuments frm topic to get comments
-                const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
-                const commentsQuerySnapshot = await getDocs(query(commentsCollectionRef, orderBy('timestamp', 'desc')));
-                const comments = [];
-
-                commentsQuerySnapshot.forEach((commentDoc) => {
-                    comments.push({ id: commentDoc.id, ...commentDoc.data() });
-                });
-                console.log("Fetched comments for the topic:", JSON.stringify(comments));
-                setComments(comments);
+                getCommentsFromFirestore();
+                
                 setIsLoading(false);
             }
             catch (error) {
@@ -106,6 +90,38 @@ function Topic() {
         };
         fetchSubdocuments();
     }, []);
+    
+    const getCommentsFromFirestore = async () => {
+
+        try{
+            setIsLoading(true);
+            // Fetch subdocuments frm topic to get comments
+            const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
+            const commentsQuerySnapshot = await getDocs(query(commentsCollectionRef, orderBy('timestamp', 'desc')));
+            const comments = [];
+
+            commentsQuerySnapshot.forEach((commentDoc) => {
+                comments.push({ id: commentDoc.id, ...commentDoc.data() });
+            });
+            console.log("Fetched comments for the topic:", JSON.stringify(comments));
+            
+            // store comments.comment in a list and send it to /analyzeComments
+            const commentList = [];
+            comments.forEach((comment) => {
+                commentList.push(comment.comment);
+            });
+            console.log("commentList:", commentList);
+
+            const response = await axios.post('http://localhost:5000/analyzeComments', { commentsList: commentList });
+            console.log("response:", response.data);
+
+            setComments(comments);
+            setIsLoading(false);
+        } catch(error) {
+            console.error('Error:', error);
+        }
+        
+    };
 
     return (
         <div className="app">
@@ -153,6 +169,7 @@ function Topic() {
                                     />
                                     <CardContent>
                                         <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
+                                        <Typography variant="body1" style={{ marginTop: '3px' }}>{topic.topicContent}</Typography>
                                         {topic.topicShoppingImage && (
                                         <img
                                             src={topic.topicShoppingImage}
