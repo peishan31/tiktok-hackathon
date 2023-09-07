@@ -10,6 +10,7 @@ import db from "../config/firebase";
 import { useEffect, useState, useRef } from 'react';
 import { collection, getDocs, where, query } from "firebase/firestore/lite";
 import TheCardClose from '../components/TheCardClose';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,7 +46,7 @@ export default function CenteredTabs() {
   const [isLoading, setLoading] = useState(true);
   const [isLoading1, setLoading1] = useState(true);
 
-
+  
 
   async function getWishlist() {
     const wishlistCollection = collection(db, "wishlist");
@@ -131,6 +132,7 @@ export default function CenteredTabs() {
     ;
   }
   , []); // Include 'wishlist' in the dependency array
+  
   if (!isLoading && !isLoading1) {
 
   return (
@@ -176,5 +178,12 @@ export default function CenteredTabs() {
         </CustomTabPanel>
       </Box>
     );
+  }
+  else {
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
+      </div>
+    )
   }
 }

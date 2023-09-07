@@ -29,7 +29,7 @@
 /* Style for the icon */
 .iconPopup {
     position: absolute;
-    top: 8%;
+    top: 6%;
     left: 88%;
     transform: translate(-50%, -50%);
     background: none;
@@ -38,6 +38,7 @@
     background: none;
     border: none;
     cursor: pointer;
+    color: red
 }
 
 /* Styling for the paragraph */

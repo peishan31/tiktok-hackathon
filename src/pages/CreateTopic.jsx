@@ -20,20 +20,49 @@ function CreateTopic() {
     const { getCategoryId } = useParams();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [titleError, setTitleError] = useState('');
+    const [contentError, setContentError] = useState('');
     const categoryId = getCategoryId;
+    const [addShopLinkBtnClicked, setAddShopLinkBtnClicked] = useState(false);
+    
+    const handleTitleChange = (e) => {
+        const value = e.target.value;
+        setTitle(value);
+        setTitleError(value.trim() === '' ? 'Title is required' : '');
+    };
+    
+    const handleContentChange = (e) => {
+        const value = e.target.value;
+        setContent(value);
+        setContentError(value.trim() === '' ? 'Content is required' : '');
+    };
 
     const handleSubmit = async () => {
         console.log('Title:', title);
         console.log('Content:', content); 
 
+        if (title.trim() === '') {
+            setTitleError('Title is required');
+            return;
+        }
+
+        if (content.trim() === '') {
+            setContentError('Content is required');
+            return;
+        }
+
         const topicData = {
             topicTitle: title,
             topicContent: content,
             topicShoppingImage: "",
-            author: "jyp",
-            authorImage: "",
+            author: "jacob_w",
+            authorImage: "https://res.cloudinary.com/dlizbxmyz/image/upload/v1694066132/dp_ailrcc.png",
             timestamp: new Date() 
         };
+
+        if (addShopLinkBtnClicked) {
+            topicData.topicShoppingImage = "https://res.cloudinary.com/dlizbxmyz/image/upload/v1693982765/item1_fyy44t.png";
+        }
 
         try {
             const topicCollectionRef = collection(
@@ -46,28 +75,35 @@ function CreateTopic() {
             await addDoc(topicCollectionRef, topicData);
         
             console.log("topic added successfully!");
-        
+            // Navigate back to the previous page
+            window.history.back();
         } catch (error) {
             console.error("Error adding comment: ", error);
         }
     };
 
+    const handleAddShopLink = async () => {
+        setAddShopLinkBtnClicked(true); 
+    };
+
     return (
         <div className="app">
             <div className="container" style={{backgroundColor: '#fff'}}>
-                <TopNavbar className="top-navbar" title="Create Post"/>
+                <TopNavbar className="top-navbar" title="Create Topic"/>
                 <Box sx={{ px: 2 }}>
                     <TextField
                         variant="outlined"
                         margin="normal"
-                        required
+                        
                         fullWidth
                         id="title"
                         label="Title"
                         name="title"
                         autoFocus
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={handleTitleChange}
+                        error={!!titleError}
+                        helperText={titleError}
                     />
                     <TextField
                         variant="outlined"
@@ -80,26 +116,39 @@ function CreateTopic() {
                         label="Content"
                         name="content"
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
+                        onChange={handleContentChange}
+                        error={!!contentError}
+                        helperText={contentError}
                     />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="outlined"
-                        onClick={handleSubmit}
-                        sx={{
-                            marginBottom: "8px",
-                            borderColor: "#EA403F",
-                            color: "#EA403F",
-                            '&:hover': {
-                                backgroundColor: "#EA403F",
-                                color: "white",
-                                borderColor: "#EA403F",
-                            }
-                        }}
-                        >
-                        Add shop link (Optional)
-                        </Button>
+                    {
+                        addShopLinkBtnClicked ? (
+                            <img 
+                                src="https://res.cloudinary.com/dlizbxmyz/image/upload/v1693982765/item1_fyy44t.png" 
+                                alt="Shop Link"
+                                style={{ maxWidth: '40%', marginTop: '10px' }}
+                            />
+                        ):(
+                            <Button
+                            fullWidth
+                            variant="outlined"
+                            onClick={handleAddShopLink}
+                            sx={{
+                                marginBottom: "8px",
+                                borderColor: "black",
+                                color: "black",
+                                textTransform: "none",
+                                '&:hover': {
+                                    backgroundColor: "black",
+                                    color: "white",
+                                    borderColor: "black",
+                                },
+                                marginTop: "8px"
+                            }}
+                            >
+                            Add shop link (Optional)
+                            </Button>
+                        )
+                    }
                     <Button
                         type="submit"
                         fullWidth
@@ -107,14 +156,16 @@ function CreateTopic() {
                         color="primary"
                         onClick={handleSubmit}
                         sx={{
-                            backgroundColor: "#EA403F",  
+                            backgroundColor: "black",  
                             color: "white",             
-                            borderColor: "#EA403F",    
+                            borderColor: "black",  
+                            textTransform: "none",  
                             '&:hover': {
-                                backgroundColor: "transparent",  
-                                color: "#EA403F",               
-                                borderColor: "#EA403F",          
-                            }
+                                backgroundColor: "white",  
+                                color: "black",               
+                                borderColor: "black",          
+                            },
+                            marginTop: "8px"
                         }}
                         >
                         Create

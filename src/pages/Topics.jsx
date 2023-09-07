@@ -13,45 +13,33 @@ import IconButton from '@mui/material/IconButton';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { collection, getDoc, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit } from "firebase/firestore/lite";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Category() {
 
     const { getCategoryId } = useParams();
     const [searchQuery, setSearchQuery] = useState('');
     const categoryId = getCategoryId;
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleClearSearch = () => {
         setSearchQuery('');
     };
     
     const handleSearch = () => {
-        // TODO: Implement the search functionality here
         console.log('Search query:', searchQuery);
-    };
 
-    // const cardContent = [
-    //     {
-    //         id: 1,
-    //         userProfileImage: profilepic,
-    //         username: 'JohnDoe',
-    //         postTitle: '😍Amazing Product!',
-    //         comments: 2,
-    //         productImage: item1,
-    //         date: '5 July 2023 8:30am',
-    //     },
-    //     {
-    //         id: 2,
-    //         userProfileImage: '../images/item1.png',
-    //         username: 'JaneSmith',
-    //         postTitle: '😎Check out this cool item!',
-    //         comments: 5,
-    //         productImage: "",
-    //         date: '3 July 2023 10:30am',
-    //     }
-    // ];
+        // Filter the topics based on the searchQuery
+        const filtered = topics.filter((topic) =>
+            topic.topicTitle.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        setFilteredTopics(filtered); // Update the filteredTopics state with the filtered results
+    };
 
     const [category, setCategory] = useState([]);
     const [topics, setTopics] = useState([]);
+    const [filteredTopics, setFilteredTopics] = useState([]);
 
     useEffect(() => {
 
@@ -88,9 +76,12 @@ function Category() {
                 }
                 console.log("topicsDocumentsData:", JSON.stringify(topicsDocumentsData));
                 setTopics(topicsDocumentsData);
+                setFilteredTopics(topicsDocumentsData);
+                setIsLoading(false); 
             }
             catch (error) {
                 console.error('Error fetching subdocuments:', error);
+                setIsLoading(false);
             }
         }
         fetchSubdocuments();
@@ -100,8 +91,6 @@ function Category() {
         textDecoration: 'none', // Remove underline
         color: 'inherit', // Inherit the color from parent
     };
-
-    const tiktokRedColor = '#EA403F';
 
     return (
         <div className="app">
@@ -117,7 +106,7 @@ function Category() {
                         >
                             <IconButton 
                                 color="secondary"
-                                sx={{ padding: '8px', color: tiktokRedColor }}
+                                sx={{ padding: '8px', color: 'red' }}
                                 >
                                 <AddIcon />
                             </IconButton>
@@ -139,78 +128,54 @@ function Category() {
                         </button>
                         )}
                         <button className="search-button" onClick={handleSearch}>
-                        Search
+                            Search
                         </button>
                     </div>
                     <div className="results-container" style={{ marginTop: '10px'}}>
-                    {topics.length === 0 ? (
-                        <p style={{textAlign: "center"}}>No topics yet. Click '+' to contribute!</p>
-                    ) : (
-                        <div>
-                            {topics.map((topic) => (
+                    {isLoading ? (
+                        <div style={{ textAlign: 'center' }}>
+                            <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
+                        </div>
+                        ) : (
+                        <div className="results-container" style={{ marginTop: '10px' }}>
+                            {filteredTopics.length === 0 ? (
+                            <p style={{ textAlign: "center" }}>No topics yet. Click '+' to contribute!</p>
+                            ) : (
+                            <div>
+                                {filteredTopics.map((topic) => (
                                 <Link
                                     to={`/topics/${categoryId}/${topic.id}`}
                                     style={linkStyle}
+                                    key={topic.id}
                                 >
                                     <Card key={topic.id} variant="outlined" style={{ marginBottom: '10px' }}>
-                                        <CardHeader
-                                            avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
-                                            title={topic.author}
-                                            style={{ paddingRight: '16px' }}
-                                            subheader={topic.timestamp ? topic.timestamp.toDate().toLocaleString() : ''}
+                                    <CardHeader
+                                        avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
+                                        title={topic.author}
+                                        style={{ paddingRight: '16px' }}
+                                        subheader={topic.timestamp ? topic.timestamp.toDate().toLocaleString() : ''}
+                                    />
+                                    <CardContent>
+                                        <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
+                                        {topic.topicShoppingImage ? (
+                                        <img
+                                            src={topic.topicShoppingImage}
+                                            alt="Product"
+                                            style={{ maxWidth: '40%', marginTop: '10px' }}
                                         />
-                                        <CardContent>
-                                            <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
-                                                {topic.topicShoppingImage ? (
-                                                    <img
-                                                    src={topic.topicShoppingImage}
-                                                    alt="Product"
-                                                    style={{ maxWidth: '40%', marginTop: '10px' }}
-                                                    />
-                                                ) : null}
-                                                <br />
-                                                <Typography variant="caption" style={{ marginTop: '10px' }}>
-                                                {topic.commentCount === 0 ? `${topic.commentCount} comment` : `${topic.commentCount} comments`}
-                                            </Typography>
-                                        </CardContent>
+                                        ) : null}
+                                        <br />
+                                        <Typography variant="caption" style={{ marginTop: '10px' }}>
+                                        {topic.commentCount === 0 ? `${topic.commentCount} comment` : `${topic.commentCount} comments`}
+                                        </Typography>
+                                    </CardContent>
                                     </Card>
                                 </Link>
-                            ))}
+                                ))}
+                            </div>
+                            )}
                         </div>
-                    )}
-
-                        
-                        {/* Old Hardcoded*/}
-                        {/* <Link
-                            to="/topic"
-                            style={linkStyle}
-                        >
-                        {cardContent.map((card) => (
-                            <Card key={card.id} variant="outlined" style={{ marginBottom: '10px' }}>
-                            <CardHeader
-                                avatar={<Avatar alt={card.username} src={card.userProfileImage} />}
-                                title={card.username}
-                                subheader={card.date} 
-                                style={{ paddingRight: '16px' }}
-                            />
-                            <CardContent>
-                                <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{card.postTitle}</Typography>
-                                {card.productImage ? (
-                                    <img
-                                    src={card.productImage}
-                                    alt="Product"
-                                    style={{ maxWidth: '40%', marginTop: '10px' }}
-                                    />
-                                ) : null}
-                                <br />
-                                <Typography variant="caption" style={{ marginTop: '10px' }}>
-                                {card.comments} comments
-                                </Typography>
-                            </CardContent>
-                            </Card>
-                        ))}
-                        </Link> */}
-                        {/* Old Hardcoded End*/}
+                        )}
                     </div>
                 </Box>
                 <BottomNavbarWhite className="bottom-navbar-white" />

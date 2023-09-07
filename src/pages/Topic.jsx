@@ -15,6 +15,7 @@ import Popup from './Popup';
 import CreateComment from './CreateComment';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { collection, getDoc, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit } from "firebase/firestore/lite";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Topic() {
     
@@ -23,8 +24,8 @@ function Topic() {
     const topicId = getTopicId;
     const [topic, setTopic] = useState({});
     const [comments, setComments] = useState([]);
-
     const [showPopup, setShowPopup] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleShowPopup = () => {
         console.log("triggered true")
@@ -38,17 +39,18 @@ function Topic() {
     
     const updateComments = async () => {
         console.log("comments added! trigger update")
-
+        setIsLoading(true);
         // Fetch subdocuments frm topic to get comments
         const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
-        const commentsQuerySnapshot = await getDocs(commentsCollectionRef, orderBy('timestamp', 'desc'));
+        const commentsQuerySnapshot = await getDocs(query(commentsCollectionRef, orderBy('timestamp', 'desc')));
         const comments = [];
-
+        setComments([]);
         commentsQuerySnapshot.forEach((commentDoc) => {
             comments.push({ id: commentDoc.id, ...commentDoc.data() });
         });
         console.log("Fetched comments for the topic:", JSON.stringify(comments));
         setComments(comments);
+        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -87,7 +89,7 @@ function Topic() {
                 
                 // Fetch subdocuments frm topic to get comments
                 const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
-                const commentsQuerySnapshot = await getDocs(commentsCollectionRef, orderBy('timestamp', 'desc'));
+                const commentsQuerySnapshot = await getDocs(query(commentsCollectionRef, orderBy('timestamp', 'desc')));
                 const comments = [];
 
                 commentsQuerySnapshot.forEach((commentDoc) => {
@@ -95,9 +97,11 @@ function Topic() {
                 });
                 console.log("Fetched comments for the topic:", JSON.stringify(comments));
                 setComments(comments);
+                setIsLoading(false);
             }
             catch (error) {
                 console.error('Error fetching subdocuments:', error);
+                setIsLoading(false);
             }
         };
         fetchSubdocuments();
@@ -106,7 +110,7 @@ function Topic() {
     return (
         <div className="app">
             <div className="container" style={{backgroundColor: '#fff'}}>
-                <TopNavbar className="top-navbar" title="Fashion"/>
+                <TopNavbar className="top-navbar" title="Threads"/>
                 <Box sx={{ px: 2 }}>
                     <div className="navbar">
                         <h5 style={{ marginBottom: '10px' }}>Keywords</h5>
@@ -128,86 +132,95 @@ function Topic() {
                         </li>
                         </ul>
                     </div>
-                    <div className="post-container" style={{ marginTop: '10px'}}>
-                        <Card key={topic.id} variant="outlined" style={{ marginBottom: '10px' }}>
-                            <CardHeader
-                                avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
-                                title={topic.author}
-                                subheader={
-                                    topic.timestamp 
-                                        ? topic.timestamp
-                                            .toDate()
-                                            .toLocaleString('en-US', { timeZone: 'Asia/Singapore' })
-                                        : ''}
-                                style={{ paddingRight: '16px' }}
-                            />
-                            <CardContent>
-                                <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
-                                {topic.topicShoppingImage && (
-                                <img
-                                    src={topic.topicShoppingImage}
-                                    alt="Product"
-                                    style={{ maxWidth: '40%', marginTop: '10px' }}
-                                />
-                                )}
-                            </CardContent>
-                        </Card>
-                        <div style={{ marginTop: '10px', textAlign: 'center' }}>
-                            <Typography variant="caption">
-                                {comments.length === 0 ? `${comments.length} comment` : `${comments.length} comments`} 
-                            </Typography>
+                    {isLoading ? ( // Conditional rendering based on isLoading
+                        <div style={{ textAlign: 'center' }}>
+                            <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
                         </div>
-                    </div>
-                    <div className="comments-container" style={{ marginTop: '1px'}}>
-                        {comments.length === 0 ? (
-                            <p style={{textAlign: "center"}}>No comments yet...</p>
-                        ):(
-                            <div>
-                                {comments.map((comment) => (
-                                    <Card key={comment.id} variant="outlined" style={{ marginBottom: '10px' }}>
+                    ) : (
+                        <div>
+                            <div className="post-container" style={{ marginTop: '10px'}}>
+                                <Card key={topic.id} variant="outlined" style={{ marginBottom: '10px' }}>
                                     <CardHeader
-                                        avatar={<Avatar alt={comment.author} src={comment.authorImage} />}
-                                        title={comment.author}
-                                        style={{ paddingRight: '16px' }}
+                                        avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
+                                        title={topic.author}
                                         subheader={
                                             topic.timestamp 
-                                            ? topic.timestamp.toDate().toLocaleString()
-                                            : ''}
+                                                ? topic.timestamp
+                                                    .toDate()
+                                                    .toLocaleString('en-US', { timeZone: 'Asia/Singapore' })
+                                                : ''}
+                                        style={{ paddingRight: '16px' }}
                                     />
                                     <CardContent>
-                                        <Typography variant="body1" style={{ marginTop: '-20px', fontSize: '15px' }}>{comment.comment}</Typography>
+                                        <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
+                                        {topic.topicShoppingImage && (
+                                        <img
+                                            src={topic.topicShoppingImage}
+                                            alt="Product"
+                                            style={{ maxWidth: '40%', marginTop: '10px' }}
+                                        />
+                                        )}
                                     </CardContent>
-                                    </Card>
-                                ))}
+                                </Card>
+                                <div style={{ marginTop: '10px', textAlign: 'center' }}>
+                                    <Typography variant="caption">
+                                        {comments.length === 0 ? `${comments.length} comment` : `${comments.length} comments`} 
+                                    </Typography>
+                                </div>
                             </div>
-                        )
-                        }
-                        
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
-                        <Button 
-                            variant="outlined" 
-                            color="primary" 
-                            sx={{ borderColor: 'black', color: 'black' }}
-                            onClick={handleShowPopup}
-                        >
-                            Post Comment
-                        </Button>
-                        {showPopup && (
-                            <CreateComment
-                                message="Post Comment"
-                                onClose={handleClosePopup}
-                                onAdd={updateComments}
-                                categoryID={categoryId}
-                                topicID={topicId}
-                            />
+                            <div className="comments-container" style={{ marginTop: '1px'}}>
+                                {comments.length === 0 ? (
+                                    <p style={{textAlign: "center"}}>No comments yet...</p>
+                                ):(
+                                    <div>
+                                        {comments.map((comment) => (
+                                            <Card key={comment.id} variant="outlined" style={{ marginBottom: '10px' }}>
+                                            <CardHeader
+                                                avatar={<Avatar alt={comment.author} src={comment.authorImage} />}
+                                                title={comment.author}
+                                                style={{ paddingRight: '16px' }}
+                                                subheader={
+                                                    comment.timestamp 
+                                                    ? comment.timestamp.toDate().toLocaleString()
+                                                    : ''}
+                                            />
+                                            <CardContent>
+                                                <Typography variant="body1" style={{ marginTop: '-20px', fontSize: '15px' }}>{comment.comment}</Typography>
+                                            </CardContent>
+                                            </Card>
+                                        ))}
+                                    </div>
+                                )
+                                }
+                                
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
+                                <Button 
+                                    variant="outlined" 
+                                    color="primary" 
+                                    sx={{ borderColor: 'black', color: 'black' }}
+                                    onClick={handleShowPopup}
+                                >
+                                    Post Comment
+                                </Button>
+                                {showPopup && (
+                                    <CreateComment
+                                        message="Post Comment"
+                                        onClose={handleClosePopup}
+                                        onAdd={updateComments}
+                                        categoryID={categoryId}
+                                        topicID={topicId}
+                                    />
+                                )}
+                            </div>
+                        </div>
                         )}
-                    </div>
-                </Box>
-                <BottomNavbarWhite className="bottom-navbar-white" />
+                        
+                    </Box>
+                    <BottomNavbarWhite className="bottom-navbar-white" />
+                </div>
             </div>
-        </div>
-    );
+            );
 }
 
 export default Topic;
