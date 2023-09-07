@@ -52,7 +52,7 @@ export default function TheCard({ parentToChild }) {
 
             <CardContent sx={{ mb: -1 }} >
               <Link to={`/seeWishlistBoard/${item[0].name}/${"1"}`} style={linkStyle}>
-                <img src={item[1][0].img} style={{ height: "150px", width: "100%" }}></img>
+                <img src={item[1][0].img} style={{ height: "120px", width: "100%" }}></img>
 
                 <Typography sx={{ fontSize: 16 }} color="text.primary">
                   {item[0].name}
@@ -68,7 +68,7 @@ export default function TheCard({ parentToChild }) {
         </div>
       }
       )}
-      <Popup2 itemDetails={itemDetail} style={{ width: '20%' }} isOpen={isPopupOpen} onClose={handleClosePopup} />
+      <Popup2 itemDetails={parentToChild[0]} style={{ width: '20%' }} isOpen={isPopupOpen} onClose={handleClosePopup} />
 
     </div>
 

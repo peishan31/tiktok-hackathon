@@ -42,6 +42,8 @@ const Popup2 = ({ isOpen, onClose, itemDetails}) => {
     window.location.reload(false);
 
   }
+if(isOpen){
+
 
   return (
     <Modal className={"popup-modal"} overlayClassName={'popup-overlay'} isOpen={isOpen} onRequestClose={handleCancel} contentLabel="Popup">
@@ -98,6 +100,7 @@ const Popup2 = ({ isOpen, onClose, itemDetails}) => {
       </div>
     </Modal>
   );
+}
 };
 
 export default Popup2;

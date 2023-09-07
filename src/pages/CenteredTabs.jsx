@@ -112,10 +112,10 @@ export default function CenteredTabs() {
               closeFriends.forEach(e => {
                 if(e == element[0].userid){
                   flist.push(element);
+                  closeFriendList.push(element);
                   console.log(e);
                   console.log(element[0].userid);
-                  console.log(closeFriends);
-                  setFriendList(flist);
+                  console.log(closeFriendList);
                   setLoading1(false);
                 }
               });
@@ -169,7 +169,6 @@ export default function CenteredTabs() {
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
             <TheCard parentToChild={wishlist}/>
-            <h3>Close Friends</h3>            
   
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
