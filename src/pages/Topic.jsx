@@ -41,9 +41,9 @@ function Topic() {
 
         // Fetch subdocuments frm topic to get comments
         const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
-        const commentsQuerySnapshot = await getDocs(commentsCollectionRef, orderBy('timestamp', 'desc'));
+        const commentsQuerySnapshot = await getDocs(query(commentsCollectionRef, orderBy('timestamp', 'desc')));
         const comments = [];
-
+        setComments([]);
         commentsQuerySnapshot.forEach((commentDoc) => {
             comments.push({ id: commentDoc.id, ...commentDoc.data() });
         });
@@ -87,7 +87,7 @@ function Topic() {
                 
                 // Fetch subdocuments frm topic to get comments
                 const commentsCollectionRef = collection(db, 'categories', categoryId, 'topics', topicId, 'comments');
-                const commentsQuerySnapshot = await getDocs(commentsCollectionRef, orderBy('timestamp', 'desc'));
+                const commentsQuerySnapshot = await getDocs(query(commentsCollectionRef, orderBy('timestamp', 'desc')));
                 const comments = [];
 
                 commentsQuerySnapshot.forEach((commentDoc) => {
@@ -170,8 +170,8 @@ function Topic() {
                                         title={comment.author}
                                         style={{ paddingRight: '16px' }}
                                         subheader={
-                                            topic.timestamp 
-                                            ? topic.timestamp.toDate().toLocaleString()
+                                            comment.timestamp 
+                                            ? comment.timestamp.toDate().toLocaleString()
                                             : ''}
                                     />
                                     <CardContent>

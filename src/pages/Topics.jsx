@@ -101,8 +101,6 @@ function Category() {
         color: 'inherit', // Inherit the color from parent
     };
 
-    const tiktokRedColor = '#EA403F';
-
     return (
         <div className="app">
             <div className="container" style={{backgroundColor: '#fff'}}>
@@ -117,7 +115,7 @@ function Category() {
                         >
                             <IconButton 
                                 color="secondary"
-                                sx={{ padding: '8px', color: tiktokRedColor }}
+                                sx={{ padding: '8px', color: 'red' }}
                                 >
                                 <AddIcon />
                             </IconButton>
@@ -139,7 +137,7 @@ function Category() {
                         </button>
                         )}
                         <button className="search-button" onClick={handleSearch}>
-                        Search
+                            Search
                         </button>
                     </div>
                     <div className="results-container" style={{ marginTop: '10px'}}>

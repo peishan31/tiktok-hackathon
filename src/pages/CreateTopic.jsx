@@ -46,7 +46,8 @@ function CreateTopic() {
             await addDoc(topicCollectionRef, topicData);
         
             console.log("topic added successfully!");
-        
+            // Navigate back to the previous page
+            window.history.back();
         } catch (error) {
             console.error("Error adding comment: ", error);
         }
@@ -55,7 +56,7 @@ function CreateTopic() {
     return (
         <div className="app">
             <div className="container" style={{backgroundColor: '#fff'}}>
-                <TopNavbar className="top-navbar" title="Create Post"/>
+                <TopNavbar className="top-navbar" title="Create Topic"/>
                 <Box sx={{ px: 2 }}>
                     <TextField
                         variant="outlined"
@@ -89,13 +90,15 @@ function CreateTopic() {
                         onClick={handleSubmit}
                         sx={{
                             marginBottom: "8px",
-                            borderColor: "#EA403F",
-                            color: "#EA403F",
+                            borderColor: "black",
+                            color: "black",
+                            textTransform: "none",
                             '&:hover': {
-                                backgroundColor: "#EA403F",
+                                backgroundColor: "black",
                                 color: "white",
-                                borderColor: "#EA403F",
-                            }
+                                borderColor: "black",
+                            },
+                            marginTop: "8px"
                         }}
                         >
                         Add shop link (Optional)
@@ -107,14 +110,16 @@ function CreateTopic() {
                         color="primary"
                         onClick={handleSubmit}
                         sx={{
-                            backgroundColor: "#EA403F",  
+                            backgroundColor: "black",  
                             color: "white",             
-                            borderColor: "#EA403F",    
+                            borderColor: "black",  
+                            textTransform: "none",  
                             '&:hover': {
-                                backgroundColor: "transparent",  
-                                color: "#EA403F",               
-                                borderColor: "#EA403F",          
-                            }
+                                backgroundColor: "white",  
+                                color: "black",               
+                                borderColor: "black",          
+                            },
+                            marginTop: "8px"
                         }}
                         >
                         Create

@@ -31,9 +31,8 @@ const CreateComment = ({ message, onClose, onAdd, categoryID, topicID }) => {
             author: "jyp",
             authorImage: "",
             comment: comment,
-            timestamp: new Date().toLocaleString('en-US', { timeZone })
+            timestamp: new Date()
         };
-        console.log("timestamp:", commentData.timestamp);
         try {
             const commentCollectionRef = collection(
                 db,
@@ -55,6 +54,7 @@ const CreateComment = ({ message, onClose, onAdd, categoryID, topicID }) => {
         }
 
         setComment('');
+        onClose();
     };
     
     const handleCancel = () => {
