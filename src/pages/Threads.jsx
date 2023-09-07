@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { Box, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Threads() {
 
@@ -18,6 +19,7 @@ function Threads() {
   }
 
   const [categories, setCategories] = useState([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
   useEffect(() => {
 
@@ -33,32 +35,22 @@ function Threads() {
         });
 
         setCategories(categoriesData);
+        setLoadingCategories(false);
         console.log("Categories:", categoriesData); 
       } catch (error) {
         console.error('Error fetching categories:', error);
+        setLoadingCategories(false);
       }
     };
 
-    fetchCategories(); // Fetch categories when the component mounts
+    fetchCategories(); 
   }, []);
 
 
   const linkStyle = {
-        textDecoration: 'none', // Remove underline
-        color: 'inherit', // Inherit the color from parent
+        textDecoration: 'none',
+        color: 'inherit',
     };
-  
-  const buttonStyle = {
-    background: 'transparent',
-    padding: '10px 20px',
-    borderRadius: '25px',
-    fontSize: '16px',
-    color: 'black',
-    boxShadow: '0px 0px 10px rgba(255, 0, 0, 0.5), 0px 0px 10px rgba(0, 128, 128, 0.5)',
-    border: '2px solid transparent',
-    backgroundImage: 'linear-gradient(to right, red, turquoise)',
-    backgroundClip: 'padding-box',
-  };
 
   return (
     <div className="app">
@@ -69,47 +61,76 @@ function Threads() {
             <h5 style={{ marginBottom: '10px', fontSize: 'large', marginTop: '10px' }}>Trending Now</h5>
             <ul className="scrollable-container nav-list">
               <li className="nav-item">
-                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black', borderRight: '5px solid red', borderLeft: '5px solid turquoise' }}>
-                  👚Fashion
-                </Button>
+                <Link to="/topics/V7IvSI0Ae3pvbXS5lnbt">
+                  <Button 
+                    variant="outlined" 
+                    color="primary" 
+                    sx={{ 
+                      borderColor: 'black', 
+                      color: 'black', 
+                      borderRight: '5px solid red', 
+                      borderLeft: '5px solid turquoise',
+                      textTransform: "none"
+                    }}>
+                    Fashion
+                  </Button>
+                </Link>
               </li>
               <li className="nav-item">
-                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black', borderRight: '5px solid red', borderLeft: '5px solid turquoise' }}>
-                  💄Beauty & Personal Care
-                </Button>
+                <Link to="/topics/Dpt1oyBnWOxO1qToHCPB">
+                  <Button 
+                    variant="outlined" 
+                    color="primary" 
+                    sx={{ 
+                      borderColor: 'black', 
+                      color: 'black', 
+                      borderRight: '5px solid red', 
+                      borderLeft: '5px solid turquoise',
+                      textTransform: "none"
+                    }}>
+                    Beauty & Personal Care
+                  </Button>
+                </Link>
               </li>
               <li className="nav-item">
-                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black', borderRight: '5px solid red', borderLeft: '5px solid turquoise' }}>
-                  😋Groceries
-                </Button>
+                <Link to="/topics/9AJvS5R8q3aceLDhVGna">
+                  <Button 
+                    variant="outlined" 
+                    color="primary" 
+                    sx={{ 
+                      borderColor: 'black', 
+                      color: 'black', 
+                      borderRight: '5px solid red', 
+                      borderLeft: '5px solid turquoise',
+                      textTransform: "none"
+                    }}>
+                    Groceries
+                  </Button>
+                </Link>
               </li>
             </ul>
           </div>
           <h5 style={{ marginBottom: '10px', fontSize: 'large', marginTop: '20px' }}>All Categories</h5>
-            {/* {categories.map((category, index) => (
-              <div style={categoryStyle} key={index}>
-                <Link to={`/threads/${category.id}`} style={linkStyle}>
-                  <Typography variant="body1" sx={{ color: 'black' }}>
-                    {category.categoryName}
-                  </Typography>
-                </Link>
-                <Link to={`/threads/${category.id}`} style={linkStyle}>
-                  <ArrowForwardIcon sx={{ color: 'gray' }}/>
-                </Link>
-              </div>
-            ))} */}
-            {categories.map((category, index) => (
-              <Link
-                to={`/topics/${category.id}`}
-                key={index}
-                style={linkStyle}
-              >
-                <div style={categoryStyle} key={index}>
-                  <Typography variant="body1">{category.categoryName}</Typography>
-                  <ArrowForwardIcon style={{ color: 'gray' }} />
+            {loadingCategories ? (
+                <div style={{ textAlign: 'center' }}>
+                  <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
                 </div>
-              </Link>
-            ))}
+              ) : (
+                <div>
+                  {categories.map((category, index) => (
+                    <Link
+                      to={`/topics/${category.id}`}
+                      key={index}
+                      style={linkStyle}
+                    >
+                      <div style={categoryStyle} key={index}>
+                        <Typography variant="body1">{category.categoryName}</Typography>
+                        <ArrowForwardIcon style={{ color: 'gray' }} />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
           </Box>
           <BottomNavbarWhite className="bottom-navbar-white" />
       </div>

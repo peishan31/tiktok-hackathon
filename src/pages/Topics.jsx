@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { collection, getDoc, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit } from "firebase/firestore/lite";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Category() {
 
@@ -21,7 +22,8 @@ function Category() {
     const categoryId = getCategoryId;
 
     const [searchResults, setSearchResults] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
     const handleClearSearch = () => {
         setSearchQuery('');
     };
@@ -77,9 +79,11 @@ function Category() {
                 console.log("topicsDocumentsData:", JSON.stringify(topicsDocumentsData));
                 setTopics(topicsDocumentsData);
                 setFilteredTopics(topicsDocumentsData);
+                setIsLoading(false); 
             }
             catch (error) {
                 console.error('Error fetching subdocuments:', error);
+                setIsLoading(false);
             }
         }
         fetchSubdocuments();
@@ -130,41 +134,50 @@ function Category() {
                         </button>
                     </div>
                     <div className="results-container" style={{ marginTop: '10px'}}>
-                    {filteredTopics.length === 0 ? (
-                        <p style={{textAlign: "center"}}>No topics yet. Click '+' to contribute!</p>
-                    ) : (
-                        <div>
-                            {filteredTopics.map((topic) => (
+                    {isLoading ? (
+                        <div style={{ textAlign: 'center' }}>
+                            <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
+                        </div>
+                        ) : (
+                        <div className="results-container" style={{ marginTop: '10px' }}>
+                            {filteredTopics.length === 0 ? (
+                            <p style={{ textAlign: "center" }}>No topics yet. Click '+' to contribute!</p>
+                            ) : (
+                            <div>
+                                {filteredTopics.map((topic) => (
                                 <Link
                                     to={`/topics/${categoryId}/${topic.id}`}
                                     style={linkStyle}
+                                    key={topic.id}
                                 >
                                     <Card key={topic.id} variant="outlined" style={{ marginBottom: '10px' }}>
-                                        <CardHeader
-                                            avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
-                                            title={topic.author}
-                                            style={{ paddingRight: '16px' }}
-                                            subheader={topic.timestamp ? topic.timestamp.toDate().toLocaleString() : ''}
+                                    <CardHeader
+                                        avatar={<Avatar alt={topic.author} src={topic.authorImage} />}
+                                        title={topic.author}
+                                        style={{ paddingRight: '16px' }}
+                                        subheader={topic.timestamp ? topic.timestamp.toDate().toLocaleString() : ''}
+                                    />
+                                    <CardContent>
+                                        <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
+                                        {topic.topicShoppingImage ? (
+                                        <img
+                                            src={topic.topicShoppingImage}
+                                            alt="Product"
+                                            style={{ maxWidth: '40%', marginTop: '10px' }}
                                         />
-                                        <CardContent>
-                                            <Typography variant="body1" style={{ marginTop: '-20px', fontWeight: 'bold' }}>{topic.topicTitle}</Typography>
-                                                {topic.topicShoppingImage ? (
-                                                    <img
-                                                    src={topic.topicShoppingImage}
-                                                    alt="Product"
-                                                    style={{ maxWidth: '40%', marginTop: '10px' }}
-                                                    />
-                                                ) : null}
-                                                <br />
-                                                <Typography variant="caption" style={{ marginTop: '10px' }}>
-                                                {topic.commentCount === 0 ? `${topic.commentCount} comment` : `${topic.commentCount} comments`}
-                                            </Typography>
-                                        </CardContent>
+                                        ) : null}
+                                        <br />
+                                        <Typography variant="caption" style={{ marginTop: '10px' }}>
+                                        {topic.commentCount === 0 ? `${topic.commentCount} comment` : `${topic.commentCount} comments`}
+                                        </Typography>
+                                    </CardContent>
                                     </Card>
                                 </Link>
-                            ))}
+                                ))}
+                            </div>
+                            )}
                         </div>
-                    )}
+                        )}
                     </div>
                 </Box>
                 <BottomNavbarWhite className="bottom-navbar-white" />
