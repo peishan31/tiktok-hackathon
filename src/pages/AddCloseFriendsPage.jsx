@@ -1,15 +1,29 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import CloseFriendCard from '../pages/AddCloseFriendsCard';
-import '../components/closeFriendsCard.css'
+import '../components/closeFriendsCard.css';
+
+export default function TheCard({ parentToChild, onCheckboxChange}) {
+  const [checkedBoxes, setCheckedBoxes] = useState({});
+
+  const handleCheckboxChange = (friendId, isChecked) => {
+    setCheckedBoxes((prevState) => ({
+      ...prevState,
+      [friendId]: isChecked,
+    }));
+    onCheckboxChange(friendId, isChecked);
+  };
 
 
-export default function TheCard({ parentToChild }) {
-  
   return (
     <div className="product-card-container">
-    {parentToChild.map((friends, index) => (
-      <CloseFriendCard key={index} friend={friends} />
-    ))}
-  </div>
+      {parentToChild.map((friend) => (
+        <CloseFriendCard
+          key={friend.followerid}
+          friend={friend}
+          isChecked={!!checkedBoxes[friend.followerid]}
+          onCheckboxChange={handleCheckboxChange}
+        />
+      ))}
+    </div>
   );
 }

@@ -12,6 +12,7 @@ import ProductCard from './ProductCard';
 import './seeWishlistBoard.css'
 import { useParams } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Link } from 'react-router-dom';
 
 function SeeWishlistBoard() {
   const { getWishlistName, getUserId } = useParams();
@@ -79,6 +80,10 @@ function SeeWishlistBoard() {
       setProducts(productData);
     };
 
+    const linkStyle = {
+      textDecoration: 'none', // Remove the underline
+      color: 'black', // You can also specify the link color
+    };
 
   return (
     <div className="app">
@@ -90,7 +95,9 @@ function SeeWishlistBoard() {
           </div>
         ) : (
           products.map((product, index) => (
+            <Link to="/productList" style={linkStyle}>
             <ProductCard key={index} product={product} />
+            </Link>
           ))
         )}
       <BottomNavbarWhite className="bottom-navbar-white" />
