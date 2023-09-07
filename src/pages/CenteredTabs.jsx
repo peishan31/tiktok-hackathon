@@ -43,6 +43,8 @@ export default function CenteredTabs() {
   };
   const [wishlist, setWishlist] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [isLoading1, setLoading1] = useState(true);
+
 
 
   async function getWishlist() {
@@ -103,6 +105,7 @@ export default function CenteredTabs() {
               wlist.push(element);
               console.log(wlist);
               setWishlist(wlist);
+              setLoading(false);
 
             }
             else{
@@ -113,11 +116,11 @@ export default function CenteredTabs() {
                   console.log(element[0].userid);
                   console.log(closeFriends);
                   setFriendList(flist);
+                  setLoading1(false);
                 }
               });
             }
           })
-          setLoading(false);
           console.log(closeFriends);
 
 
@@ -128,7 +131,7 @@ export default function CenteredTabs() {
     ;
   }
   , []); // Include 'wishlist' in the dependency array
-  if (!isLoading) {
+  if (!isLoading && !isLoading1) {
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -144,6 +147,7 @@ export default function CenteredTabs() {
           <TheCard parentToChild={wishlist}/>
           <h3>Close Friends</h3>
           <TheCardClose parentToChild={closeFriendList}/>
+          
 
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
@@ -151,5 +155,27 @@ export default function CenteredTabs() {
       </CustomTabPanel>
     </Box>
   );
+  }
+  else if(!isLoading){
+    return (
+      <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Tabs value={value} onChange={handleChange} centered>
+          <Tab label={<FontAwesomeIcon icon={faGrip} className='icon'/>} />
+          <Tab label={<FontAwesomeIcon icon={faCartShopping} className='icon'/>} />
+          <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
+        </Tabs>
+        <CustomTabPanel value={value} index={0}>
+          Nothing yet
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+            <TheCard parentToChild={wishlist}/>
+            <h3>Close Friends</h3>            
+  
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+          Nothing yet
+        </CustomTabPanel>
+      </Box>
+    );
   }
 }
