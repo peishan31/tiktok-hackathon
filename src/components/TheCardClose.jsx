@@ -50,7 +50,7 @@ export default function TheCardClose({ parentToChild }) {
           <Card sx={{ width: 1 }} style={{ display: 'inline-block', position: 'relative', border: '2px solid green'}}>
 
             <CardContent sx={{ mb: -1 }} >
-              <Link to={`/seeWishlistBoard/${item[0].name}/${"1"}`} style={linkStyle}>
+              <Link to={`/seeWishlistBoard/${item[0].name}/${item[0].userid}`} style={linkStyle}>
                 <img src={item[1][0].img} style={{ height: "120px", width: "100%" }}></img>
 
                 <Typography sx={{ fontSize: 16 }} color="text.primary">
@@ -60,7 +60,7 @@ export default function TheCardClose({ parentToChild }) {
               <Typography sx={{ fontSize: 12 }} color="text.secondary">
                 {item[0].numOfProds} items
 
-                <FontAwesomeIcon style={{ float: "right", fontSize: "18px" }} icon={faShareNodes} className='icon' />
+                {/* <FontAwesomeIcon style={{ float: "right", fontSize: "18px" }} icon={faShareNodes} className='icon' /> */}
               </Typography>
             </CardContent>
           </Card>

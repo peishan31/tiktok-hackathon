@@ -63,7 +63,7 @@ export default function CenteredTabs() {
         await getDocs(q1)
         .then((querySnapshot)=>{               
             const list = querySnapshot.docs
-                .map((doc) => {
+                .map( (doc) => {
                   let prods = [];
                   getDocs(collection(db, "wishlists/" + doc.id + "/products"))
                     .then((q)=>{               
@@ -76,7 +76,7 @@ export default function CenteredTabs() {
                   console.log(doc.data());        
                   })
               });
-              setWishlist(categories);                
+              // setWishlist(categories);                
               console.log(categories);
               
    }
@@ -94,35 +94,44 @@ export default function CenteredTabs() {
               console.log(doc.data().userid);
             })
 
+            let wlist = [];
+            let flist = [];
+            console.log(wishlist)
+            wishlist.forEach(element => {
+              console.log(element);
+  
+              if(element[0].userid == userId){
+                wlist.push(element);
+                console.log(wlist);
+                setWishlist(wlist);
+                
+  
+              }
+              else{
+                closeFriends.forEach(e => {
+                  if(e == element[0].userid){
+                    flist.push(element);
+                    closeFriendList.push(element);
+                    console.log(e);
+                    console.log(element[0].userid);
+                    console.log(closeFriendList);
+                    setLoading1(false);
+                  }
+                });
+              }
+            })
+            // wishlist.length = 0;
+            // wishlist.push(wlist);
+            console.log(wishlist);
+            setTimeout(()=> {
+              setLoading(false);
+            },2000);
+            console.log(closeFriends);
+          
+          
           });
           
-          let wlist = [];
-          let flist = [];
-          console.log(wishlist)
-          wishlist.forEach(element => {
-            console.log(element);
-
-            if(element[0].userid == userId){
-              wlist.push(element);
-              console.log(wlist);
-              setWishlist(wlist);
-              setLoading(false);
-
-            }
-            else{
-              closeFriends.forEach(e => {
-                if(e == element[0].userid){
-                  flist.push(element);
-                  closeFriendList.push(element);
-                  console.log(e);
-                  console.log(element[0].userid);
-                  console.log(closeFriendList);
-                  setLoading1(false);
-                }
-              });
-            }
-          })
-          console.log(closeFriends);
+          
 
 
 }

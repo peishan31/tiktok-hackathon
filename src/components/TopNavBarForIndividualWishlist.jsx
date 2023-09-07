@@ -20,7 +20,7 @@ function TopNavBarForIndividualWishlist ({ name }) {
     <div className="top-navbar-profile">
       <FontAwesomeIcon icon={faLessThan} className='icon' style={iconBlack} onClick={handleGoBack} />
       <h2>{name}</h2>
-      <FontAwesomeIcon icon={faEllipsis} className='icon' />
+      <FontAwesomeIcon icon={faEllipsis} style={{color: 'white'}} className='icon' />
     </div>
   );
 };

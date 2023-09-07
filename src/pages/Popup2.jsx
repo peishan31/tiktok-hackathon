@@ -15,9 +15,12 @@ const Popup2 = ({ isOpen, onClose, itemDetails}) => {
   useEffect(()=>{
     //call your increment function here
 
+      console.log(itemDetails);
       setSelectedOption(itemDetails[0].visible);
+    
 
-    console.log(itemDetails);
+
+
 },[itemDetails])
 
   const handleOptionChange = (e) => {
