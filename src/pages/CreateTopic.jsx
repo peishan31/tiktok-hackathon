@@ -20,20 +20,49 @@ function CreateTopic() {
     const { getCategoryId } = useParams();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [titleError, setTitleError] = useState('');
+    const [contentError, setContentError] = useState('');
     const categoryId = getCategoryId;
+    const [addShopLinkBtnClicked, setAddShopLinkBtnClicked] = useState(false);
+    
+    const handleTitleChange = (e) => {
+        const value = e.target.value;
+        setTitle(value);
+        setTitleError(value.trim() === '' ? 'Title is required' : '');
+    };
+    
+    const handleContentChange = (e) => {
+        const value = e.target.value;
+        setContent(value);
+        setContentError(value.trim() === '' ? 'Content is required' : '');
+    };
 
     const handleSubmit = async () => {
         console.log('Title:', title);
         console.log('Content:', content); 
 
+        if (title.trim() === '') {
+            setTitleError('Title is required');
+            return;
+        }
+
+        if (content.trim() === '') {
+            setContentError('Content is required');
+            return;
+        }
+
         const topicData = {
             topicTitle: title,
             topicContent: content,
             topicShoppingImage: "",
-            author: "jyp",
-            authorImage: "",
+            author: "jacob_w",
+            authorImage: "https://res.cloudinary.com/dlizbxmyz/image/upload/v1694066132/dp_ailrcc.png",
             timestamp: new Date() 
         };
+
+        if (addShopLinkBtnClicked) {
+            topicData.topicShoppingImage = "https://res.cloudinary.com/dlizbxmyz/image/upload/v1693982765/item1_fyy44t.png";
+        }
 
         try {
             const topicCollectionRef = collection(
@@ -53,6 +82,10 @@ function CreateTopic() {
         }
     };
 
+    const handleAddShopLink = async () => {
+        setAddShopLinkBtnClicked(true); 
+    };
+
     return (
         <div className="app">
             <div className="container" style={{backgroundColor: '#fff'}}>
@@ -61,14 +94,16 @@ function CreateTopic() {
                     <TextField
                         variant="outlined"
                         margin="normal"
-                        required
+                        
                         fullWidth
                         id="title"
                         label="Title"
                         name="title"
                         autoFocus
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={handleTitleChange}
+                        error={!!titleError}
+                        helperText={titleError}
                     />
                     <TextField
                         variant="outlined"
@@ -81,28 +116,39 @@ function CreateTopic() {
                         label="Content"
                         name="content"
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
+                        onChange={handleContentChange}
+                        error={!!contentError}
+                        helperText={contentError}
                     />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="outlined"
-                        onClick={handleSubmit}
-                        sx={{
-                            marginBottom: "8px",
-                            borderColor: "black",
-                            color: "black",
-                            textTransform: "none",
-                            '&:hover': {
-                                backgroundColor: "black",
-                                color: "white",
+                    {
+                        addShopLinkBtnClicked ? (
+                            <img 
+                                src="https://res.cloudinary.com/dlizbxmyz/image/upload/v1693982765/item1_fyy44t.png" 
+                                alt="Shop Link"
+                                style={{ maxWidth: '40%', marginTop: '10px' }}
+                            />
+                        ):(
+                            <Button
+                            fullWidth
+                            variant="outlined"
+                            onClick={handleAddShopLink}
+                            sx={{
+                                marginBottom: "8px",
                                 borderColor: "black",
-                            },
-                            marginTop: "8px"
-                        }}
-                        >
-                        Add shop link (Optional)
-                        </Button>
+                                color: "black",
+                                textTransform: "none",
+                                '&:hover': {
+                                    backgroundColor: "black",
+                                    color: "white",
+                                    borderColor: "black",
+                                },
+                                marginTop: "8px"
+                            }}
+                            >
+                            Add shop link (Optional)
+                            </Button>
+                        )
+                    }
                     <Button
                         type="submit"
                         fullWidth

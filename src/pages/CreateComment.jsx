@@ -28,8 +28,8 @@ const CreateComment = ({ message, onClose, onAdd, categoryID, topicID }) => {
         const timeZone = 'Asia/Singapore';
 
         const commentData = {
-            author: "jyp",
-            authorImage: "",
+            author: "jacob_w",
+            authorImage: "https://res.cloudinary.com/dlizbxmyz/image/upload/v1694066132/dp_ailrcc.png",
             comment: comment,
             timestamp: new Date()
         };
