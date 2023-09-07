@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import CloseFriendCard from '../pages/closeFriendsCard';
-import './closeFriendsCard.css'
+import CloseFriendCard from '../pages/AddCloseFriendsCard';
+import '../components/closeFriendsCard.css'
 
 
 export default function TheCard({ parentToChild }) {

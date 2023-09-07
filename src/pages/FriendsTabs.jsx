@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TheCard from '../components/CloseFriendlist';
 import db from "../config/firebase";
 import { useEffect, useState, useRef } from 'react';
-import { collection, getDocs,query,where } from "firebase/firestore/lite";
+import { collection, getDocs, query, where } from "firebase/firestore/lite";
 import getUsersData from "./getUsersData"; // Adjust the import path as needed
 
 function CustomTabPanel(props) {
@@ -44,22 +44,22 @@ export default function CenteredTabs() {
 
   const fetchPost = async () => {
     try {
-        const wishlistsCollection = collection(db, 'followers');
-        const q = query(wishlistsCollection, where('userid', '==', userId), where('closeFriend', '==', true));
+      const wishlistsCollection = collection(db, 'followers');
+      const q = query(wishlistsCollection, where('userid', '==', userId), where('closeFriend', '==', true));
 
-        const querySnapshot = await getDocs(q);
-        const data = querySnapshot.docs.map((doc) => {
-          var data = doc.data()
-          closeFriendsID.push(data.followerid);
+      const querySnapshot = await getDocs(q);
+      const data = querySnapshot.docs.map((doc) => {
+        var data = doc.data()
+        closeFriendsID.push(data.followerid);
       });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }   
-}
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
-useEffect(() => {
+  useEffect(() => {
     let userDataArray;
-  
+
     fetchPost()
       .then((data) => {
         console.log(closeFriendsID);
@@ -81,39 +81,39 @@ useEffect(() => {
         console.error("Error:", error);
         // Handle any other errors that might occur during data retrieval
       });
-      
+
   }, []); // Include 'wishlist' in the dependency array
-  
+
   // Now userDataArray is accessible outside the promise chain
-  
-  
+
+
   if (!isLoading) {
     console.log(closeFriendslist);
-  return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      <Tabs value={value} onChange={handleChange} centered>
-        <Tab label={'Following'} />
-        <Tab label={'Followers'} />
-        <Tab label={'Friends'} />
-        <Tab label={'Close Friends'} />
-        <Tab label={'Suggested'} />
-      </Tabs>
-      <CustomTabPanel value={value} index={0}>
-        Nothing yet
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+    return (
+      <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Tabs value={value} onChange={handleChange} centered>
+          <Tab label={'Following'} />
+          <Tab label={'Followers'} />
+          <Tab label={'Friends'} />
+          <Tab label={'Close Friends'} />
+          <Tab label={'Suggested'} />
+        </Tabs>
+        <CustomTabPanel value={value} index={0}>
+          Nothing yet
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
           Followers list here
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
           Friends list here
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        <TheCard parentToChild={closeFriendslist}/>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
-        Nothing yet
-      </CustomTabPanel>
-    </Box>
-  );
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={3}>
+          <TheCard parentToChild={closeFriendslist} />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={4}>
+          Nothing yet
+        </CustomTabPanel>
+      </Box>
+    );
   }
 }

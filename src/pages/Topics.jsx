@@ -1,4 +1,4 @@
-import BottomNavbar from '../components/BottomNavbar';
+import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import TopNavbar from '../components/DefaultTopNavbar';
 import db from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
@@ -213,6 +213,7 @@ function Category() {
                         {/* Old Hardcoded End*/}
                     </div>
                 </Box>
+                <BottomNavbarWhite className="bottom-navbar-white" />
             </div>
         </div>
     );
