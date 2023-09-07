@@ -106,7 +106,7 @@ function Topic() {
     return (
         <div className="app">
             <div className="container" style={{backgroundColor: '#fff'}}>
-                <TopNavbar className="top-navbar" title="Fashion"/>
+                <TopNavbar className="top-navbar" title="Threads"/>
                 <Box sx={{ px: 2 }}>
                     <div className="navbar">
                         <h5 style={{ marginBottom: '10px' }}>Keywords</h5>

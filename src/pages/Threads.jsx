@@ -17,28 +17,6 @@ function Threads() {
     marginBottom: '10px'
   }
 
-  /*const categories = [
-    'Accessories',
-    'Automotive & Motorcycles',
-    'Baby & Kids',
-    'Beauty & Personal Care',
-    'Books & Stationery',
-    'Electronics',
-    'Fashion',
-    'Groceries',
-    'Health & Wellness',
-    'Home & Living',
-    'Jewelry',
-    "Men's Clothing",
-    'Mobile & Gadgets',
-    'Motors',
-    'Pets',
-    'Sports & Outdoors',
-    'Toys & Games',
-    'TV, Audio / Video, Gaming & Wearables',
-    "Women's Clothing",
-    'Watches',
-  ];*/
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -69,6 +47,18 @@ function Threads() {
         textDecoration: 'none', // Remove underline
         color: 'inherit', // Inherit the color from parent
     };
+  
+  const buttonStyle = {
+    background: 'transparent',
+    padding: '10px 20px',
+    borderRadius: '25px',
+    fontSize: '16px',
+    color: 'black',
+    boxShadow: '0px 0px 10px rgba(255, 0, 0, 0.5), 0px 0px 10px rgba(0, 128, 128, 0.5)',
+    border: '2px solid transparent',
+    backgroundImage: 'linear-gradient(to right, red, turquoise)',
+    backgroundClip: 'padding-box',
+  };
 
   return (
     <div className="app">
@@ -76,26 +66,26 @@ function Threads() {
         <TopNavbar className="top-navbar" title="Threads"/>
         <Box sx={{ px: 2 }}>
           <div className="navbar">
-            <h5 style={{ marginBottom: '10px' }}>Trending Now</h5>
+            <h5 style={{ marginBottom: '10px', fontSize: 'large', marginTop: '10px' }}>Trending Now</h5>
             <ul className="scrollable-container nav-list">
               <li className="nav-item">
-                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black' }}>
+                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black', borderRight: '5px solid red', borderLeft: '5px solid turquoise' }}>
                   👚Fashion
                 </Button>
               </li>
               <li className="nav-item">
-                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black' }}>
+                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black', borderRight: '5px solid red', borderLeft: '5px solid turquoise' }}>
                   💄Beauty & Personal Care
                 </Button>
               </li>
               <li className="nav-item">
-                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black' }}>
+                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black', borderRight: '5px solid red', borderLeft: '5px solid turquoise' }}>
                   😋Groceries
                 </Button>
               </li>
             </ul>
           </div>
-          <h5 style={{ marginBottom: '10px' }}>All Categories</h5>
+          <h5 style={{ marginBottom: '10px', fontSize: 'large', marginTop: '20px' }}>All Categories</h5>
             {/* {categories.map((category, index) => (
               <div style={categoryStyle} key={index}>
                 <Link to={`/threads/${category.id}`} style={linkStyle}>
