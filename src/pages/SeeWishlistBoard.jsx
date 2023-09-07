@@ -11,6 +11,7 @@ import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import ProductCard from './ProductCard';
 import './seeWishlistBoard.css'
 import { useParams } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function SeeWishlistBoard() {
   const { getWishlistName, getUserId } = useParams();
@@ -18,6 +19,7 @@ function SeeWishlistBoard() {
   const wishlistName = getWishlistName;
   var likedProdId = [];
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getWishlist = async () => {
     const wishlistsCollection = collection(db, 'wishlists');
@@ -47,9 +49,11 @@ function SeeWishlistBoard() {
     getWishlist()
       .then(() => {
         fetchProducts();
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Error:', error);
+        setIsLoading(false);
       });
   }, []); // Include 'wishlist' in the dependency array
   
@@ -80,13 +84,16 @@ function SeeWishlistBoard() {
     <div className="app">
       <div className="container">
         <TopNavBarForIndividualWishlist className="top-navbar" name={wishlistName}/>
-        <div className="product-card-container">
-        {products.map((product, index) => (
-          <ProductCard key={index} product={product} />
-        ))}
-      </div>
+        {isLoading ? (
+          <div style={{ textAlign: 'center' }}>
+            <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
+          </div>
+        ) : (
+          products.map((product, index) => (
+            <ProductCard key={index} product={product} />
+          ))
+        )}
       <BottomNavbarWhite className="bottom-navbar-white" />
-      
       </div>
     </div>
   );

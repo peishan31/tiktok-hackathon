@@ -20,8 +20,6 @@ function Category() {
     const { getCategoryId } = useParams();
     const [searchQuery, setSearchQuery] = useState('');
     const categoryId = getCategoryId;
-
-    const [searchResults, setSearchResults] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const handleClearSearch = () => {
