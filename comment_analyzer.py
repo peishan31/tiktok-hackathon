@@ -17,8 +17,8 @@ CORS(app)
 
 def process_comments(comments): # goal is to get top 2's most positive and negative keywords
     keyword_count = defaultdict(int)
-    positive_comments = []
-    negative_comments = []
+    positive_keywords = []
+    negative_keywords = []
 
     for comment in comments:
         # VADER to analyze sentiment
@@ -32,39 +32,46 @@ def process_comments(comments): # goal is to get top 2's most positive and negat
 
         # categorize comments: whether they r positive/negative
         if compound_score >= 0.05:
-            positive_comments.append(comment)
+            positive_keywords.extend(keywords)
         else:
-            negative_comments.append(comment)
-        
+            negative_keywords.extend(keywords)
+
         # Count keywords
         for keyword in keywords:
             keyword_count[keyword] += 1
 
-    # top 2 most positive and negative keywords + their counts
-    #top_2_positive = sorted(keyword_count, key=keyword_count.get, reverse=True)[:3]
-    #top_2_negative = sorted(keyword_count, key=keyword_count.get, reverse=False)[:3]
-    top_2_positive = [
+    # avoid having the same keywords in both positive and negative keywords
+    # calculate the intersection between positive and negative keywords
+    common_keywords = set(positive_keywords) & set(negative_keywords)
+
+    # if too many common keywords, reduce the number displayed
+    max_common_keywords = 2  # Adjust as needed
+    if len(common_keywords) > max_common_keywords:
+        common_keywords = set()
+
+    # get the remaining positive and negative keywords
+    remaining_positive = [
         {"keyword": keyword, "count": keyword_count[keyword]}
-        for keyword in sorted(keyword_count, key=keyword_count.get, reverse=True)[:2]
+        for keyword in sorted(set(positive_keywords) - common_keywords, key=lambda k: keyword_count[k], reverse=True)[:2]
     ]
-    
-    top_2_negative = [
+
+    remaining_negative = [
         {"keyword": keyword, "count": keyword_count[keyword]}
-        for keyword in sorted(keyword_count, key=keyword_count.get, reverse=False)[:2]
+        for keyword in sorted(set(negative_keywords) - common_keywords, key=lambda k: keyword_count[k], reverse=True)[:2]
     ]
 
     return {
-        "top_2_positive_keywords": top_2_positive,
-        "top_2_negative_keywords": top_2_negative
+        "positive_keywords": remaining_positive,
+        "negative_keywords": remaining_negative
     }
 
 # comments = [
-#     "Expensive fit. Big disappointment.",
+#     "Expensive fit. A bit disappointed.",
 #     "Affordable price and great quality. Highly recommended!",
 #     "I love this! It's so cute and comfortable. I'm buying another one in blue.",
-#     "I'm not sure about this. It's a bit too short for me.",
+#     "I'm not sure about this. It's a bit too short for me. How ugly",
 #     "No way am I buying it again",
-#     "Boohoo how sad, this is so ugly.",
+#     "Boohoo how sad, this is so ugly. I'm disappointed.",
 #     "So cute! I love it!",
 #     "OMG! This dress is soooo cute! I love it!",
 #     "Yipee! I'm so happy with this!"

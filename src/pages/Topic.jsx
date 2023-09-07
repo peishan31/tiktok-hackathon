@@ -27,6 +27,8 @@ function Topic() {
     const [comments, setComments] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [negativeKeywords, setNegativeKeywords] = useState([]);
+    const [positiveKeywords, setPositiveKeywords] = useState([]);
 
     const handleShowPopup = () => {
         console.log("triggered true")
@@ -114,6 +116,10 @@ function Topic() {
 
             const response = await axios.post('http://localhost:5000/analyzeComments', { commentsList: commentList });
             console.log("response:", response.data);
+            if (response.data) {
+                setNegativeKeywords(response.data.negative_keywords);
+                setPositiveKeywords(response.data.positive_keywords);
+            }
 
             setComments(comments);
             setIsLoading(false);
@@ -131,7 +137,7 @@ function Topic() {
                     <div className="navbar">
                         <h5 style={{ marginBottom: '10px' }}>Keywords</h5>
                         <ul className="scrollable-container nav-list">
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black' }}>
                                 All
                             </Button>
@@ -145,7 +151,24 @@ function Topic() {
                             <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black' }}>
                                 Affordables
                             </Button>
-                        </li>
+                        </li> */}
+                        <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black' }}>
+                            All
+                        </Button>
+                        {positiveKeywords && positiveKeywords.map((keyword) => (
+                            <li className="nav-item">
+                                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black' }}>
+                                    {keyword.keyword}
+                                </Button>
+                            </li>
+                        ))}
+                        {negativeKeywords && negativeKeywords.map((keyword) => (
+                            <li className="nav-item">
+                                <Button variant="outlined" color="primary" sx={{ borderColor: 'black', color: 'black' }}>
+                                    {keyword.keyword}
+                                </Button>
+                            </li>
+                        ))}
                         </ul>
                     </div>
                     {isLoading ? ( // Conditional rendering based on isLoading
