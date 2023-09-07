@@ -46,13 +46,13 @@ export default function TheCard({ parentToChild }) {
   return (
     <div>
       {parentToChild.map((item, i) => {
-        return <div key={i} style={{ display: 'inline-block', marginLeft: '15px', marginRight: '15px' }}>
+        return <div key={i} style={{ display: 'inline-block', marginLeft: '15px', marginRight: '15px', width: '40%' }}>
           <Card sx={{ width: 1 }} style={{ display: 'inline-block', position: 'relative' }}>
             <button onClick={() => handleOpenPopup(item)} style={{ position: 'absolute', right: '0', marginRight: '2px', marginTop: '5px', border: '0', backgroundColor: 'transparent' }}><FontAwesomeIcon icon={faEllipsisVertical} className='icon' style={{ float: "right", fontSize: "18px" }} /></button>
 
             <CardContent sx={{ mb: -1 }} >
               <Link to={`/seeWishlistBoard/${item[0].name}/${"1"}`} style={linkStyle}>
-                <img src={item1} style={{ height: "150px", width: "100%" }}></img>
+                <img src={item[1][0].img} style={{ height: "150px", width: "100%" }}></img>
 
                 <Typography sx={{ fontSize: 16 }} color="text.primary">
                   {item[0].name}

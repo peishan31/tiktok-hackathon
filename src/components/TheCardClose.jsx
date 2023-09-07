@@ -46,12 +46,12 @@ export default function TheCardClose({ parentToChild }) {
   return (
     <div>
       {parentToChild.map((item, i) => {
-        return <div key={i} style={{ display: 'inline-block', marginLeft: '13px', marginRight: '13px' }}>
+        return <div key={i} style={{ display: 'inline-block', marginLeft: '13px', marginRight: '13px', width: '40%' }}>
           <Card sx={{ width: 1 }} style={{ display: 'inline-block', position: 'relative', border: '2px solid green'}}>
 
             <CardContent sx={{ mb: -1 }} >
               <Link to={`/seeWishlistBoard/${item[0].name}/${"1"}`} style={linkStyle}>
-                <img src={item1} style={{ height: "150px", width: "100%" }}></img>
+                <img src={item[1][0].img} style={{ height: "150px", width: "100%" }}></img>
 
                 <Typography sx={{ fontSize: 16 }} color="text.primary">
                   {item[0].name}
