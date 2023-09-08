@@ -89,88 +89,90 @@ function CreateTopic() {
     return (
         <div className="app">
             <div className="container" style={{backgroundColor: '#fff'}}>
-                <TopNavbar className="top-navbar" title="Create Topic"/>
-                <Box sx={{ px: 2 }}>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        
-                        fullWidth
-                        id="title"
-                        label="Title"
-                        name="title"
-                        autoFocus
-                        value={title}
-                        onChange={handleTitleChange}
-                        error={!!titleError}
-                        helperText={titleError}
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        multiline
-                        rows={4}
-                        id="content"
-                        label="Content"
-                        name="content"
-                        value={content}
-                        onChange={handleContentChange}
-                        error={!!contentError}
-                        helperText={contentError}
-                    />
-                    {
-                        addShopLinkBtnClicked ? (
-                            <img 
-                                src="https://res.cloudinary.com/dlizbxmyz/image/upload/v1693982765/item1_fyy44t.png" 
-                                alt="Shop Link"
-                                style={{ maxWidth: '40%', marginTop: '10px' }}
-                            />
-                        ):(
-                            <Button
-                            fullWidth
+                <div className="minHeight">
+                    <TopNavbar className="top-navbar" title="Create Topic"/>
+                    <Box sx={{ px: 2 }}>
+                        <TextField
                             variant="outlined"
-                            onClick={handleAddShopLink}
-                            sx={{
-                                marginBottom: "8px",
-                                borderColor: "black",
-                                color: "black",
-                                textTransform: "none",
-                                '&:hover': {
-                                    backgroundColor: "black",
-                                    color: "white",
+                            margin="normal"
+                            
+                            fullWidth
+                            id="title"
+                            label="Title"
+                            name="title"
+                            autoFocus
+                            value={title}
+                            onChange={handleTitleChange}
+                            error={!!titleError}
+                            helperText={titleError}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            multiline
+                            rows={4}
+                            id="content"
+                            label="Content"
+                            name="content"
+                            value={content}
+                            onChange={handleContentChange}
+                            error={!!contentError}
+                            helperText={contentError}
+                        />
+                        {
+                            addShopLinkBtnClicked ? (
+                                <img 
+                                    src="https://res.cloudinary.com/dlizbxmyz/image/upload/v1693982765/item1_fyy44t.png" 
+                                    alt="Shop Link"
+                                    style={{ maxWidth: '40%', marginTop: '10px' }}
+                                />
+                            ):(
+                                <Button
+                                fullWidth
+                                variant="outlined"
+                                onClick={handleAddShopLink}
+                                sx={{
+                                    marginBottom: "8px",
                                     borderColor: "black",
+                                    color: "black",
+                                    textTransform: "none",
+                                    '&:hover': {
+                                        backgroundColor: "black",
+                                        color: "white",
+                                        borderColor: "black",
+                                    },
+                                    marginTop: "8px"
+                                }}
+                                >
+                                Add shop link (Optional)
+                                </Button>
+                            )
+                        }
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            onClick={handleSubmit}
+                            sx={{
+                                backgroundColor: "black",  
+                                color: "white",             
+                                borderColor: "black",  
+                                textTransform: "none",  
+                                '&:hover': {
+                                    backgroundColor: "white",  
+                                    color: "black",               
+                                    borderColor: "black",          
                                 },
                                 marginTop: "8px"
                             }}
                             >
-                            Add shop link (Optional)
+                            Create
                             </Button>
-                        )
-                    }
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        onClick={handleSubmit}
-                        sx={{
-                            backgroundColor: "black",  
-                            color: "white",             
-                            borderColor: "black",  
-                            textTransform: "none",  
-                            '&:hover': {
-                                backgroundColor: "white",  
-                                color: "black",               
-                                borderColor: "black",          
-                            },
-                            marginTop: "8px"
-                        }}
-                        >
-                        Create
-                        </Button>
-                </Box>
+                    </Box>
+                </div>
                 <BottomNavbarWhite className="bottom-navbar-white" />
             </div>
         </div>
