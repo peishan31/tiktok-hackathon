@@ -22,11 +22,15 @@ import FriendsList from "./pages/FriendsList";
 import AddCloseFriends from './pages/AddCloseFriends'
 import SignIn from './pages/SignIn';
 import { UserProvider } from "./userContext";
+import { UsernameProvider } from "./usernameContext";
+
 function App() {
   return (
     
     <>
     <UserProvider>
+    <UsernameProvider>
+
       {/* This is the alias of BrowserRouter i.e. Router */}
       <Router>
         <Switch>
@@ -49,6 +53,8 @@ function App() {
           <Route exact path="/addCloseFriends" component={AddCloseFriends} />
           </Switch>
       </Router>
+      </UsernameProvider>
+
       </UserProvider>
     </>
   );

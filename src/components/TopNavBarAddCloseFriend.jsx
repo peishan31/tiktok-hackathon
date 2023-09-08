@@ -7,8 +7,14 @@ import { Link } from 'react-router-dom';
 import { db } from "../config/firebase";
 import { doc, updateDoc, query, collection, where, getDocs } from 'firebase/firestore/lite';
 import PopupMessage from '../pages/PopupMessage';
+import { useUser } from "../userContext";
+import { useUsername } from "../usernameContext";
+
 const TopNavbarProfile = (AddCloseFriendsList) => {
-    const userId = '1';
+    const { user } = useUser();
+    const { username } = useUsername();
+    const userId = user.value; // Specify the user ID
+    const userName = username.value2; // Specify the user ID
     const history = useHistory();
     const [msg, setMsg] = useState('');
 
@@ -61,7 +67,7 @@ const TopNavbarProfile = (AddCloseFriendsList) => {
         <div className="top-navbar-profile">
             <PopupMessage message={msg} />
             <FontAwesomeIcon icon={faLessThan} className='icon' onClick={handleGoBack} />
-            <h2>jacob_w   <FontAwesomeIcon icon={faCaretDown} className='icon' /></h2>
+            <h2>{userName}   <FontAwesomeIcon icon={faCaretDown} className='icon' /></h2>
             <FontAwesomeIcon icon={faCheck} className='icon' onClick={handleUpdateButtonClick} />
             {/* <Link to="/addCloseFriends">
             </Link> */}

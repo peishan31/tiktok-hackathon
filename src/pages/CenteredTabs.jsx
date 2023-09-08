@@ -11,6 +11,8 @@ import { useEffect, useState, useRef } from 'react';
 import { collection, getDocs, where, query } from "firebase/firestore/lite";
 import TheCardClose from '../components/TheCardClose';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useUser } from "../userContext";
+import { useUsername } from "../usernameContext";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -33,8 +35,12 @@ function CustomTabPanel(props) {
 }
 
 export default function CenteredTabs() {
+  const { user } = useUser();
+  const { username } = useUsername();
+  const userId = user.value; // Specify the user ID
+  const userName = username.value2; // Specify the user ID
+
   const [value, setValue] = React.useState(1);
-  const userId = '1'; // Specify the user ID
   const [closeFriends, setFriends] = useState([]); 
   const [closeFriendList, setFriendList] = useState([]); 
 
@@ -178,7 +184,7 @@ export default function CenteredTabs() {
         <CustomTabPanel value={value} index={0}>
           <div style={{height: '500px'}}>Nothing yet</div>
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
+        <CustomTabPanel value={value} style={{minHeight: '500px'}} index={1}>
             <TheCard parentToChild={wishlist}/>
   
         </CustomTabPanel>

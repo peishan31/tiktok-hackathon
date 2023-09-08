@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useHistory } from 'react-router-dom';
 import PopupMessage from '../pages/PopupMessage';
 import { useUser } from "../userContext"; // Import the useUser hook
+import { useUsername } from "../usernameContext"; // Import the useUser hook
 import { db } from "../config/firebase";
 import { doc, updateDoc, query, collection, where, getDocs } from 'firebase/firestore/lite';
 
@@ -15,6 +16,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState('');
   const { setUser } = useUser(); // Access the setUser function from the context
+  const { setUsername } = useUsername(); // Access the setUser function from the context
 
 
   const handleSignIn = async (e) => {
@@ -26,8 +28,12 @@ const SignIn = () => {
       const user = userCredential.user;
       const uid = user.uid;
       // Set the user's UID in the context
-      getDocumentIdByUuid(uid).then((value)=> {
-        setUser({ value });
+      getDocumentIdByUuid(uid).then((v)=> {
+        const value = v[0];
+        const value2 = v[1];
+        setUser( {value} );
+        setUsername( {value2} );
+
         setMsg('Log in successfully!');
       setTimeout(function () {
         // After 3 seconds, go back in history
@@ -52,7 +58,7 @@ const SignIn = () => {
       }
   
       // Assuming there is only one document with the given UUID, you can access its ID like this:
-      const documentId = querySnapshot.docs[0].id;
+      const documentId = [querySnapshot.docs[0].id, querySnapshot.docs[0].data().username];
       return documentId;
     } catch (error) {
       console.error("Error getting document ID:", error);
