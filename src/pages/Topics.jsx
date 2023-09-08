@@ -166,7 +166,7 @@ function Category() {
                                         ) : null}
                                         <br />
                                         <Typography variant="caption" style={{ marginTop: '10px' }}>
-                                        {topic.commentCount === 0 ? `${topic.commentCount} comment` : `${topic.commentCount} comments`}
+                                        {topic.commentCount <= 1 ? `${topic.commentCount} comment` : `${topic.commentCount} comments`}
                                         </Typography>
                                     </CardContent>
                                     </Card>
