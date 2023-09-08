@@ -38,6 +38,7 @@ function App() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/shop" component={Shop} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/profile/:followerid/:followerUsername" component={Profile} />
           <Route exact path="/threads" component={Threads} />
           <Route exact path="/SavedItems" component={SavedItems} />
           <Route exact path="/wishlist" component={Wishlist} />

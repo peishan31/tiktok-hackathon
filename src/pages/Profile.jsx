@@ -13,14 +13,41 @@ import CenteredTabs from './CenteredTabs';
 import { Link } from 'react-router-dom';
 import { useUser } from "../userContext";
 import { useUsername } from "../usernameContext";
+import { useParams } from 'react-router-dom';
 
 function Profile() {
+  const { followerid, followerUsername } = useParams();
   const { user } = useUser();
   const { username } = useUsername();
   const userId = user.value; // Specify the user ID
   const userName = username.value2; // Specify the user ID
-
+if(followerid) {
   return (
+    
+    <div className="app">
+      <div className="container">
+      <TopNavbarProfile className="top-navbar-profile" followerUsername={followerUsername}/>
+        <div className='profile'>
+          <img src={profilepic}></img>
+          <h3 style={{textAlign: 'center'}}> @{followerUsername}</h3>
+          <img src={followerspic}></img>
+          <div className="center">
+            <button className='editprofile'>Edit Profile</button>           
+            {/* <Link to="/SavedItems"> */}
+            <button><FontAwesomeIcon icon={faBookmark} className='icon'/> </button>
+            {/* </Link> */}
+          </div>
+          <CenteredTabs followerid={followerid} followerUsername={followerUsername}/>
+          <BottomNavbarWhite className="bottom-navbar-white" />
+
+        </div>
+      </div>
+    </div>
+  );
+}
+else{
+  return (
+    
     <div className="app">
       <div className="container">
       <TopNavbarProfile className="top-navbar-profile" username={userName}/>
@@ -28,7 +55,7 @@ function Profile() {
           <img src={profilepic}></img>
           <h3 style={{textAlign: 'center'}}> @{userName}</h3>
           <Link to="/friendslist">
-          <img src={followerspic}></img>
+          <img src={followerspic}></img> {console.log(userName)}
           </Link>
           <div className="center">
             <button className='editprofile'>Edit Profile</button>           
@@ -43,6 +70,8 @@ function Profile() {
       </div>
     </div>
   );
+}
+  
 }
 
 export default Profile;
