@@ -44,6 +44,7 @@ function Topic() {
     const topicId = getTopicId;
     const [topic, setTopic] = useState({});
     const [comments, setComments] = useState([]);
+    const [filteredComments, setFilteredComments] = useState([]); 
     const [showPopup, setShowPopup] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [negativeKeywords, setNegativeKeywords] = useState([]);
@@ -87,6 +88,7 @@ function Topic() {
 
     const handleButtonClick = (buttonType, keyword) => {
 
+        setIsLoading(true);
         setHighlightedButtons(initialHighlightedButtons); // Reset all buttons to default state
 
         setHighlightedButtons((prevHighlightedButtons) => {
@@ -108,22 +110,33 @@ function Topic() {
         
             return updatedButtons;
         });
-    
-        // Call a function or log the keyword here
+        
+        // search selected keyword in comments
         console.log('Clicked keyword:', keyword);
-      };
+
+        const filtered = comments.filter((comment) => {
+            console.log("filtered: ", comment.comment);
+            return comment.comment.toLowerCase().includes(keyword.toLowerCase())
+        });
+        setFilteredComments(filtered); // Update the filteredTopics state with the filtered results
+        console.log("filtered results: ", filtered);
+        setIsLoading(false);
+    };
     
     const handleReset = () => {
+        setIsLoading(true);
         initialHighlightedButtons.default = true;
         setHighlightedButtons(initialHighlightedButtons); // Reset all buttons to default state
+
+        const filtered = comments;
+        setFilteredComments(filtered); 
+        setIsLoading(false);
     };
     
 
     const updateComments = async () => {
         console.log('comments added! trigger update');
-        setIsLoading(true);
         getCommentsFromFirestore();
-        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -214,9 +227,11 @@ function Topic() {
             }
 
             setComments(comments);
+            setFilteredComments(comments);
             setIsLoading(false);
         } catch (error) {
             console.error('Error:', error);
+            setIsLoading(false)
         }
     };
 
@@ -382,9 +397,9 @@ function Topic() {
                                     }}
                                 >
                                     <Typography variant='caption'>
-                                        {comments.length === 0
-                                            ? `${comments.length} comment`
-                                            : `${comments.length} comments`}
+                                        {filteredComments.length <= 1
+                                            ? `${filteredComments.length} comment`
+                                            : `${filteredComments.length} comments`}
                                     </Typography>
                                 </div>
                             </div>
@@ -398,7 +413,7 @@ function Topic() {
                                     </p>
                                 ) : (
                                     <div>
-                                        {comments.map((comment) => (
+                                        {filteredComments.map((comment) => (
                                             <Card
                                                 key={comment.id}
                                                 variant='outlined'

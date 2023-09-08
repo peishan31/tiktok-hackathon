@@ -10,6 +10,7 @@ import db from "../config/firebase";
 import { useEffect, useState, useRef } from 'react';
 import { collection, getDocs, query, where } from "firebase/firestore/lite";
 import getUsersData from "./getUsersData"; // Adjust the import path as needed
+import CircularProgress from '@mui/material/CircularProgress';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -115,5 +116,12 @@ export default function CenteredTabs() {
         </CustomTabPanel>
       </Box>
     );
+  }
+  else {
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
+      </div>
+    )
   }
 }
