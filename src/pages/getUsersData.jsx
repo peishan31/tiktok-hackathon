@@ -1,9 +1,9 @@
-import dbb from "../config/firebase";
+import {db} from "../config/firebase";
 import { collection, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy, limit, getDoc } from "firebase/firestore/lite";
 // Assuming you have a valid 'db' instance from Firebase initialization
 const getUsersData = async (closeFriendsID, db) => {
     const promises = closeFriendsID.map(async (docID) => {
-        const usersCollection = collection(dbb, "users");
+        const usersCollection = collection(db, "users");
         const docRef = doc(usersCollection, docID);
 
         try {

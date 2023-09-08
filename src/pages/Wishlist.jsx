@@ -1,7 +1,7 @@
 import VideoCard from '../components/VideoCard';
 import BottomNavbar from '../components/BottomNavbar';
 import TopNavbar from '../components/TopNavBarForShop';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs } from "firebase/firestore/lite";
 

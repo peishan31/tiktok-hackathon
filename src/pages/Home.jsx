@@ -3,13 +3,15 @@
 import VideoCard from '../components/VideoCard';
 import BottomNavbar from '../components/BottomNavbar';
 import TopNavbar from '../components/TopNavbar';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs } from "firebase/firestore/lite";
+import { useUser } from "../userContext";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
   const videoRefs = useRef([]);
+  const { user } = useUser();
 
   async function getVideos() {
     const videosCollection = collection(db, "videos");
@@ -35,6 +37,7 @@ const Home = () => {
       entries.forEach((entry) => {
         try {
           if (entry.isIntersecting) {
+            console.log(user.value,"user in home");
             const videoElement = entry.target;
             // videoElement.play();
           } else {

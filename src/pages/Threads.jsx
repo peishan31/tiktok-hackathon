@@ -1,6 +1,6 @@
 import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import TopNavbar from '../components/DefaultTopNavbar';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit } from "firebase/firestore/lite";
 import Button from '@mui/material/Button';

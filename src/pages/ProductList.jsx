@@ -1,7 +1,7 @@
 import VideoCard from '../components/VideoCard';
 import BottomNavbar from '../components/BottomNavbar';
 import TopNavbar from '../components/TopNavBarForShop';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit } from "firebase/firestore/lite";
 import imageSrc from '../images/yoyicProductPg.jpeg';
@@ -10,12 +10,14 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import './ProductList.css';
 import Popup from './Popup';
 import PopupMessage from './PopupMessage';
+import { useUser } from "../userContext";
 
 function Wishlist() {
   const userId = "1"; // Specify the user ID
   const [wishlistMessage, setWishlistMessage] = useState('');
   const [isLiked, setIsLiked] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const { user } = useUser();
 
   const handleShowPopup = () => {
     setShowPopup(true);
@@ -33,7 +35,7 @@ function Wishlist() {
 
   const getWishlist = async () => {
     const wishlistsCollection = collection(db, 'wishlists');
-    const q = query(wishlistsCollection, where('userid', '==', userId));
+    const q = query(wishlistsCollection, where('userid', '==', user.value));
 
     try {
       const querySnapshot = await getDocs(q);

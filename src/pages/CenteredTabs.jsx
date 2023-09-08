@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { faCartShopping, faHeart, faGrip } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TheCard from '../components/TheCard';
-import db from "../config/firebase";
+import {db} from "../config/firebase";
 import { useEffect, useState, useRef } from 'react';
 import { collection, getDocs, where, query } from "firebase/firestore/lite";
 import TheCardClose from '../components/TheCardClose';

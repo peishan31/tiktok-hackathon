@@ -1,7 +1,7 @@
 import VideoCard from '../components/VideoCard';
 import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import TopNavbarProfile from '../components/TopNavbarProfile';
-import db from "../config/firebase";
+import {db} from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs } from "firebase/firestore/lite";
 import './profile.css';

@@ -1,6 +1,6 @@
 import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import TopNavbar from '../components/DefaultTopNavbar';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { Box, TextField, Button, Container, CssBaseline, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';

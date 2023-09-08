@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import TextField from '@mui/material/TextField';
 import './CreateComment.css';
-import db from '../config/firebase';
+import {db} from '../config/firebase';
 import {
     collection,
     getDocs,

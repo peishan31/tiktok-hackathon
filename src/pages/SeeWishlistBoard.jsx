@@ -1,7 +1,7 @@
 import VideoCard from '../components/VideoCard';
 import BottomNavbar from '../components/BottomNavbar';
 import TopNavBarForIndividualWishlist from '../components/TopNavBarForIndividualWishlist';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs, query, deleteDoc, where, doc, addDoc, setDoc, orderBy,limit, getDoc } from "firebase/firestore/lite";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

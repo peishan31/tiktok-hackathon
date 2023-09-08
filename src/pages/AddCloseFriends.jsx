@@ -4,7 +4,7 @@ import { faLessThan, faUserPlus, faCaretDown } from '@fortawesome/free-solid-svg
 import { useHistory } from 'react-router-dom';
 import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import TopNavbarProfile from '../components/TopNavBarAddCloseFriend';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore/lite";
 import { useEffect, useRef } from 'react';
 import getUsersData from "./getUsersData"; // Adjust the import path as needed

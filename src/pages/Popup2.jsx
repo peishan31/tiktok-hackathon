@@ -4,7 +4,7 @@ import './Popup2.css';
 import TextField from '@mui/material/TextField';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import { collection, getDocs, query, deleteDoc, where, doc, addDoc, setDoc } from "firebase/firestore/lite";
 
 Modal.setAppElement('#root'); // Set the root element for accessibility

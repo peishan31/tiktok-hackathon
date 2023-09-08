@@ -20,14 +20,18 @@ import SeeWishlistBoard from "./pages/SeeWishlistBoard";
 import CreateTopic from "./pages/CreateTopic";
 import FriendsList from "./pages/FriendsList";
 import AddCloseFriends from './pages/AddCloseFriends'
-
+import SignIn from './pages/SignIn';
+import { UserProvider } from "./userContext";
 function App() {
   return (
+    
     <>
+    <UserProvider>
       {/* This is the alias of BrowserRouter i.e. Router */}
       <Router>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={SignIn} />
+          <Route exact path="/home" component={Home} />
           <Route exact path="/shop" component={Shop} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/threads" component={Threads} />
@@ -45,6 +49,7 @@ function App() {
           <Route exact path="/addCloseFriends" component={AddCloseFriends} />
           </Switch>
       </Router>
+      </UserProvider>
     </>
   );
 }

@@ -16,7 +16,7 @@ const TopNavbarProfile = () => {
     return (
         <div className="top-navbar-profile">
             <FontAwesomeIcon icon={faLessThan} className='icon' onClick={handleGoBack} />
-            <h2>JYP   <FontAwesomeIcon icon={faCaretDown} className='icon' /></h2>
+            <h2>jacob_w   <FontAwesomeIcon icon={faCaretDown} className='icon' /></h2>
             <Link to="/addCloseFriends">
             <FontAwesomeIcon icon={faUserPlus} className='icon'/>
             </Link>

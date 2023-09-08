@@ -1,6 +1,6 @@
 import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import TopNavBarSaved from '../components/TopNavBarSaved';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs } from "firebase/firestore/lite";
 import './profile.css';

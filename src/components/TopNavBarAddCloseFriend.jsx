@@ -4,7 +4,7 @@ import { faLessThan, faCheck, faCaretDown } from '@fortawesome/free-solid-svg-ic
 import "./topbarprofile.css";
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import { doc, updateDoc, query, collection, where, getDocs } from 'firebase/firestore/lite';
 import PopupMessage from '../pages/PopupMessage';
 const TopNavbarProfile = (AddCloseFriendsList) => {
@@ -61,7 +61,7 @@ const TopNavbarProfile = (AddCloseFriendsList) => {
         <div className="top-navbar-profile">
             <PopupMessage message={msg} />
             <FontAwesomeIcon icon={faLessThan} className='icon' onClick={handleGoBack} />
-            <h2>JYP   <FontAwesomeIcon icon={faCaretDown} className='icon' /></h2>
+            <h2>jacob_w   <FontAwesomeIcon icon={faCaretDown} className='icon' /></h2>
             <FontAwesomeIcon icon={faCheck} className='icon' onClick={handleUpdateButtonClick} />
             {/* <Link to="/addCloseFriends">
             </Link> */}

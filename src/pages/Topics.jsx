@@ -1,6 +1,6 @@
 import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import TopNavbar from '../components/DefaultTopNavbar';
-import db from "../config/firebase";
+import { db } from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
 import Button from '@mui/material/Button';
 import { Box, Typography, TextField, Card, CardContent, CardHeader, Avatar } from '@mui/material';
