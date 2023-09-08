@@ -37,6 +37,7 @@ import {
 } from 'firebase/firestore/lite';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
+import CommentIcon from '@material-ui/icons/Comment';
 
 function Topic() {
     const { getCategoryId, getTopicId } = useParams();
@@ -74,6 +75,17 @@ function Topic() {
             // borderLeft: '5px solid turquoise',
             textTransform: "none"
         }
+    };
+    
+    const bottomCommentButtonStyle = {
+        position: 'fixed',
+        bottom: '18px',
+        left: '50%', // Horizontally center the navbar
+        transform: 'translateX(-10%)', // Center it precisely
+        width: '377px', // Set a fixed width in pixels
+        marginLeft: '-150px', // Use negative margin to center it horizontally
+        display: 'flex',
+        justifyContent: 'space-around',
     };
 
     const handleShowPopup = () => {
@@ -457,24 +469,37 @@ function Topic() {
                                 )}
                             </div>
                             <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'flex-end',
-                                    marginBottom: '10px',
-                                }}
+                                // style={{
+                                //     display: 'flex',
+                                //     justifyContent: 'flex-end',
+                                //     marginBottom: '10px'
+                                // }}
+                                style = {bottomCommentButtonStyle}
                             >
                                 <Button
                                     variant='outlined'
                                     color='primary'
                                     sx={{
-                                        borderColor: 'black',
-                                        color: 'black',
+                                        borderColor: 'red',
+                                        // border: 'none',
+                                        color: 'red',
+                                        // backgroundColor: 'white',
+                                        textTransform: 'none',
+                                        zIndex: 999999999,
+                                        bottom: '60px',
+                                        left: '37%', // Horizontally center the navbar
+                                        '&:hover': {
+                                            color: "red",
+                                            borderColor: "red",
+                                        },
                                     }}
                                     onClick={handleShowPopup}
                                 >
-                                    Post Comment
+                                    <CommentIcon />
                                 </Button>
-                                {showPopup && (
+                                
+                            </div>
+                            {showPopup && (
                                     <CreateComment
                                         message='Post Comment'
                                         onClose={handleClosePopup}
@@ -483,7 +508,6 @@ function Topic() {
                                         topicID={topicId}
                                     />
                                 )}
-                            </div>
                         </Box>
                     </div>
                 )}
