@@ -9,9 +9,11 @@ import { collection, getDocs, query, where } from "firebase/firestore/lite";
 import { useEffect, useRef } from 'react';
 import getUsersData from "./getUsersData"; // Adjust the import path as needed
 import TheCard from './AddCloseFriendsPage';
+import { useUser } from "../userContext";
 
 function AddCloseFriends() {
-  const userId = "1";
+  const { user } = useUser();
+  const userId = user.value; // Specify the user ID
   const [closeFriendslist, setCloseFriendslist] = useState([]);
   var closeFriendsID = [];
 

@@ -37,7 +37,7 @@ const Home = () => {
       entries.forEach((entry) => {
         try {
           if (entry.isIntersecting) {
-            console.log(user.value,"user in home");
+            console.log(user.value,"userId in home");
             const videoElement = entry.target;
             // videoElement.play();
           } else {
