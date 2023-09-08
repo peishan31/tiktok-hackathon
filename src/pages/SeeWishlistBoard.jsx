@@ -88,6 +88,7 @@ function SeeWishlistBoard() {
   return (
     <div className="app">
       <div className="container">
+        <div className="minHeight">
         <TopNavBarForIndividualWishlist className="top-navbar" name={wishlistName}/>
         {isLoading ? (
           <div style={{ textAlign: 'center' }}>
@@ -100,6 +101,7 @@ function SeeWishlistBoard() {
             </Link>
           ))
         )}
+        </div>
       <BottomNavbarWhite className="bottom-navbar-white" />
       </div>
     </div>

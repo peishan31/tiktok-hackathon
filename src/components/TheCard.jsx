@@ -71,7 +71,7 @@ export default function TheCard({ parentToChild }) {
   };
 
   function popupMsg(item) {
-    navigator.clipboard.writeText('http://localhost:3000/seeWishlistBoard'+'/'+ item[0].name + '/' + item[0].userid); 
+    navigator.clipboard.writeText('https://tiktok-e9a35.web.app/seeWishlistBoard'+'/'+ item[0].name + '/' + item[0].userid); 
     setCopy("Copied link!" + copy); 
     setCopies(' ' + copy);
   }

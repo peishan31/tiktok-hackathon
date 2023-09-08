@@ -87,7 +87,9 @@ function AddCloseFriends() {
         {/* Pass handleUpdateButtonClick to the TopNavbarProfile component */}
         <TopNavbarProfile className="top-navbar-profile" AddCloseFriendsList={AddCloseFriendsList} />
         <div className='profile'>
+          <div className='minHeight'>
           <TheCard parentToChild={closeFriendslist} onCheckboxChange={handleCheckboxChange} />
+          </div>
           <BottomNavbarWhite className="bottom-navbar-white" />
         </div>
       </div>
