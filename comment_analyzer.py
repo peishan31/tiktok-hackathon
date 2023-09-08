@@ -83,7 +83,6 @@ def process_comments(comments): # goal is to get top 2's most positive and negat
 @app.route('/analyzeComments', methods=['POST'])
 def analyze_comments():
     try:
-        print("here");
         data = request.get_json()
         comments = data["commentsList"]
         print("comments:", comments)
