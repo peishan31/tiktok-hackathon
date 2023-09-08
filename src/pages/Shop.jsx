@@ -1,5 +1,6 @@
 import VideoCard from '../components/VideoCard';
 import BottomNavbar from '../components/BottomNavbar';
+import BottomNavbarWhite from '../components/BottomNavbarWhite';
 import TopNavbar from '../components/TopNavBarForShop';
 import db from "../config/firebase";
 import React, { useEffect, useState, useRef } from 'react';
@@ -58,7 +59,8 @@ function Shop() {
           <img src={imageSrc} alt="Description of the image" className="custom-image" />
           </Link>
         </div>
-        <BottomNavbar className="bottom-navbar" />
+        {/* <BottomNavbar className="bottom-navbar" /> */}
+        <BottomNavbarWhite className='bottom-navbar-white' />
       </div>
     </div>
   );
