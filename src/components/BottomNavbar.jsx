@@ -14,7 +14,7 @@ function BottomNavbar() {
   
   return (
       <div className="bottom-navbar">
-        <Link to="/" onClick={() => handleItemClick('home')}>
+        <Link to="/home" onClick={() => handleItemClick('home')}>
         <div className={`nav-item icon ${activeItem === 'home' ? 'active' : ''}`}>
           <FontAwesomeIcon icon={faHouse}  />
           <span className="item-name active">Home</span>

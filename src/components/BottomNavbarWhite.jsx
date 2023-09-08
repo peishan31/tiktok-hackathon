@@ -15,7 +15,7 @@ function BottomNavbarWhite() {
   
   return (
       <div className="bottom-navbar whiteColorNav">
-        <Link to="/" className="link" onClick={() => handleItemClick('home')}>
+        <Link to="/home" className="link" onClick={() => handleItemClick('home')}>
         <div className={`nav-item icon ${activeItem === 'home' ? 'active' : ''}`}>
           <FontAwesomeIcon icon={faHouse} className='blackIcon' />
           <span className="item-name active itemNameBlack">Home</span>
