@@ -152,7 +152,7 @@ export default function CenteredTabs() {
         <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
       </Tabs>
       <CustomTabPanel value={value} index={0}>
-        Nothing yet
+        <div style={{height: '500px'}}>Nothing yet</div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
           <TheCard parentToChild={wishlist}/>
@@ -162,7 +162,7 @@ export default function CenteredTabs() {
 
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Nothing yet
+        <div style={{height: '500px'}}>Nothing yet</div>
       </CustomTabPanel>
     </Box>
   );
@@ -176,21 +176,21 @@ export default function CenteredTabs() {
           <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
         </Tabs>
         <CustomTabPanel value={value} index={0}>
-          Nothing yet
+          <div style={{height: '500px'}}>Nothing yet</div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
             <TheCard parentToChild={wishlist}/>
   
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          Nothing yet
+          <div style={{height: '500px'}}>Nothing yet</div>
         </CustomTabPanel>
       </Box>
     );
   }
   else {
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: 'center', height:"500px" }}>
         <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
       </div>
     )

@@ -6,6 +6,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { collection, getDocs } from "firebase/firestore/lite";
 import './profile.css';
 import profilepic from '../images/profilepic.png';
+import followerspic from '../images/followers.png';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CenteredTabs from './CenteredTabs';
@@ -20,12 +21,13 @@ function Profile() {
         <div className='profile'>
           <Link to="/friendslist">
           <img src={profilepic}></img>
+          <img src={followerspic}></img>
           </Link>
           <div className="center">
             <button className='editprofile'>Edit Profile</button>           
-            <Link to="/SavedItems">
+            {/* <Link to="/SavedItems"> */}
             <button><FontAwesomeIcon icon={faBookmark} className='icon'/> </button>
-            </Link>
+            {/* </Link> */}
           </div>
           <CenteredTabs />
           <BottomNavbarWhite className="bottom-navbar-white" />
