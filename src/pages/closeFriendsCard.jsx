@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function CloseFriendCard({ friend }) {
   const linkStyle = {
     textDecoration: 'none', // Remove the underline
-    color: 'blue', // You can also specify the link color
+    color: 'black', // You can also specify the link color
   };
 
   return (

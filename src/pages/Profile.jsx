@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { useUser } from "../userContext";
 import { useUsername } from "../usernameContext";
 import { useParams } from 'react-router-dom';
+import UserProfileImage from './UserProfileImage';
 
 function Profile() {
   const { followerid, followerUsername } = useParams();
@@ -21,6 +22,10 @@ function Profile() {
   const { username } = useUsername();
   const userId = user.value; // Specify the user ID
   const userName = username.value2; // Specify the user ID
+
+  console.log(user.value,"value of userid");
+  console.log(followerid, "followerid");
+  
 if(followerid) {
   return (
     
@@ -28,7 +33,7 @@ if(followerid) {
       <div className="container">
       <TopNavbarProfile className="top-navbar-profile" followerUsername={followerUsername}/>
         <div className='profile'>
-          <img src={profilepic}></img>
+        <UserProfileImage docId={followerid} />
           <h3 style={{textAlign: 'center'}}> @{followerUsername}</h3>
           <img src={followerspic}></img>
           <div className="center">
@@ -52,7 +57,7 @@ else{
       <div className="container">
       <TopNavbarProfile className="top-navbar-profile" username={userName}/>
         <div className='profile'>
-          <img src={profilepic}></img>
+        <UserProfileImage docId={user.value} />
           <h3 style={{textAlign: 'center'}}> @{userName}</h3>
           <Link to="/friendslist">
           <img src={followerspic}></img> {console.log(userName)}
