@@ -142,7 +142,7 @@ export default function CenteredTabs({followerid, followerUsername}) {
             console.log(wishlist);
             setTimeout(()=> {
               setLoading(false);
-            },2000);
+            },5000);
             console.log(closeFriends);
           
           
@@ -165,7 +165,7 @@ function filterUser(){
   })
   setTimeout(()=> {
     setLoading(false);
-  },2000);              
+  },5000);              
 }
 
   useEffect(() => {

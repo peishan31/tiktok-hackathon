@@ -6,7 +6,7 @@ function ProductCard({ product }) {
     // You can also use other CSS properties like marginRight, padding, etc.
   };
   return (
-    <><div className="product-card" style={containerStyle}>
+    <div className="product-card" style={containerStyle}>
       <div className="product-card-image">
         <img src={product.img} alt={product.pName} />
       </div>
@@ -15,7 +15,7 @@ function ProductCard({ product }) {
         <h6 className='price'>  {product.price}</h6>
         <h6 className='sellerName'>  {product.sellerName}</h6>
       </div>
-    </div><br></br></>
+    </div>
   );
 }
 
