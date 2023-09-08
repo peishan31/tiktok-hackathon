@@ -77,7 +77,7 @@ function Threads() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/topics/Dpt1oyBnWOxO1qToHCPB">
+                <Link to="/topics/HM2Pn47uWPfuJprE1LRU">
                   <Button 
                     variant="outlined" 
                     color="primary" 
@@ -88,7 +88,7 @@ function Threads() {
                       borderLeft: '5px solid turquoise',
                       textTransform: "none"
                     }}>
-                    Beauty & Personal Care
+                    Accessories
                   </Button>
                 </Link>
               </li>
