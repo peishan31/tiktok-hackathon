@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faCheck, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import "./topbarprofile.css";
@@ -6,10 +6,11 @@ import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import db from "../config/firebase";
 import { doc, updateDoc, query, collection, where, getDocs } from 'firebase/firestore/lite';
-
+import PopupMessage from '../pages/PopupMessage';
 const TopNavbarProfile = (AddCloseFriendsList) => {
     const userId = '1';
     const history = useHistory();
+    const [msg, setMsg] = useState('');
 
     const handleGoBack = () => {
         // Go back to the previous page
@@ -49,11 +50,16 @@ const TopNavbarProfile = (AddCloseFriendsList) => {
             console.log('Document not found.');
         }
     }
-    history.goBack();
+    setMsg('Added Close Friends!');
+    setTimeout(function () {
+        // After 3 seconds, go back in history
+        history.goBack();
+      }, 3000);
     };
 
     return (
         <div className="top-navbar-profile">
+            <PopupMessage message={msg} />
             <FontAwesomeIcon icon={faLessThan} className='icon' onClick={handleGoBack} />
             <h2>JYP   <FontAwesomeIcon icon={faCaretDown} className='icon' /></h2>
             <FontAwesomeIcon icon={faCheck} className='icon' onClick={handleUpdateButtonClick} />

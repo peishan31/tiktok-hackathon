@@ -18,7 +18,9 @@ function FriendsList() {
       <div className="container">
       <TopNavbarProfile className="top-navbar-profile" />
         <div className='profile'>
+          <div className="minHeight">
           <CenteredTabs />
+          </div>
           <BottomNavbarWhite className="bottom-navbar-white" />
 
         </div>
