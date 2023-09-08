@@ -13,11 +13,11 @@ import PopupMessage from './PopupMessage';
 import { useUser } from "../userContext";
 
 function Wishlist() {
-  const userId = "1"; // Specify the user ID
+  const { user } = useUser();
+  const userId = user.value; // Specify the user ID
   const [wishlistMessage, setWishlistMessage] = useState('');
   const [isLiked, setIsLiked] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const { user } = useUser();
 
   const handleShowPopup = () => {
     setShowPopup(true);
@@ -35,7 +35,7 @@ function Wishlist() {
 
   const getWishlist = async () => {
     const wishlistsCollection = collection(db, 'wishlists');
-    const q = query(wishlistsCollection, where('userid', '==', user.value));
+    const q = query(wishlistsCollection, where('userid', '==', userId));
 
     try {
       const querySnapshot = await getDocs(q);
@@ -128,6 +128,7 @@ function Wishlist() {
   
             const newProductData = {
               pName: 'Yoyic',
+              img: 'https://gd.image-gmkt.com/li/123/744/1642744123.g_520-w-st_g.jpg'
               // Add other fields as needed
             };
   

@@ -11,6 +11,7 @@ import { useEffect, useState, useRef } from 'react';
 import { collection, getDocs, query, where } from "firebase/firestore/lite";
 import getUsersData from "./getUsersData"; // Adjust the import path as needed
 import CircularProgress from '@mui/material/CircularProgress';
+import { useUser } from "../userContext";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -33,7 +34,8 @@ function CustomTabPanel(props) {
 }
 
 export default function CenteredTabs() {
-  const userId = "1";
+  const { user } = useUser();
+  const userId = user.value; // Specify the user ID
   const [value, setValue] = React.useState(3);
 
   const handleChange = (event, newValue) => {
