@@ -9,11 +9,16 @@ function CloseFriendCard({ friend }) {
     color: 'black', // You can also specify the link color
   };
 
+  const imgStyle = {
+    width: '100px',
+    height: '100px'
+  };
+
   return (
     <Link to={`/profile/${friend.followerid}/${friend.username}`} style={linkStyle}>
     <div className="product-card">
       <div className="product-card-image">
-        <img src={friend.profileImg} alt={friend.name} />
+        <img src={friend.profileImg} alt={friend.name} style={imgStyle}/>
       </div>
       <div className="product-card-details">
         <h6>  {friend.name}</h6>

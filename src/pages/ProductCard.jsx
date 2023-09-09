@@ -5,10 +5,16 @@ function ProductCard({ product }) {
     marginLeft: '20px', // Adjust this value to shift the container to the right
     // You can also use other CSS properties like marginRight, padding, etc.
   };
+
+  const imgStyle = {
+    width: '100px',
+    height: '100px'
+  };
+
   return (
     <div className="product-card" style={containerStyle}>
       <div className="product-card-image">
-        <img src={product.img} alt={product.pName} />
+        <img src={product.img} alt={product.pName} style={imgStyle}/>
       </div>
       <div className="product-card-details">
         <h6>  {product.pName}</h6>
