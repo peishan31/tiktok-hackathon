@@ -44,8 +44,7 @@ Through this feature, we aim to enable meaningful shopping discussions with othe
 | Libraries           |                                    |
 | ---------------------------- | ----------------------------------------- |
 | spaCy                         | VADER                            |
-| materialui                     | Framework                                  |
-| fortawesome                     |                 |
+| materialui                     | fortawesome                                  |
 
 
 ## Assets used in the project
