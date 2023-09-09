@@ -36,7 +36,7 @@ Through this feature, we aim to enable meaningful shopping discussions with othe
 | React.js                     | Framework                                  |
 | Firebase                     | Cloud Database and Hosting                |
 | Python                       | VADER Sentiment Analysis and spaCy  Text Extraction                |
-| Pythonanywhere                       | Hosting Flask File                              |
+| PythonAnywhere                       | Hosting Flask File                              |
 | GitHub                       | Collaboration                              |
 
 ## Installation and Usage
