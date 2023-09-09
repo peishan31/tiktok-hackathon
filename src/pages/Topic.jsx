@@ -230,7 +230,8 @@ function Topic() {
             console.log('commentList:', commentList);
 
             const response = await axios.post(
-                'http://localhost:5000/analyzeComments',
+                // 'http://localhost:5000/analyzeComments',
+                'https://psnilx.pythonanywhere.com/analyzeComments',
                 { commentsList: commentList }
             );
             console.log('response:', response.data);

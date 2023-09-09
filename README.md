@@ -6,7 +6,7 @@ Inspired by the frustration of sharing individual shopping links with friends, o
 Driven by this vision, we introduced the __Wishlist Collection__ and __Discussion Board__, designed to transform shopping into a more collaborative, organized, and delightful experience for all.
 
 ## Solution
-Addressing the social commerce problem statement, our project offers a solution to tailor these needs:
+In addressing the social commerce problem statement, our project offers a tailored solution to meet these needs:
 
 ### Wishlist Collection 🛍️
 **Function:** An enhanced wishlist experience combined with close friends feature  
@@ -36,6 +36,7 @@ Through this feature, we aim to enable meaningful shopping discussions with othe
 | React.js                     | Framework                                  |
 | Firebase                     | Cloud Database and Hosting                |
 | Python                       | VADER Sentiment Analysis and spaCy  Text Extraction                |
+| PythonAnywhere                       | Hosting Flask File                              |
 | GitHub                       | Collaboration                              |
 
 ## Installation and Usage
@@ -49,11 +50,7 @@ To run the project, follow these steps:
 
 4. **Start the Project:** Use `npm start` to start the project.
 
-5. **Install Comment Analyzer:** Open another terminal, navigate to the project directory, and run `pip install -r requirements.txt` to install necessary files.
-
-6. **Launch Comment Analyzer:** Start the comment analyzer library with `python comment_analyzer.py`.
-
-7. **Access the App:** Finally, open your web browser and go to `http://localhost:3000` to access and interact with the application.
+5. **Access the App:** Finally, open your web browser and go to `http://localhost:3000` to access and interact with the application.
 
 ## Demo
 [Video](https://youtu.be/AzeESczM0J8)  
