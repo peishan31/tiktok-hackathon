@@ -1,6 +1,6 @@
-# TikTok Hackathon
+# TikTok Hackathon (Problem Statement 3)
 
-## Inspiration
+## 💭 Inspiration
 Inspired by the frustration of sharing individual shopping links with friends, only to see those valuable discoveries getting lost in the shuffle, we identified a gap. Beyond that, we also envisioned a space where like-minded shoppers could connect and engage in meaningful conversations about everything from pre-purchase reviews to post-purchase advice and sales reminders.
 
 Driven by this vision, we introduced the __Wishlist Collection__ and __Discussion Board__, designed to transform shopping into a more collaborative, organized, and delightful experience for all.
@@ -8,7 +8,7 @@ Driven by this vision, we introduced the __Wishlist Collection__ and __Discussio
 ## Features
 Addressing the social commerce problem statement, our project offers a solution to tailor these needs:
 
-### Wishlist Collection
+### Wishlist Collection 🛍️
 **Function:** An enhanced wishlist experience combined with close friends feature  
 **Features:**  
 - Create multiple wishlist collections featuring numerous products from TikTok’s shop  
@@ -18,7 +18,7 @@ Addressing the social commerce problem statement, our project offers a solution 
 
 This feature aims to expand TikTok's user base while boosting engagement and sales.
 
-### Discussion Board
+### Discussion Board 🗣️
 **Function:** Facilitates interactive shopping discussions and knowledge-sharing  
 **Features:**
 - Threaded discussions with trending categories  
@@ -55,5 +55,7 @@ To run the project, follow these steps:
 
 7. **Access the App:** Finally, open your web browser and go to `http://localhost:3000` to access and interact with the application.
 
-
 ## Demo
+
+## Contribution
+Done by Team JYP ()
