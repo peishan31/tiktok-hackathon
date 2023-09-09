@@ -56,8 +56,8 @@ To run the project, follow these steps:
 7. **Access the App:** Finally, open your web browser and go to `http://localhost:3000` to access and interact with the application.
 
 ## Demo
-[Watch the video](https://youtu.be/AzeESczM0J8)
-[Link to live website](https://tiktok-e9a35.web.app/)
+[Video](https://youtu.be/AzeESczM0J8)  
+[Live website](https://tiktok-e9a35.web.app/)
 
 ## Contribution
 Done by Team JYP
