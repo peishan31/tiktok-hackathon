@@ -41,11 +41,16 @@ Through this feature, we aim to enable meaningful shopping discussions with othe
 
 
 ## Libraries used in the project
+| Libraries           |                                    |
+| ---------------------------- | ----------------------------------------- |
 | spaCy                         | VADER                            |
 | materialui                     | Framework                                  |
 | fortawesome                     |                 |
 
+
 ## Assets used in the project
+| Assets           |                                    |
+| ---------------------------- | ----------------------------------------- |
 | Stock images from Shutterstock                         | Stock images from Pexels                            |
 
 
