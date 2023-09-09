@@ -15,6 +15,7 @@ function ProductCard({ product }) {
         <h6 className='price'>  {product.price}</h6>
         <h6 className='sellerName'>  {product.sellerName}</h6>
       </div>
+      <br></br>
     </div>
   );
 }
