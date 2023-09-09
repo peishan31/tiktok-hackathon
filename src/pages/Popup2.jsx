@@ -36,14 +36,14 @@ const Popup2 = ({ isOpen, onClose, itemDetails}) => {
       visible: selectedOption,
       name: document.getElementById("listName").value
     }, { merge: true });
-    window.location.reload(false);
+    //window.location.reload(false);
     onClose(true, selectedOption); // Pass the selected option to the parent component
   };
 
   const handleDel = () => {
     deleteDoc(doc(db, "wishlists", itemDetails[2]));
-    window.location.reload(false);
-
+    //window.location.reload(false);
+    onClose(true, ""); // Pass the selected option to the parent component
   }
 if(isOpen){
 

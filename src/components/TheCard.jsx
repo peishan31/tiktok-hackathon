@@ -34,6 +34,7 @@ import { Link } from 'react-router-dom';
 //   WorkplaceShareButton
 // } from "react-share";
 import PopupMessage from '../pages/PopupMessage';
+import { useHistory } from "react-router-dom";
 
 
 const bull = (
@@ -51,6 +52,7 @@ export default function TheCard({ parentToChild }) {
   const [itemDetail, setItem] = useState(parentToChild[0]);
   const [copied, setCopy] = useState('');
   const [copy, setCopies] = useState('');
+  const history = useHistory();
 
   function handleOpenPopup(item) {
     setItem(item);
@@ -62,6 +64,13 @@ export default function TheCard({ parentToChild }) {
     if (isOk) {
       setSelectedOption(option);
       // Handle your OK button logic here
+      setTimeout(()=> {
+        history.push('/profile/1');
+        setTimeout(()=> {
+          history.push('/profile');
+        },500);
+      },1);
+
     }
   };
 
