@@ -39,6 +39,16 @@ Through this feature, we aim to enable meaningful shopping discussions with othe
 | PythonAnywhere                       | Hosting Flask File                              |
 | GitHub                       | Collaboration                              |
 
+
+## Libraries used in the project
+| spaCy                         | VADER                            |
+| materialui                     | Framework                                  |
+| fortawesome                     |                 |
+
+## Assets used in the project
+| Stock images from Shutterstock                         | Stock images from Pexels                            |
+
+
 ## Installation and Usage
 To run the project, follow these steps:
 
