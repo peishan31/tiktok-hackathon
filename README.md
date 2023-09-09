@@ -56,6 +56,7 @@ To run the project, follow these steps:
 7. **Access the App:** Finally, open your web browser and go to `http://localhost:3000` to access and interact with the application.
 
 ## Demo
+[Watch the video](https://youtu.be/AzeESczM0J8)
 
 ## Contribution
 Done by Team JYP
