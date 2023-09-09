@@ -5,7 +5,7 @@ Inspired by the frustration of sharing individual shopping links with friends, o
 
 Driven by this vision, we introduced the __Wishlist Collection__ and __Discussion Board__, designed to transform shopping into a more collaborative, organized, and delightful experience for all.
 
-## Features
+## Solution
 Addressing the social commerce problem statement, our project offers a solution to tailor these needs:
 
 ### Wishlist Collection 🛍️
@@ -59,3 +59,6 @@ To run the project, follow these steps:
 
 ## Contribution
 Done by Team JYP
+- [ONG Jian Kiat](https://github.com/jiankiat)
+- [CHAN Yong Lin](https://github.com/yonglinnnnn)
+- [LIN Peishan](https://github.com/peishan31)
