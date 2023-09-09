@@ -1,34 +1,59 @@
-# TikTok UI Clone
-The TikTok UI Clone is a web application developed to replicate the user interface of the TikTok app. It is built using React.js, CSS, and JSX, and allows users to browse and view TikTok-style videos in a familiar and interactive interface.
+# TikTok Hackathon
 
-# Features
-- Browse and view TikTok-style videos.
-- Smooth and responsive video playback.
-- User-friendly interface with intuitive navigation.
-- Infinite scrolling for seamless video discovery.
-- Like, comment, and share videos.
-- Follow users and explore personalized content.
+## Inspiration
+Inspired by the frustration of sharing individual shopping links with friends, only to see those valuable discoveries getting lost in the shuffle, we identified a gap. Beyond that, we also envisioned a space where like-minded shoppers could connect and engage in meaningful conversations about everything from product reviews to the best deals in real time. 
 
-# Technologies & Tools Used
-- React.js
-- CSS
-- JSX
-- VS Code
+Driven by this vision, we introduced the __Wishlist Collection__ and __Discussion Board__, designed to transform shopping into a more collaborative, organized, and delightful experience for all.
 
-# Installation and Usage
-To use this TikTok UI Clone, follow these steps:
+## Features
+Addressing the social commerce problem statement, our project offers a solution to tailor these needs:
 
-- Clone the repository or download the source code.
-- Open the project in your preferred code editor.
-- Run `npm install` to install the necessary dependencies.
-- Run `npm start` to start the development server.
-- Open your browser and navigate to `http://localhost:3000` to access the app.
+### Wishlist Collection
+**Function:** An enhanced wishlist experience combined with close friends feature  
+**Features:**  
+- Create multiple wishlist collections featuring numerous products from TikTok’s shop  
+- Share wishlists effortlessly, making them accessible to both TikTok users and non-users alike  
+- The ‘Close Friends’ feature ensures a tailored viewing experience, allowing only close friends to see certain wishlists.
 
-# Demo
-A live demo of the TikTok UI Clone is available at [LINK TO LIVE DEMO](https://tik-tok-ui-clone-shemmee.vercel.app).
 
-# Credits
-The TikTok UI Clone was created by [s-shemmee](https://github.com/s-shemmee).
+This feature aims to expand TikTok's user base while boosting engagement and sales.
 
-# License
-This project is licensed under the MIT license.
+### Discussion Board
+**Function:** Facilitates interactive shopping discussions and knowledge-sharing  
+**Features:**
+- Threaded discussions with trending categories  
+- Search functionality for easy navigation  
+- Initiate or chime in diverse shopping-theme discussions, ranging from pre-purchase inquiries to timely sales alerts  
+- Advanced keyword extractions and sentiment analysis for immediate conversation insights  
+
+Through this feature, we aim to enable meaningful shopping discussions with other users which will boost social engagement
+
+
+## Technologies & Tools Used
+| Tools/Technologies           | Purpose                                   |
+| ---------------------------- | ----------------------------------------- |
+| Figma                        | Design Planning                            |
+| React.js                     | Framework                                  |
+| Firebase                     | Cloud Database and Hosting                |
+| Python                       | VADER Sentiment Analysis and spaCy  Text Extraction                |
+| GitHub                       | Collaboration                              |
+
+## Installation and Usage
+To run the project, follow these steps:
+
+1. **Clone or Download:** Begin by cloning the repository or downloading the source code to your local machine.
+
+2. **Open in Code Editor:** Next, open the project in your preferred code editor.
+
+3. **Install Dependencies:** In your terminal, run `npm install` to install the necessary dependencies.
+
+4. **Start the Project:** Use `npm start` to start the project.
+
+5. **Install Comment Analyzer:** Open another terminal, navigate to the project directory, and run `pip install -r requirements.txt` to install necessary files.
+
+6. **Launch Comment Analyzer:** Start the comment analyzer library with `python comment_analyzer.py`.
+
+7. **Access the App:** Finally, open your web browser and go to `http://localhost:3000` to access and interact with the application.
+
+
+## Demo
