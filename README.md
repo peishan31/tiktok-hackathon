@@ -1,7 +1,7 @@
 # TikTok Hackathon
 
 ## Inspiration
-Inspired by the frustration of sharing individual shopping links with friends, only to see those valuable discoveries getting lost in the shuffle, we identified a gap. Beyond that, we also envisioned a space where like-minded shoppers could connect and engage in meaningful conversations about everything from product reviews to the best deals in real time. 
+Inspired by the frustration of sharing individual shopping links with friends, only to see those valuable discoveries getting lost in the shuffle, we identified a gap. Beyond that, we also envisioned a space where like-minded shoppers could connect and engage in meaningful conversations about everything from pre-purchase reviews to post-purchase advice and sales reminders.
 
 Driven by this vision, we introduced the __Wishlist Collection__ and __Discussion Board__, designed to transform shopping into a more collaborative, organized, and delightful experience for all.
 
