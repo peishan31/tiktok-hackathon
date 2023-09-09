@@ -90,6 +90,7 @@ function AddCloseFriends() {
         <TopNavbarProfile className="top-navbar-profile" AddCloseFriendsList={AddCloseFriendsList} />
         <div className='profile'>
           <div className='minHeight'>
+            <h5 style={{"margin-left":"10px"}}>Add close friends</h5>
           <TheCard parentToChild={closeFriendslist} onCheckboxChange={handleCheckboxChange} />
           </div>
           <BottomNavbarWhite className="bottom-navbar-white" />

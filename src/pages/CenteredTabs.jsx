@@ -13,6 +13,7 @@ import TheCardClose from '../components/TheCardClose';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useUser } from "../userContext";
 import { useUsername } from "../usernameContext";
+import TheCardFriends from '../components/TheCardFriends';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -34,11 +35,13 @@ function CustomTabPanel(props) {
   );
 }
 
-export default function CenteredTabs() {
+export default function CenteredTabs({followerid, followerUsername}) {
   const { user } = useUser();
   const { username } = useUsername();
   const userId = user.value; // Specify the user ID
   const userName = username.value2; // Specify the user ID
+
+  const [listCount, setCount] = useState([]); 
 
   const [value, setValue] = React.useState(1);
   const [closeFriends, setFriends] = useState([]); 
@@ -78,18 +81,20 @@ export default function CenteredTabs() {
                           prods.push(d.data());                      
                         });
                       })
-                  wishlist.push([doc.data(), prods, doc.id]);          
+                  wishlist.push([doc.data(), prods, doc.id]);     
+                  listCount.push(['count']); 
                   console.log(doc.data());        
                   })
               });
-              // setWishlist(categories);                
+              //setWishlist(categories);  
               console.log(categories);
               
    }
+   
 
    const fetchFriends = async () => {
     const followersCollection = collection(db, 'followers');
-    const q1 = query(followersCollection, where('followerid', '==', userId), where('closeFriend', '==', true));
+    const q1 = query(followersCollection, where('followerid', '==', userId), where('closeFriend', '==', true), where('userid', '==', followerid));
 
     await getDocs(q1)
     .then((querySnapshot)=>{    
@@ -106,14 +111,14 @@ export default function CenteredTabs() {
             wishlist.forEach(element => {
               console.log(element);
   
-              if(element[0].userid == userId){
+              if(element[0].userid == followerid && element[0].visible == "Public"){
                 wlist.push(element);
                 console.log(wlist);
                 setWishlist(wlist);
                 
   
               }
-              else{
+              else if(element[0].visible != "Private"){
                 closeFriends.forEach(e => {
                   if(e == element[0].userid){
                     flist.push(element);
@@ -128,77 +133,181 @@ export default function CenteredTabs() {
             })
             // wishlist.length = 0;
             // wishlist.push(wlist);
+            console.log(wishlist.length);
+            console.log(listCount);
+            console.log(wlist);
+            if(wlist.length >= listCount.length || wlist.length == 0){
+              setWishlist([]);
+            }
             console.log(wishlist);
             setTimeout(()=> {
               setLoading(false);
-            },2000);
+            },5000);
             console.log(closeFriends);
           
           
           });
           
-          
 
+}
+function filterUser(){
+  let wlist = [];
+  wishlist.forEach(element => {
+    console.log(element);
 
+    if(element[0].userid == userId){
+      wlist.push(element);
+      console.log(wlist);
+      setWishlist(wlist);
+      
+
+    }
+  })
+  setTimeout(()=> {
+    setLoading(false);
+  },5000);              
 }
 
   useEffect(() => {
-    fetchPost().then(()=> fetchFriends());
+    if(followerid){
+      fetchPost().then(()=> fetchFriends());
+    }
+    else{
+      fetchPost().then(() => filterUser());
+    }
     ;
   }
-  , []); // Include 'wishlist' in the dependency array
-  
-  if (!isLoading && !isLoading1) {
+  , []); // Include 'wishlist' in the dependency array fetchPost().then(()=> fetchFriends());
+  if(!followerid){
+    if (!isLoading && !isLoading1) {
 
-  return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      <Tabs value={value} onChange={handleChange} centered>
-        <Tab label={<FontAwesomeIcon icon={faGrip} className='icon'/>} />
-        <Tab label={<FontAwesomeIcon icon={faCartShopping} className='icon'/>} />
-        <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
-      </Tabs>
-      <CustomTabPanel value={value} index={0}>
-        <div style={{height: '500px'}}>Nothing yet</div>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-          <TheCard parentToChild={wishlist}/>
-          <h3>Close Friends</h3>
-          <TheCardClose parentToChild={closeFriendList}/>
-          
-
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        <div style={{height: '500px'}}>Nothing yet</div>
-      </CustomTabPanel>
-    </Box>
-  );
-  }
-  else if(!isLoading){
-    return (
-      <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        <Tabs value={value} onChange={handleChange} centered>
-          <Tab label={<FontAwesomeIcon icon={faGrip} className='icon'/>} />
-          <Tab label={<FontAwesomeIcon icon={faCartShopping} className='icon'/>} />
-          <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
-        </Tabs>
-        <CustomTabPanel value={value} index={0}>
-          <div style={{height: '500px'}}>Nothing yet</div>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} style={{minHeight: '500px'}} index={1}>
-            <TheCard parentToChild={wishlist}/>
-  
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <div style={{height: '500px'}}>Nothing yet</div>
-        </CustomTabPanel>
-      </Box>
-    );
+      return (
+        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+          <Tabs value={value} onChange={handleChange} centered>
+            <Tab label={<FontAwesomeIcon icon={faGrip} className='icon'/>} />
+            <Tab label={<FontAwesomeIcon icon={faCartShopping} className='icon'/>} />
+            <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
+          </Tabs>
+          <CustomTabPanel value={value} index={0}>
+            <div style={{height: '500px'}}>Nothing yet</div>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+              <TheCard parentToChild={wishlist}/>
+              <h3>Close Friends</h3>
+              <TheCardClose parentToChild={closeFriendList}/>
+              
+    
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            <div style={{height: '500px'}}>Nothing yet</div>
+          </CustomTabPanel>
+        </Box>
+      );
+      }
+      else if(!isLoading){
+        return (
+          <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            <Tabs value={value} onChange={handleChange} centered>
+              <Tab label={<FontAwesomeIcon icon={faGrip} className='icon'/>} />
+              <Tab label={<FontAwesomeIcon icon={faCartShopping} className='icon'/>} />
+              <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
+            </Tabs>
+            <CustomTabPanel value={value} index={0}>
+              <div style={{height: '500px'}}>Nothing yet</div>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} style={{minHeight: '500px'}} index={1}>
+                <TheCard parentToChild={wishlist}/>
+      
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={2}>
+              <div style={{height: '500px'}}>Nothing yet</div>
+            </CustomTabPanel>
+          </Box>
+        );
+      }
+      else {
+        return (
+          <div style={{ textAlign: 'center', height:"500px" }}>
+            <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
+          </div>
+        )
+      }
   }
   else {
-    return (
-      <div style={{ textAlign: 'center', height:"500px" }}>
-        <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
-      </div>
-    )
+    if (!isLoading && !isLoading1 && wishlist != []) {
+
+      return (
+        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+          <Tabs value={value} onChange={handleChange} centered>
+            <Tab label={<FontAwesomeIcon icon={faGrip} className='icon'/>} />
+            <Tab label={<FontAwesomeIcon icon={faCartShopping} className='icon'/>} />
+            <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
+          </Tabs>
+          <CustomTabPanel value={value} index={0}>
+            <div style={{height: '500px'}}>Nothing yet</div>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+              <TheCardFriends parentToChild={wishlist}/>
+              <h3>Close Friends</h3>
+              <TheCardClose parentToChild={closeFriendList}/>
+              
+    
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            <div style={{height: '500px'}}>Nothing yet</div>
+          </CustomTabPanel>
+        </Box>
+      );
+      }
+      else if(!isLoading && wishlist != []){
+        return (
+          <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            <Tabs value={value} onChange={handleChange} centered>
+              <Tab label={<FontAwesomeIcon icon={faGrip} className='icon'/>} />
+              <Tab label={<FontAwesomeIcon icon={faCartShopping} className='icon'/>} />
+              <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
+            </Tabs>
+            <CustomTabPanel value={value} index={0}>
+              <div style={{height: '500px'}}>Nothing yet</div>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} style={{minHeight: '500px'}} index={1}>
+                <TheCardFriends parentToChild={wishlist}/>
+      
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={2}>
+              <div style={{height: '500px'}}>Nothing yet</div>
+            </CustomTabPanel>
+          </Box>
+        );
+      }
+      else if(!isLoading && !isLoading1 && wishlist == []){
+        return (
+          <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            <Tabs value={value} onChange={handleChange} centered>
+              <Tab label={<FontAwesomeIcon icon={faGrip} className='icon'/>} />
+              <Tab label={<FontAwesomeIcon icon={faCartShopping} className='icon'/>} />
+              <Tab label={<FontAwesomeIcon icon={faHeart} className='icon'/>} />
+            </Tabs>
+            <CustomTabPanel value={value} index={0}>
+              <div style={{height: '500px'}}>Nothing yet</div>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} style={{minHeight: '500px'}} index={1}>
+              <div style={{height: '500px'}}>Nothing yet</div>
+      
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={2}>
+              <div style={{height: '500px'}}>Nothing yet</div>
+            </CustomTabPanel>
+          </Box>
+        );
+      }
+      else {
+        return (
+          <div style={{ textAlign: 'center', height:"500px" }}>
+            <CircularProgress size={24} sx={{ color: 'red', mx: 'auto', my: 2 }} />
+          </div>
+        )
+      }
   }
+  
 }
