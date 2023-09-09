@@ -1,4 +1,4 @@
-# TikTok Hackathon (Problem Statement 3)
+# Problem Statement 3 - E-COMMERCE (Social Commerce)
 
 ## Inspiration
 Inspired by the frustration of sharing individual shopping links with friends, only to see those valuable discoveries getting lost in the shuffle, we identified a gap. Beyond that, we also envisioned a space where like-minded shoppers could connect and engage in meaningful conversations about everything from pre-purchase reviews to post-purchase advice and sales reminders.
@@ -57,6 +57,7 @@ To run the project, follow these steps:
 
 ## Demo
 [Watch the video](https://youtu.be/AzeESczM0J8)
+[Link to live website](https://tiktok-e9a35.web.app/)
 
 ## Contribution
 Done by Team JYP
